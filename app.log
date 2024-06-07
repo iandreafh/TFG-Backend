@@ -1,0 +1,1031 @@
+2024-05-11 13:57:07,254 WARNING:  * Debugger is active!
+2024-05-11 13:57:07,261 INFO:  * Debugger PIN: 118-211-066
+2024-05-11 13:57:13,869 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-11 13:57:15,805 WARNING:  * Debugger is active!
+2024-05-11 13:57:15,814 INFO:  * Debugger PIN: 118-211-066
+2024-05-11 13:58:04,480 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-11 14:01:23,908 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-05-11 14:01:23,911 INFO: [33mPress CTRL+C to quit[0m
+2024-05-11 14:01:23,913 INFO:  * Restarting with stat
+2024-05-11 14:01:25,666 WARNING:  * Debugger is active!
+2024-05-11 14:01:25,672 INFO:  * Debugger PIN: 118-211-066
+2024-05-11 14:01:33,493 ERROR: Error al crear usuario: 'Check_activo' is an invalid keyword argument for usuarios
+2024-05-11 14:01:33,495 INFO: 127.0.0.1 - - [11/May/2024 14:01:33] "[35m[1mPOST /user/usuarios HTTP/1.1[0m" 500 -
+2024-05-11 14:02:30,899 INFO: Listado de usuarios obtenido exitosamente.
+2024-05-11 14:02:30,900 INFO: 127.0.0.1 - - [11/May/2024 14:02:30] "GET /user/usuarios HTTP/1.1" 200 -
+2024-05-11 14:06:36,947 ERROR: Error al crear usuario: 'Check_activo' is an invalid keyword argument for usuarios
+2024-05-11 14:06:36,949 INFO: 127.0.0.1 - - [11/May/2024 14:06:36] "[35m[1mPOST /user/usuarios HTTP/1.1[0m" 500 -
+2024-05-11 14:06:39,684 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-11 14:06:39,815 INFO:  * Restarting with stat
+2024-05-11 14:06:41,669 WARNING:  * Debugger is active!
+2024-05-11 14:06:41,676 INFO:  * Debugger PIN: 118-211-066
+2024-05-11 14:06:49,370 INFO: Usuario creado exitosamente: string33.
+2024-05-11 14:06:49,372 INFO: 127.0.0.1 - - [11/May/2024 14:06:49] "[35m[1mPOST /user/usuarios HTTP/1.1[0m" 201 -
+2024-05-11 14:08:02,660 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-11 14:08:02,780 INFO:  * Restarting with stat
+2024-05-11 14:08:04,511 WARNING:  * Debugger is active!
+2024-05-11 14:08:04,518 INFO:  * Debugger PIN: 118-211-066
+2024-05-11 14:08:12,602 INFO: Listado de usuarios obtenido exitosamente.
+2024-05-11 14:08:12,604 INFO: 127.0.0.1 - - [11/May/2024 14:08:12] "GET /user/usuarios HTTP/1.1" 200 -
+2024-05-11 14:08:30,482 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-11 14:08:30,651 INFO:  * Restarting with stat
+2024-05-11 14:08:32,360 WARNING:  * Debugger is active!
+2024-05-11 14:08:32,367 INFO:  * Debugger PIN: 118-211-066
+2024-05-11 14:08:47,519 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-11 14:08:47,629 INFO:  * Restarting with stat
+2024-05-11 14:08:49,567 WARNING:  * Debugger is active!
+2024-05-11 14:08:49,574 INFO:  * Debugger PIN: 118-211-066
+2024-05-11 14:08:56,061 INFO: Listado de usuarios obtenido exitosamente.
+2024-05-11 14:08:56,063 INFO: 127.0.0.1 - - [11/May/2024 14:08:56] "GET /user/usuarios HTTP/1.1" 200 -
+2024-05-11 14:09:21,986 WARNING: Intento de registro con email ya existente: string33.
+2024-05-11 14:09:21,988 INFO: 127.0.0.1 - - [11/May/2024 14:09:21] "[31m[1mPOST /user/usuarios HTTP/1.1[0m" 409 -
+2024-05-11 14:09:26,991 ERROR: Error al crear usuario: 'Edad'
+2024-05-11 14:09:26,992 INFO: 127.0.0.1 - - [11/May/2024 14:09:26] "[35m[1mPOST /user/usuarios HTTP/1.1[0m" 500 -
+2024-05-11 14:15:22,343 WARNING: Intento de registro con email ya existente: string33.
+2024-05-11 14:15:22,345 INFO: 127.0.0.1 - - [11/May/2024 14:15:22] "[31m[1mPOST /user/usuarios HTTP/1.1[0m" 409 -
+2024-05-11 14:15:28,257 INFO: Usuario creado exitosamente: string323.
+2024-05-11 14:15:28,259 INFO: 127.0.0.1 - - [11/May/2024 14:15:28] "[35m[1mPOST /user/usuarios HTTP/1.1[0m" 201 -
+2024-05-11 14:22:35,892 INFO: Usuario eliminado exitosamente: string323.
+2024-05-11 14:22:35,892 INFO: 127.0.0.1 - - [11/May/2024 14:22:35] "[35m[1mDELETE /user/usuarios/4 HTTP/1.1[0m" 204 -
+2024-05-11 14:34:38,327 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-11 14:34:38,450 INFO:  * Restarting with stat
+2024-05-11 14:34:40,330 WARNING:  * Debugger is active!
+2024-05-11 14:34:40,337 INFO:  * Debugger PIN: 118-211-066
+2024-05-11 14:35:38,260 INFO: Usuario encontrado: string33.
+2024-05-11 14:35:38,263 INFO: 127.0.0.1 - - [11/May/2024 14:35:38] "GET /user/usuarios/3 HTTP/1.1" 200 -
+2024-05-11 14:37:14,363 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-11 14:37:14,481 INFO:  * Restarting with stat
+2024-05-11 14:37:16,356 WARNING:  * Debugger is active!
+2024-05-11 14:37:16,362 INFO:  * Debugger PIN: 118-211-066
+2024-05-11 14:37:44,614 ERROR: Error al actualizar usuario con id 3: 'Password'
+2024-05-11 14:37:44,618 INFO: 127.0.0.1 - - [11/May/2024 14:37:44] "[35m[1mPUT /user/usuarios/3 HTTP/1.1[0m" 500 -
+2024-05-11 14:39:45,219 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-11 14:39:45,340 INFO:  * Restarting with stat
+2024-05-11 14:39:47,094 WARNING:  * Debugger is active!
+2024-05-11 14:39:47,101 INFO:  * Debugger PIN: 118-211-066
+2024-05-11 14:40:48,151 INFO: Usuario actualizado exitosamente: string33.
+2024-05-11 14:40:48,155 INFO: 127.0.0.1 - - [11/May/2024 14:40:48] "PUT /user/usuarios/3 HTTP/1.1" 200 -
+2024-05-11 14:41:10,335 INFO: Usuario actualizado exitosamente: string33.
+2024-05-11 14:41:10,337 INFO: 127.0.0.1 - - [11/May/2024 14:41:10] "PUT /user/usuarios/3 HTTP/1.1" 200 -
+2024-05-11 14:41:53,231 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-11 14:41:53,352 INFO:  * Restarting with stat
+2024-05-11 14:41:55,221 WARNING:  * Debugger is active!
+2024-05-11 14:41:55,232 INFO:  * Debugger PIN: 118-211-066
+2024-05-11 14:43:29,173 INFO: Usuario actualizado exitosamente: string33.
+2024-05-11 14:43:29,175 INFO: 127.0.0.1 - - [11/May/2024 14:43:29] "PUT /user/usuarios/3 HTTP/1.1" 200 -
+2024-05-12 14:30:51,727 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 14:30:51,915 INFO:  * Restarting with stat
+2024-05-12 14:30:55,031 WARNING:  * Debugger is active!
+2024-05-12 14:30:55,037 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 14:30:58,848 INFO: 127.0.0.1 - - [12/May/2024 14:30:58] "GET / HTTP/1.1" 200 -
+2024-05-12 14:30:59,567 INFO: 127.0.0.1 - - [12/May/2024 14:30:59] "[36mGET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-05-12 14:30:59,576 INFO: 127.0.0.1 - - [12/May/2024 14:30:59] "[36mGET /swaggerui/droid-sans.css HTTP/1.1[0m" 304 -
+2024-05-12 14:30:59,597 INFO: 127.0.0.1 - - [12/May/2024 14:30:59] "[36mGET /swaggerui/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-05-12 14:30:59,609 INFO: 127.0.0.1 - - [12/May/2024 14:30:59] "[36mGET /swaggerui/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-05-12 14:30:59,738 INFO: 127.0.0.1 - - [12/May/2024 14:30:59] "GET /swagger.json HTTP/1.1" 200 -
+2024-05-12 14:30:59,742 INFO: 127.0.0.1 - - [12/May/2024 14:30:59] "[36mGET /swaggerui/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-05-12 14:31:06,537 INFO: 127.0.0.1 - - [12/May/2024 14:31:06] "[31m[1mGET /user/usuarios/2 HTTP/1.1[0m" 401 -
+2024-05-12 14:31:17,907 INFO: Usuario user@gmail.com ha iniciado sesión exitosamente.
+2024-05-12 14:31:17,909 INFO: 127.0.0.1 - - [12/May/2024 14:31:17] "POST /auth/login HTTP/1.1" 200 -
+2024-05-12 14:31:30,979 INFO: Usuario encontrado: user@gmail.com.
+2024-05-12 14:31:30,981 INFO: 127.0.0.1 - - [12/May/2024 14:31:30] "GET /user/usuarios/2 HTTP/1.1" 200 -
+2024-05-12 14:36:07,823 INFO: Usuario eliminado exitosamente: string33.
+2024-05-12 14:36:07,824 INFO: 127.0.0.1 - - [12/May/2024 14:36:07] "[35m[1mDELETE /user/usuarios/3 HTTP/1.1[0m" 204 -
+2024-05-12 14:37:05,697 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 14:37:05,843 INFO:  * Restarting with stat
+2024-05-12 14:37:07,772 WARNING:  * Debugger is active!
+2024-05-12 14:37:07,779 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 14:37:22,670 INFO: Usuario creado exitosamente: string.
+2024-05-12 14:37:22,673 INFO: 127.0.0.1 - - [12/May/2024 14:37:22] "[35m[1mPOST /user/usuarios HTTP/1.1[0m" 201 -
+2024-05-12 14:38:00,471 INFO: Usuario actualizado exitosamente: string.
+2024-05-12 14:38:00,473 INFO: 127.0.0.1 - - [12/May/2024 14:38:00] "PUT /user/usuarios/5 HTTP/1.1" 200 -
+2024-05-12 14:38:42,852 WARNING: Usuario con id 3 no encontrado.
+2024-05-12 14:38:42,853 INFO: 127.0.0.1 - - [12/May/2024 14:38:42] "[33mGET /user/usuarios/3 HTTP/1.1[0m" 404 -
+2024-05-12 14:38:47,375 INFO: Usuario encontrado: string.
+2024-05-12 14:38:47,376 INFO: 127.0.0.1 - - [12/May/2024 14:38:47] "GET /user/usuarios/5 HTTP/1.1" 200 -
+2024-05-12 14:38:52,050 WARNING: Usuario con id 3 no encontrado.
+2024-05-12 14:38:52,051 INFO: 127.0.0.1 - - [12/May/2024 14:38:52] "[33mGET /user/usuarios/3 HTTP/1.1[0m" 404 -
+2024-05-12 14:39:00,181 INFO: Usuario eliminado exitosamente: string.
+2024-05-12 14:39:00,182 INFO: 127.0.0.1 - - [12/May/2024 14:39:00] "[35m[1mDELETE /user/usuarios/5 HTTP/1.1[0m" 204 -
+2024-05-12 14:44:03,410 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 14:44:03,528 INFO:  * Restarting with stat
+2024-05-12 14:44:05,393 WARNING:  * Debugger is active!
+2024-05-12 14:44:05,400 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 14:45:52,002 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 14:45:52,119 INFO:  * Restarting with stat
+2024-05-12 14:45:53,993 WARNING:  * Debugger is active!
+2024-05-12 14:45:54,000 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 14:46:10,333 INFO: Usuario creado exitosamente: string.
+2024-05-12 14:46:10,336 INFO: 127.0.0.1 - - [12/May/2024 14:46:10] "[35m[1mPOST /user/usuarios HTTP/1.1[0m" 201 -
+2024-05-12 14:46:22,679 WARNING: Intento de eliminación de usuario no encontrado, con id: 5.
+2024-05-12 14:46:22,680 INFO: 127.0.0.1 - - [12/May/2024 14:46:22] "[33mDELETE /user/usuarios/5 HTTP/1.1[0m" 404 -
+2024-05-12 14:46:28,802 WARNING: Usuario no autorizado para eliminar el id: 6.
+2024-05-12 14:46:28,804 INFO: 127.0.0.1 - - [12/May/2024 14:46:28] "[31m[1mDELETE /user/usuarios/6 HTTP/1.1[0m" 403 -
+2024-05-12 14:46:55,445 INFO: Usuario string ha iniciado sesión exitosamente.
+2024-05-12 14:46:55,447 INFO: 127.0.0.1 - - [12/May/2024 14:46:55] "POST /auth/login HTTP/1.1" 200 -
+2024-05-12 14:47:14,087 INFO: Usuario desactivado exitosamente: string.
+2024-05-12 14:47:14,089 INFO: 127.0.0.1 - - [12/May/2024 14:47:14] "[35m[1mDELETE /user/usuarios/6 HTTP/1.1[0m" 204 -
+2024-05-12 14:47:46,889 INFO: 127.0.0.1 - - [12/May/2024 14:47:46] "GET / HTTP/1.1" 200 -
+2024-05-12 14:47:47,618 INFO: 127.0.0.1 - - [12/May/2024 14:47:47] "[36mGET /swaggerui/droid-sans.css HTTP/1.1[0m" 304 -
+2024-05-12 14:47:47,658 INFO: 127.0.0.1 - - [12/May/2024 14:47:47] "[36mGET /swaggerui/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-05-12 14:47:47,668 INFO: 127.0.0.1 - - [12/May/2024 14:47:47] "[36mGET /swaggerui/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-05-12 14:47:47,674 INFO: 127.0.0.1 - - [12/May/2024 14:47:47] "[36mGET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-05-12 14:47:47,790 INFO: 127.0.0.1 - - [12/May/2024 14:47:47] "GET /swagger.json HTTP/1.1" 200 -
+2024-05-12 14:47:47,793 INFO: 127.0.0.1 - - [12/May/2024 14:47:47] "[36mGET /swaggerui/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-05-12 14:48:34,926 INFO: 127.0.0.1 - - [12/May/2024 14:48:34] "[31m[1mDELETE /user/usuarios/6 HTTP/1.1[0m" 401 -
+2024-05-12 14:49:15,091 INFO: Usuario desactivado exitosamente: string.
+2024-05-12 14:49:15,092 INFO: 127.0.0.1 - - [12/May/2024 14:49:15] "[35m[1mDELETE /user/usuarios/6 HTTP/1.1[0m" 204 -
+2024-05-12 14:50:25,430 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 14:50:25,558 INFO:  * Restarting with stat
+2024-05-12 14:50:27,369 WARNING:  * Debugger is active!
+2024-05-12 14:50:27,376 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 14:50:32,754 INFO: Usuario desactivado exitosamente: string.
+2024-05-12 14:50:32,756 INFO: 127.0.0.1 - - [12/May/2024 14:50:32] "[35m[1mDELETE /user/usuarios/6 HTTP/1.1[0m" 204 -
+2024-05-12 14:51:11,150 INFO: Usuario desactivado exitosamente: string.
+2024-05-12 14:51:11,151 INFO: 127.0.0.1 - - [12/May/2024 14:51:11] "[35m[1mDELETE /user/usuarios/6 HTTP/1.1[0m" 204 -
+2024-05-12 14:51:15,562 WARNING: Intento de eliminación de usuario no encontrado, con id: 7.
+2024-05-12 14:51:15,564 INFO: 127.0.0.1 - - [12/May/2024 14:51:15] "[33mDELETE /user/usuarios/7 HTTP/1.1[0m" 404 -
+2024-05-12 14:52:29,061 INFO: Usuario desactivado exitosamente: string.
+2024-05-12 14:52:29,062 INFO: 127.0.0.1 - - [12/May/2024 14:52:29] "[35m[1mDELETE /user/usuarios/6 HTTP/1.1[0m" 204 -
+2024-05-12 14:53:25,344 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 14:53:25,463 INFO:  * Restarting with stat
+2024-05-12 14:53:27,386 WARNING:  * Debugger is active!
+2024-05-12 14:53:27,393 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 15:01:46,332 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 15:01:46,450 INFO:  * Restarting with stat
+2024-05-12 15:01:48,460 WARNING:  * Debugger is active!
+2024-05-12 15:01:48,467 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 17:09:15,958 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 17:09:16,083 INFO:  * Restarting with stat
+2024-05-12 17:09:17,864 WARNING:  * Debugger is active!
+2024-05-12 17:09:17,871 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 17:09:54,590 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 17:09:54,701 INFO:  * Restarting with stat
+2024-05-12 17:09:56,505 WARNING:  * Debugger is active!
+2024-05-12 17:09:56,513 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 17:10:26,680 INFO: Usuario actualizado exitosamente: string.
+2024-05-12 17:10:26,683 INFO: 127.0.0.1 - - [12/May/2024 17:10:26] "PUT /user/usuarios/6 HTTP/1.1" 200 -
+2024-05-12 17:10:33,101 WARNING: Usuario no autorizado para eliminar el id: 2.
+2024-05-12 17:10:33,102 INFO: 127.0.0.1 - - [12/May/2024 17:10:33] "[31m[1mPUT /user/usuarios/2 HTTP/1.1[0m" 403 -
+2024-05-12 17:11:28,053 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 17:11:28,178 INFO:  * Restarting with stat
+2024-05-12 17:11:30,098 WARNING:  * Debugger is active!
+2024-05-12 17:11:30,104 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 17:21:17,123 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 17:21:17,343 INFO:  * Restarting with stat
+2024-05-12 17:21:19,107 WARNING:  * Debugger is active!
+2024-05-12 17:21:19,114 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 17:22:40,083 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 17:22:40,193 INFO:  * Restarting with stat
+2024-05-12 17:22:41,911 WARNING:  * Debugger is active!
+2024-05-12 17:22:41,917 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 17:27:15,527 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 17:27:15,636 INFO:  * Restarting with stat
+2024-05-12 17:27:17,541 WARNING:  * Debugger is active!
+2024-05-12 17:27:17,548 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 17:29:57,122 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 17:29:57,251 INFO:  * Restarting with stat
+2024-05-12 17:29:59,048 WARNING:  * Debugger is active!
+2024-05-12 17:29:59,054 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 17:30:00,883 WARNING: Usuario no autorizado para leer el listado de usuarios.
+2024-05-12 17:30:00,885 INFO: 127.0.0.1 - - [12/May/2024 17:30:00] "[31m[1mGET /user/usuarios HTTP/1.1[0m" 403 -
+2024-05-12 17:30:27,201 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 17:30:27,321 INFO:  * Restarting with stat
+2024-05-12 17:30:29,064 WARNING:  * Debugger is active!
+2024-05-12 17:30:29,070 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 17:30:30,282 WARNING: Usuario <sqlalchemy.ext.automap.usuarios object at 0x0000019CF7455490> no autorizado para leer el listado de usuarios.
+2024-05-12 17:30:30,284 INFO: 127.0.0.1 - - [12/May/2024 17:30:30] "[31m[1mGET /user/usuarios HTTP/1.1[0m" 403 -
+2024-05-12 17:30:36,868 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 17:30:36,986 INFO:  * Restarting with stat
+2024-05-12 17:30:38,735 WARNING:  * Debugger is active!
+2024-05-12 17:30:38,743 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 17:30:40,168 WARNING: Usuario string no autorizado para leer el listado de usuarios.
+2024-05-12 17:30:40,170 INFO: 127.0.0.1 - - [12/May/2024 17:30:40] "[31m[1mGET /user/usuarios HTTP/1.1[0m" 403 -
+2024-05-12 17:31:32,703 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 17:31:32,825 INFO:  * Restarting with stat
+2024-05-12 17:31:34,643 WARNING:  * Debugger is active!
+2024-05-12 17:31:34,650 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 17:32:33,997 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 17:32:34,111 INFO:  * Restarting with stat
+2024-05-12 17:32:35,897 WARNING:  * Debugger is active!
+2024-05-12 17:32:35,903 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 17:53:28,823 INFO: 127.0.0.1 - - [12/May/2024 17:53:28] "GET / HTTP/1.1" 200 -
+2024-05-12 17:53:29,488 INFO: 127.0.0.1 - - [12/May/2024 17:53:29] "[36mGET /swaggerui/droid-sans.css HTTP/1.1[0m" 304 -
+2024-05-12 17:53:29,548 INFO: 127.0.0.1 - - [12/May/2024 17:53:29] "[36mGET /swaggerui/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-05-12 17:53:29,556 INFO: 127.0.0.1 - - [12/May/2024 17:53:29] "[36mGET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-05-12 17:53:29,560 INFO: 127.0.0.1 - - [12/May/2024 17:53:29] "[36mGET /swaggerui/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-05-12 17:53:29,685 INFO: 127.0.0.1 - - [12/May/2024 17:53:29] "GET /swagger.json HTTP/1.1" 200 -
+2024-05-12 17:53:29,690 INFO: 127.0.0.1 - - [12/May/2024 17:53:29] "[36mGET /swaggerui/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-05-12 18:03:39,671 INFO: 127.0.0.1 - - [12/May/2024 18:03:39] "[31m[1mGET /user/usuarios HTTP/1.1[0m" 401 -
+2024-05-12 18:03:47,722 INFO: 127.0.0.1 - - [12/May/2024 18:03:47] "[31m[1mGET /user/usuarios/6 HTTP/1.1[0m" 401 -
+2024-05-12 18:04:01,770 INFO: Usuario admin@gmail.com ha iniciado sesión exitosamente.
+2024-05-12 18:04:01,771 INFO: 127.0.0.1 - - [12/May/2024 18:04:01] "POST /auth/login HTTP/1.1" 200 -
+2024-05-12 18:04:14,654 INFO: Listado de usuarios obtenido exitosamente.
+2024-05-12 18:04:14,656 INFO: 127.0.0.1 - - [12/May/2024 18:04:14] "GET /user/usuarios HTTP/1.1" 200 -
+2024-05-12 18:06:17,463 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 18:06:17,584 INFO:  * Restarting with stat
+2024-05-12 18:06:19,392 WARNING:  * Debugger is active!
+2024-05-12 18:06:19,399 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 18:07:25,334 INFO: 127.0.0.1 - - [12/May/2024 18:07:25] "GET / HTTP/1.1" 200 -
+2024-05-12 18:07:26,002 INFO: 127.0.0.1 - - [12/May/2024 18:07:26] "[36mGET /swaggerui/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-05-12 18:07:26,094 INFO: 127.0.0.1 - - [12/May/2024 18:07:26] "[36mGET /swaggerui/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-05-12 18:07:26,099 INFO: 127.0.0.1 - - [12/May/2024 18:07:26] "[36mGET /swaggerui/droid-sans.css HTTP/1.1[0m" 304 -
+2024-05-12 18:07:26,100 INFO: 127.0.0.1 - - [12/May/2024 18:07:26] "[36mGET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-05-12 18:07:26,219 INFO: 127.0.0.1 - - [12/May/2024 18:07:26] "GET /swagger.json HTTP/1.1" 200 -
+2024-05-12 18:07:26,224 INFO: 127.0.0.1 - - [12/May/2024 18:07:26] "[36mGET /swaggerui/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-05-12 18:08:23,018 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 18:08:23,133 INFO:  * Restarting with stat
+2024-05-12 18:09:52,146 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-05-12 18:09:52,147 INFO: [33mPress CTRL+C to quit[0m
+2024-05-12 18:09:52,150 INFO:  * Restarting with stat
+2024-05-12 18:09:53,924 WARNING:  * Debugger is active!
+2024-05-12 18:09:53,932 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 18:09:57,422 INFO: 127.0.0.1 - - [12/May/2024 18:09:57] "GET / HTTP/1.1" 200 -
+2024-05-12 18:09:58,099 INFO: 127.0.0.1 - - [12/May/2024 18:09:58] "[36mGET /swaggerui/droid-sans.css HTTP/1.1[0m" 304 -
+2024-05-12 18:09:58,155 INFO: 127.0.0.1 - - [12/May/2024 18:09:58] "[36mGET /swaggerui/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-05-12 18:09:58,157 INFO: 127.0.0.1 - - [12/May/2024 18:09:58] "[36mGET /swaggerui/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-05-12 18:09:58,164 INFO: 127.0.0.1 - - [12/May/2024 18:09:58] "[36mGET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-05-12 18:09:58,300 INFO: 127.0.0.1 - - [12/May/2024 18:09:58] "GET /swagger.json HTTP/1.1" 200 -
+2024-05-12 18:09:58,307 INFO: 127.0.0.1 - - [12/May/2024 18:09:58] "[36mGET /swaggerui/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-05-12 18:10:11,547 INFO: Listado de usuarios obtenido exitosamente.
+2024-05-12 18:10:11,548 INFO: 127.0.0.1 - - [12/May/2024 18:10:11] "GET /user/usuarios HTTP/1.1" 200 -
+2024-05-12 18:25:49,794 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 18:25:49,939 INFO:  * Restarting with stat
+2024-05-12 18:25:51,803 WARNING:  * Debugger is active!
+2024-05-12 18:25:51,810 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 18:25:53,553 INFO: 127.0.0.1 - - [12/May/2024 18:25:53] "GET / HTTP/1.1" 200 -
+2024-05-12 18:25:54,273 INFO: 127.0.0.1 - - [12/May/2024 18:25:54] "[36mGET /swaggerui/droid-sans.css HTTP/1.1[0m" 304 -
+2024-05-12 18:25:54,321 INFO: 127.0.0.1 - - [12/May/2024 18:25:54] "[36mGET /swaggerui/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-05-12 18:25:54,329 INFO: 127.0.0.1 - - [12/May/2024 18:25:54] "[36mGET /swaggerui/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-05-12 18:25:54,332 INFO: 127.0.0.1 - - [12/May/2024 18:25:54] "[36mGET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-05-12 18:25:54,421 INFO: 127.0.0.1 - - [12/May/2024 18:25:54] "GET /swagger.json HTTP/1.1" 200 -
+2024-05-12 18:25:54,426 INFO: 127.0.0.1 - - [12/May/2024 18:25:54] "[36mGET /swaggerui/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-05-12 18:26:01,158 WARNING: Intento de registro con email ya existente: string.
+2024-05-12 18:26:01,160 INFO: 127.0.0.1 - - [12/May/2024 18:26:01] "[31m[1mPOST /user/usuarios HTTP/1.1[0m" 409 -
+2024-05-12 18:26:24,880 ERROR: Error al crear usuario: You must call `@jwt_required()` or `verify_jwt_in_request()` before using this method
+2024-05-12 19:46:40,970 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 19:46:41,105 INFO:  * Restarting with stat
+2024-05-12 19:46:42,993 WARNING:  * Debugger is active!
+2024-05-12 19:46:43,000 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 19:46:54,924 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-12 19:46:55,034 INFO:  * Restarting with stat
+2024-05-12 19:46:56,863 WARNING:  * Debugger is active!
+2024-05-12 19:46:56,870 INFO:  * Debugger PIN: 118-211-066
+2024-05-12 19:47:28,291 INFO: Usuario creado exitosamente: string2.
+2024-05-12 19:47:31,897 INFO: 127.0.0.1 - - [12/May/2024 19:47:31] "[35m[1mPOST /user/usuarios HTTP/1.1[0m" 201 -
+2024-05-12 19:48:01,359 INFO: Usuario admin@gmail.com ha iniciado sesión exitosamente.
+2024-05-12 19:48:01,361 INFO: 127.0.0.1 - - [12/May/2024 19:48:01] "POST /auth/login HTTP/1.1" 200 -
+2024-05-12 19:48:29,591 WARNING: Intento de registro con email ya existente: string2.
+2024-05-12 19:48:31,954 INFO: 127.0.0.1 - - [12/May/2024 19:48:31] "[31m[1mPOST /user/usuarios HTTP/1.1[0m" 409 -
+2024-05-12 19:49:05,858 INFO: Usuario creado exitosamente: string3.
+2024-05-12 19:49:05,860 INFO: 127.0.0.1 - - [12/May/2024 19:49:05] "[35m[1mPOST /user/usuarios HTTP/1.1[0m" 201 -
+2024-05-26 20:11:21,910 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-05-26 20:11:21,911 INFO: [33mPress CTRL+C to quit[0m
+2024-05-26 20:11:21,915 INFO:  * Restarting with stat
+2024-05-26 20:11:23,607 WARNING:  * Debugger is active!
+2024-05-26 20:11:23,621 INFO:  * Debugger PIN: 118-211-066
+2024-05-26 20:12:11,781 INFO: 127.0.0.1 - - [26/May/2024 20:12:11] "GET / HTTP/1.1" 200 -
+2024-05-26 20:12:11,951 INFO: 127.0.0.1 - - [26/May/2024 20:12:11] "GET /swaggerui/droid-sans.css HTTP/1.1" 200 -
+2024-05-26 20:12:11,992 INFO: 127.0.0.1 - - [26/May/2024 20:12:11] "GET /swaggerui/swagger-ui.css HTTP/1.1" 200 -
+2024-05-26 20:12:12,136 INFO: 127.0.0.1 - - [26/May/2024 20:12:12] "GET /swaggerui/swagger-ui-bundle.js HTTP/1.1" 200 -
+2024-05-26 20:12:12,192 INFO: 127.0.0.1 - - [26/May/2024 20:12:12] "GET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1" 200 -
+2024-05-26 20:12:12,632 INFO: 127.0.0.1 - - [26/May/2024 20:12:12] "GET /swagger.json HTTP/1.1" 200 -
+2024-05-26 20:12:12,641 INFO: 127.0.0.1 - - [26/May/2024 20:12:12] "GET /swaggerui/favicon-32x32.png HTTP/1.1" 200 -
+2024-05-26 20:44:19,914 INFO: 127.0.0.1 - - [26/May/2024 20:44:19] "[31m[1mGET /user/usuarios HTTP/1.1[0m" 401 -
+2024-05-26 20:54:14,407 INFO: Usuario admin@gmail.com ha iniciado sesión exitosamente.
+2024-05-26 20:54:14,408 INFO: 127.0.0.1 - - [26/May/2024 20:54:14] "POST /auth/login HTTP/1.1" 200 -
+2024-05-26 20:54:27,394 INFO: Listado de usuarios obtenido exitosamente.
+2024-05-26 20:54:27,397 INFO: 127.0.0.1 - - [26/May/2024 20:54:27] "GET /user/usuarios HTTP/1.1" 200 -
+2024-05-26 20:55:00,352 INFO: Usuario actualizado exitosamente: stringNuevo.
+2024-05-26 20:55:00,354 INFO: 127.0.0.1 - - [26/May/2024 20:55:00] "PUT /user/usuarios/6 HTTP/1.1" 200 -
+2024-05-26 20:55:57,229 INFO: Usuario eliminado exitosamente por admin: string2.
+2024-05-26 20:55:57,230 INFO: 127.0.0.1 - - [26/May/2024 20:55:57] "[35m[1mDELETE /user/usuarios/7 HTTP/1.1[0m" 204 -
+2024-05-26 21:09:46,835 INFO: Usuario user@gmail.com ha iniciado sesión exitosamente.
+2024-05-26 21:09:46,837 INFO: 127.0.0.1 - - [26/May/2024 21:09:46] "POST /auth/login HTTP/1.1" 200 -
+2024-05-26 21:10:06,454 WARNING: Usuario user@gmail.com no autorizado para leer el listado de usuarios.
+2024-05-26 21:10:06,456 INFO: 127.0.0.1 - - [26/May/2024 21:10:06] "[31m[1mGET /user/usuarios HTTP/1.1[0m" 403 -
+2024-05-26 21:10:30,189 INFO: Usuario actualizado exitosamente: User Name.
+2024-05-26 21:10:30,190 INFO: 127.0.0.1 - - [26/May/2024 21:10:30] "PUT /user/usuarios/2 HTTP/1.1" 200 -
+2024-05-26 21:10:35,460 WARNING: Intento de actualización de usuario no encontrado con id 7.
+2024-05-26 21:10:35,461 INFO: 127.0.0.1 - - [26/May/2024 21:10:35] "[33mPUT /user/usuarios/7 HTTP/1.1[0m" 404 -
+2024-05-26 21:10:41,592 ERROR: Error al actualizar usuario con id 6: 'NoneType' object has no attribute 'rol'
+2024-05-26 21:10:41,593 INFO: 127.0.0.1 - - [26/May/2024 21:10:41] "[35m[1mPUT /user/usuarios/6 HTTP/1.1[0m" 500 -
+2024-05-26 21:12:17,642 ERROR: Error al actualizar usuario con id 6: 'NoneType' object has no attribute 'rol'
+2024-05-26 21:12:17,645 INFO: 127.0.0.1 - - [26/May/2024 21:12:17] "[35m[1mPUT /user/usuarios/6 HTTP/1.1[0m" 500 -
+2024-05-26 21:12:17,683 ERROR: Error al actualizar usuario con id 2: 'NoneType' object has no attribute 'rol'
+2024-05-26 21:12:17,685 INFO: 127.0.0.1 - - [26/May/2024 21:12:17] "[35m[1mPUT /user/usuarios/2 HTTP/1.1[0m" 500 -
+2024-05-26 21:18:14,467 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-05-26 21:18:14,468 INFO: [33mPress CTRL+C to quit[0m
+2024-05-26 21:18:14,471 INFO:  * Restarting with stat
+2024-05-26 21:18:16,321 WARNING:  * Debugger is active!
+2024-05-26 21:18:16,328 INFO:  * Debugger PIN: 118-211-066
+2024-05-26 21:19:59,547 WARNING: Intento fallido de inicio de sesión para el usuario user@gmail.com.
+2024-05-26 21:19:59,550 INFO: 127.0.0.1 - - [26/May/2024 21:19:59] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2024-05-26 21:20:10,510 INFO: Usuario User Name ha iniciado sesión exitosamente.
+2024-05-26 21:20:10,512 INFO: 127.0.0.1 - - [26/May/2024 21:20:10] "POST /auth/login HTTP/1.1" 200 -
+2024-05-26 21:20:35,100 INFO: Usuario actualizado exitosamente: user@gmail.com.
+2024-05-26 21:20:35,102 INFO: 127.0.0.1 - - [26/May/2024 21:20:35] "PUT /user/usuarios/2 HTTP/1.1" 200 -
+2024-05-26 21:20:35,113 ERROR: Error al actualizar usuario con id 2: (psycopg2.errors.InvalidTextRepresentation) la sintaxis de entrada no es válida para tipo integer: «user@gmail.com»
+LINE 3: WHERE usuarios.id = 'user@gmail.com' 
+                            ^
+
+[SQL: SELECT usuarios.id AS usuarios_id, usuarios.email AS usuarios_email, usuarios.password AS usuarios_password, usuarios.nombre AS usuarios_nombre, usuarios.edad AS usuarios_edad, usuarios.rol AS usuarios_rol, usuarios.check_activo AS usuarios_check_activo, usuarios.created_at AS usuarios_created_at, usuarios.updated_at AS usuarios_updated_at 
+FROM usuarios 
+WHERE usuarios.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 'user@gmail.com', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2024-05-26 21:20:35,115 INFO: 127.0.0.1 - - [26/May/2024 21:20:35] "[35m[1mPUT /user/usuarios/2 HTTP/1.1[0m" 500 -
+2024-05-26 21:23:18,396 INFO: Usuario actualizado exitosamente: user2@gmail.com.
+2024-05-26 21:23:18,397 INFO: 127.0.0.1 - - [26/May/2024 21:23:18] "PUT /user/usuarios/2 HTTP/1.1" 200 -
+2024-05-26 21:23:30,515 WARNING: Intento de actualización de usuario no encontrado con id 3.
+2024-05-26 21:23:30,517 INFO: 127.0.0.1 - - [26/May/2024 21:23:30] "[33mPUT /user/usuarios/3 HTTP/1.1[0m" 404 -
+2024-05-26 21:24:28,019 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-26 21:24:28,144 INFO:  * Restarting with stat
+2024-05-26 21:24:29,951 WARNING:  * Debugger is active!
+2024-05-26 21:24:29,959 INFO:  * Debugger PIN: 118-211-066
+2024-05-26 21:24:44,961 WARNING: Usuario user2@gmail.com no autorizado para actualizar el id: 3.
+2024-05-26 21:24:44,963 INFO: 127.0.0.1 - - [26/May/2024 21:24:44] "[31m[1mPUT /user/usuarios/3 HTTP/1.1[0m" 403 -
+2024-05-26 21:24:48,673 WARNING: Usuario user2@gmail.com no autorizado para actualizar el id: 6.
+2024-05-26 21:24:48,674 INFO: 127.0.0.1 - - [26/May/2024 21:24:48] "[31m[1mPUT /user/usuarios/6 HTTP/1.1[0m" 403 -
+2024-05-26 21:24:52,813 INFO: Usuario actualizado exitosamente: user@gmail.com.
+2024-05-26 21:24:52,814 INFO: 127.0.0.1 - - [26/May/2024 21:24:52] "PUT /user/usuarios/2 HTTP/1.1" 200 -
+2024-05-26 21:25:06,327 INFO: Usuario actualizado exitosamente: user@gmail.com.
+2024-05-26 21:25:06,328 INFO: 127.0.0.1 - - [26/May/2024 21:25:06] "PUT /user/usuarios/2 HTTP/1.1" 200 -
+2024-05-26 21:26:14,455 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-26 21:26:14,571 INFO:  * Restarting with stat
+2024-05-26 21:26:16,291 WARNING:  * Debugger is active!
+2024-05-26 21:26:16,297 INFO:  * Debugger PIN: 118-211-066
+2024-05-26 21:26:29,475 ERROR: Error al listar usuarios: (psycopg2.errors.InvalidTextRepresentation) la sintaxis de entrada no es válida para tipo integer: «admin@gmail.com»
+LINE 3: WHERE usuarios.id = 'admin@gmail.com' 
+                            ^
+
+[SQL: SELECT usuarios.id AS usuarios_id, usuarios.email AS usuarios_email, usuarios.password AS usuarios_password, usuarios.nombre AS usuarios_nombre, usuarios.edad AS usuarios_edad, usuarios.rol AS usuarios_rol, usuarios.check_activo AS usuarios_check_activo, usuarios.created_at AS usuarios_created_at, usuarios.updated_at AS usuarios_updated_at 
+FROM usuarios 
+WHERE usuarios.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 'admin@gmail.com', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2024-05-26 21:26:29,477 INFO: 127.0.0.1 - - [26/May/2024 21:26:29] "[35m[1mGET /user/usuarios HTTP/1.1[0m" 500 -
+2024-05-26 21:27:32,681 WARNING: Intento fallido de inicio de sesión para el usuario admin@gmail.com.
+2024-05-26 21:27:32,683 INFO: 127.0.0.1 - - [26/May/2024 21:27:32] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2024-05-26 21:27:38,499 INFO: Usuario admin@gmail.com ha iniciado sesión exitosamente.
+2024-05-26 21:27:38,501 INFO: 127.0.0.1 - - [26/May/2024 21:27:38] "POST /auth/login HTTP/1.1" 200 -
+2024-05-26 21:28:11,265 INFO: Listado de usuarios obtenido exitosamente.
+2024-05-26 21:28:11,267 INFO: 127.0.0.1 - - [26/May/2024 21:28:11] "GET /user/usuarios HTTP/1.1" 200 -
+2024-05-26 21:28:17,315 INFO: 127.0.0.1 - - [26/May/2024 21:28:17] "[31m[1mGET /user/usuarios HTTP/1.1[0m" 401 -
+2024-05-26 21:28:25,045 INFO: Listado de usuarios obtenido exitosamente.
+2024-05-26 21:28:25,047 INFO: 127.0.0.1 - - [26/May/2024 21:28:25] "GET /user/usuarios HTTP/1.1" 200 -
+2024-05-26 21:28:29,745 INFO: Token f30004bd-0618-45d4-a819-be92d699e947 ha sido revocado.
+2024-05-26 21:28:29,746 INFO: 127.0.0.1 - - [26/May/2024 21:28:29] "POST /auth/logout HTTP/1.1" 200 -
+2024-05-26 21:28:35,829 INFO: 127.0.0.1 - - [26/May/2024 21:28:35] "[31m[1mGET /user/usuarios HTTP/1.1[0m" 401 -
+2024-05-26 21:28:50,238 INFO: 127.0.0.1 - - [26/May/2024 21:28:50] "[31m[1mGET /user/usuarios HTTP/1.1[0m" 401 -
+2024-05-26 21:28:52,604 INFO: 127.0.0.1 - - [26/May/2024 21:28:52] "[31m[1mGET /user/usuarios HTTP/1.1[0m" 401 -
+2024-05-26 21:29:09,909 INFO: 127.0.0.1 - - [26/May/2024 21:29:09] "[31m[1mDELETE /user/usuarios/6 HTTP/1.1[0m" 401 -
+2024-05-26 21:30:26,060 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-26 21:30:26,180 INFO:  * Restarting with stat
+2024-05-26 21:30:27,851 WARNING:  * Debugger is active!
+2024-05-26 21:30:27,857 INFO:  * Debugger PIN: 118-211-066
+2024-05-26 21:32:38,219 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-26 21:32:38,327 INFO:  * Restarting with stat
+2024-05-26 21:32:40,056 WARNING:  * Debugger is active!
+2024-05-26 21:32:40,062 INFO:  * Debugger PIN: 118-211-066
+2024-05-26 21:33:55,661 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-26 21:33:55,778 INFO:  * Restarting with stat
+2024-05-26 21:33:57,595 WARNING:  * Debugger is active!
+2024-05-26 21:33:57,602 INFO:  * Debugger PIN: 118-211-066
+2024-05-26 21:35:15,177 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-26 21:35:15,292 INFO:  * Restarting with stat
+2024-05-26 21:35:17,056 WARNING:  * Debugger is active!
+2024-05-26 21:35:17,062 INFO:  * Debugger PIN: 118-211-066
+2024-05-26 21:40:16,827 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-26 21:40:16,941 INFO:  * Restarting with stat
+2024-05-26 21:40:18,722 WARNING:  * Debugger is active!
+2024-05-26 21:40:18,733 INFO:  * Debugger PIN: 118-211-066
+2024-05-26 21:42:08,554 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-26 21:42:08,668 INFO:  * Restarting with stat
+2024-05-26 21:42:10,421 WARNING:  * Debugger is active!
+2024-05-26 21:42:10,427 INFO:  * Debugger PIN: 118-211-066
+2024-05-26 21:44:14,044 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-26 21:44:14,176 INFO:  * Restarting with stat
+2024-05-26 21:44:16,006 WARNING:  * Debugger is active!
+2024-05-26 21:44:16,013 INFO:  * Debugger PIN: 118-211-066
+2024-05-26 21:50:33,671 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-26 21:50:33,803 INFO:  * Restarting with stat
+2024-05-26 21:50:35,550 WARNING:  * Debugger is active!
+2024-05-26 21:50:35,557 INFO:  * Debugger PIN: 118-211-066
+2024-05-26 21:51:27,433 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-26 21:51:27,551 INFO:  * Restarting with stat
+2024-05-26 21:51:29,401 WARNING:  * Debugger is active!
+2024-05-26 21:51:29,408 INFO:  * Debugger PIN: 118-211-066
+2024-05-26 21:51:37,408 INFO: Listado de usuarios obtenido exitosamente.
+2024-05-26 21:51:37,410 INFO: 127.0.0.1 - - [26/May/2024 21:51:37] "GET /user/usuarios HTTP/1.1" 200 -
+2024-05-26 21:51:54,666 INFO: Usuario actualizado exitosamente: stringNuevo.
+2024-05-26 21:51:54,667 INFO: 127.0.0.1 - - [26/May/2024 21:51:54] "PUT /user/usuarios/6 HTTP/1.1" 200 -
+2024-05-26 21:52:49,624 INFO: Usuario actualizado exitosamente: stringNuevo.
+2024-05-26 21:52:49,626 INFO: 127.0.0.1 - - [26/May/2024 21:52:49] "PUT /user/usuarios/6 HTTP/1.1" 200 -
+2024-05-26 21:52:52,215 INFO: Usuario actualizado exitosamente: stringNuevo.
+2024-05-26 21:52:52,216 INFO: 127.0.0.1 - - [26/May/2024 21:52:52] "PUT /user/usuarios/6 HTTP/1.1" 200 -
+2024-05-26 21:53:08,075 INFO: Usuario user@gmail.com ha iniciado sesión exitosamente.
+2024-05-26 21:53:08,076 INFO: 127.0.0.1 - - [26/May/2024 21:53:08] "POST /auth/login HTTP/1.1" 200 -
+2024-05-26 21:53:21,313 WARNING: Usuario user@gmail.com no autorizado para leer el listado de usuarios.
+2024-05-26 21:53:21,314 INFO: 127.0.0.1 - - [26/May/2024 21:53:21] "[31m[1mGET /user/usuarios HTTP/1.1[0m" 403 -
+2024-05-26 21:53:28,195 WARNING: Usuario user@gmail.com no autorizado para actualizar el id: 6.
+2024-05-26 21:53:28,197 INFO: 127.0.0.1 - - [26/May/2024 21:53:28] "[31m[1mPUT /user/usuarios/6 HTTP/1.1[0m" 403 -
+2024-05-26 21:53:37,194 INFO: Usuario actualizado exitosamente: user@gmail.com.
+2024-05-26 21:53:37,196 INFO: 127.0.0.1 - - [26/May/2024 21:53:37] "PUT /user/usuarios/2 HTTP/1.1" 200 -
+2024-05-26 22:10:49,398 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-26 22:10:49,518 INFO:  * Restarting with stat
+2024-05-26 22:10:51,306 WARNING:  * Debugger is active!
+2024-05-26 22:10:51,313 INFO:  * Debugger PIN: 118-211-066
+2024-05-26 22:55:22,259 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-26 22:55:22,381 INFO:  * Restarting with stat
+2024-05-26 22:55:24,260 WARNING:  * Debugger is active!
+2024-05-26 22:55:24,268 INFO:  * Debugger PIN: 118-211-066
+2024-05-26 22:56:01,026 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-26 22:56:01,146 INFO:  * Restarting with stat
+2024-05-26 22:56:02,844 WARNING:  * Debugger is active!
+2024-05-26 22:56:02,851 INFO:  * Debugger PIN: 118-211-066
+2024-05-26 22:58:02,660 WARNING: Usuario user@gmail.com no autorizado para leer el id: 6.
+2024-05-26 22:58:02,662 INFO: 127.0.0.1 - - [26/May/2024 22:58:02] "[31m[1mGET /user/usuarios/6 HTTP/1.1[0m" 403 -
+2024-05-26 22:58:15,082 INFO: Usuario admin@gmail.com ha iniciado sesión exitosamente.
+2024-05-26 22:58:15,084 INFO: 127.0.0.1 - - [26/May/2024 22:58:15] "POST /auth/login HTTP/1.1" 200 -
+2024-05-26 22:58:31,791 INFO: Lectura de usuario con email: stringNuevo.
+2024-05-26 22:58:31,792 INFO: 127.0.0.1 - - [26/May/2024 22:58:31] "GET /user/usuarios/6 HTTP/1.1" 200 -
+2024-05-26 22:59:16,480 INFO: Usuario actualizado exitosamente: stringNuevo.
+2024-05-26 22:59:16,481 INFO: 127.0.0.1 - - [26/May/2024 22:59:16] "PUT /user/usuarios/6 HTTP/1.1" 200 -
+2024-05-26 22:59:32,931 INFO: Usuario actualizado exitosamente: stringNuevo.
+2024-05-26 22:59:32,933 INFO: 127.0.0.1 - - [26/May/2024 22:59:32] "PUT /user/usuarios/6 HTTP/1.1" 200 -
+2024-05-26 22:59:45,438 INFO: Usuario eliminado exitosamente por admin: stringNuevo.
+2024-05-26 22:59:45,439 INFO: 127.0.0.1 - - [26/May/2024 22:59:45] "[35m[1mDELETE /user/usuarios/6 HTTP/1.1[0m" 204 -
+2024-05-26 23:00:09,786 INFO: Usuario creado exitosamente: string.
+2024-05-26 23:00:09,788 INFO: 127.0.0.1 - - [26/May/2024 23:00:09] "[35m[1mPOST /user/usuarios HTTP/1.1[0m" 201 -
+2024-05-26 23:00:23,328 INFO: Listado de usuarios obtenido exitosamente.
+2024-05-26 23:00:23,330 INFO: 127.0.0.1 - - [26/May/2024 23:00:23] "GET /user/usuarios HTTP/1.1" 200 -
+2024-05-26 23:06:51,852 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-26 23:06:51,997 INFO:  * Restarting with stat
+2024-05-26 23:08:30,904 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-05-26 23:08:30,904 INFO: [33mPress CTRL+C to quit[0m
+2024-05-26 23:08:30,908 INFO:  * Restarting with stat
+2024-05-26 23:08:32,638 WARNING:  * Debugger is active!
+2024-05-26 23:08:32,645 INFO:  * Debugger PIN: 118-211-066
+2024-05-26 23:08:33,922 INFO: 127.0.0.1 - - [26/May/2024 23:08:33] "GET / HTTP/1.1" 200 -
+2024-05-26 23:08:34,086 INFO: 127.0.0.1 - - [26/May/2024 23:08:34] "[36mGET /swaggerui/droid-sans.css HTTP/1.1[0m" 304 -
+2024-05-26 23:08:34,125 INFO: 127.0.0.1 - - [26/May/2024 23:08:34] "[36mGET /swaggerui/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-05-26 23:08:34,269 INFO: 127.0.0.1 - - [26/May/2024 23:08:34] "[36mGET /swaggerui/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-05-26 23:08:34,325 INFO: 127.0.0.1 - - [26/May/2024 23:08:34] "[36mGET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-05-26 23:08:34,797 INFO: 127.0.0.1 - - [26/May/2024 23:08:34] "GET /swagger.json HTTP/1.1" 200 -
+2024-05-26 23:08:34,801 INFO: 127.0.0.1 - - [26/May/2024 23:08:34] "[36mGET /swaggerui/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-05-26 23:10:22,488 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-26 23:10:22,604 INFO:  * Restarting with stat
+2024-05-26 23:10:24,320 WARNING:  * Debugger is active!
+2024-05-26 23:10:24,327 INFO:  * Debugger PIN: 118-211-066
+2024-05-26 23:13:35,476 INFO: 127.0.0.1 - - [26/May/2024 23:13:35] "[31m[1mGET /project/proyectos HTTP/1.1[0m" 401 -
+2024-05-26 23:13:45,815 INFO: Usuario admin@gmail.com ha iniciado sesión exitosamente.
+2024-05-26 23:13:45,817 INFO: 127.0.0.1 - - [26/May/2024 23:13:45] "POST /auth/login HTTP/1.1" 200 -
+2024-05-26 23:13:58,408 ERROR: Error al obtener el listado de proyectos: (psycopg2.errors.UndefinedColumn) no existe la columna proyectos.idccreador
+LINE 1: ...at, proyectos.updated_at AS proyectos_updated_at, proyectos....
+                                                             ^
+HINT:  Probablemente quiera hacer referencia a la columna «proyectos.idcreador».
+
+[SQL: SELECT proyectos.id AS proyectos_id, proyectos.titulo AS proyectos_titulo, proyectos.descripcion AS proyectos_descripcion, proyectos.check_activo AS proyectos_check_activo, proyectos.created_at AS proyectos_created_at, proyectos.updated_at AS proyectos_updated_at, proyectos.idccreador AS proyectos_idccreador 
+FROM proyectos]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-05-26 23:13:58,409 INFO: 127.0.0.1 - - [26/May/2024 23:13:58] "[35m[1mGET /project/proyectos HTTP/1.1[0m" 500 -
+2024-05-26 23:14:12,730 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-05-26 23:14:12,730 INFO: [33mPress CTRL+C to quit[0m
+2024-05-26 23:14:12,734 INFO:  * Restarting with stat
+2024-05-26 23:14:14,703 WARNING:  * Debugger is active!
+2024-05-26 23:14:14,710 INFO:  * Debugger PIN: 118-211-066
+2024-05-26 23:15:13,369 INFO: Listado de proyectos obtenido exitosamente.
+2024-05-26 23:15:13,371 INFO: 127.0.0.1 - - [26/May/2024 23:15:13] "GET /project/proyectos HTTP/1.1" 200 -
+2024-05-28 19:40:50,012 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 19:40:50,209 INFO:  * Restarting with stat
+2024-05-28 19:40:53,334 WARNING:  * Debugger is active!
+2024-05-28 19:40:53,342 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 20:00:34,837 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-05-28 20:00:34,838 INFO: [33mPress CTRL+C to quit[0m
+2024-05-28 20:00:34,842 INFO:  * Restarting with stat
+2024-05-28 20:00:36,604 WARNING:  * Debugger is active!
+2024-05-28 20:00:36,610 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 20:00:40,841 INFO: 127.0.0.1 - - [28/May/2024 20:00:40] "GET / HTTP/1.1" 200 -
+2024-05-28 20:00:41,001 INFO: 127.0.0.1 - - [28/May/2024 20:00:41] "[36mGET /swaggerui/droid-sans.css HTTP/1.1[0m" 304 -
+2024-05-28 20:00:41,059 INFO: 127.0.0.1 - - [28/May/2024 20:00:41] "[36mGET /swaggerui/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-05-28 20:00:41,208 INFO: 127.0.0.1 - - [28/May/2024 20:00:41] "[36mGET /swaggerui/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-05-28 20:00:41,255 INFO: 127.0.0.1 - - [28/May/2024 20:00:41] "[36mGET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-05-28 20:00:41,679 INFO: 127.0.0.1 - - [28/May/2024 20:00:41] "GET /swagger.json HTTP/1.1" 200 -
+2024-05-28 20:00:41,684 INFO: 127.0.0.1 - - [28/May/2024 20:00:41] "[36mGET /swaggerui/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-05-28 20:01:15,326 INFO: Usuario user@gmail.com ha iniciado sesión exitosamente.
+2024-05-28 20:01:15,327 INFO: 127.0.0.1 - - [28/May/2024 20:01:15] "POST /auth/login HTTP/1.1" 200 -
+2024-05-28 20:01:28,007 WARNING: Usuario user@gmail.com no autorizado para leer el listado de usuarios.
+2024-05-28 20:01:28,009 INFO: 127.0.0.1 - - [28/May/2024 20:01:28] "[31m[1mGET /user/usuarios HTTP/1.1[0m" 403 -
+2024-05-28 20:01:41,342 INFO: Usuario admin@gmail.com ha iniciado sesión exitosamente.
+2024-05-28 20:01:41,344 INFO: 127.0.0.1 - - [28/May/2024 20:01:41] "POST /auth/login HTTP/1.1" 200 -
+2024-05-28 20:01:55,272 INFO: Listado de usuarios obtenido exitosamente.
+2024-05-28 20:01:55,274 INFO: 127.0.0.1 - - [28/May/2024 20:01:55] "GET /user/usuarios HTTP/1.1" 200 -
+2024-05-28 20:08:19,692 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 20:08:19,812 INFO:  * Restarting with stat
+2024-05-28 20:08:21,558 WARNING:  * Debugger is active!
+2024-05-28 20:08:21,564 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 20:13:28,390 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 20:13:28,499 INFO:  * Restarting with stat
+2024-05-28 20:13:30,331 WARNING:  * Debugger is active!
+2024-05-28 20:13:30,340 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 20:14:36,142 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 20:14:36,252 INFO:  * Restarting with stat
+2024-05-28 20:14:37,996 WARNING:  * Debugger is active!
+2024-05-28 20:14:38,003 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 20:20:00,290 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 20:20:00,399 INFO:  * Restarting with stat
+2024-05-28 20:20:02,139 WARNING:  * Debugger is active!
+2024-05-28 20:20:02,146 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 20:25:45,253 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 20:25:45,376 INFO:  * Restarting with stat
+2024-05-28 20:25:47,185 WARNING:  * Debugger is active!
+2024-05-28 20:25:47,192 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 21:01:50,443 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 21:01:50,612 INFO:  * Restarting with stat
+2024-05-28 21:01:52,435 WARNING:  * Debugger is active!
+2024-05-28 21:01:52,442 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 21:06:31,285 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 21:06:31,399 INFO:  * Restarting with stat
+2024-05-28 21:06:33,255 WARNING:  * Debugger is active!
+2024-05-28 21:06:33,262 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 21:11:45,333 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 21:11:45,458 INFO:  * Restarting with stat
+2024-05-28 21:27:07,114 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-05-28 21:27:07,115 INFO: [33mPress CTRL+C to quit[0m
+2024-05-28 21:27:07,120 INFO:  * Restarting with stat
+2024-05-28 21:27:08,948 WARNING:  * Debugger is active!
+2024-05-28 21:27:08,955 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 21:27:12,639 INFO: Lectura de proyecto con ID: 1. Título: Project Alpha.
+2024-05-28 21:27:12,641 INFO: 127.0.0.1 - - [28/May/2024 21:27:12] "GET /project/proyectos/1 HTTP/1.1" 200 -
+2024-05-28 21:29:14,936 INFO: Lectura de proyecto con ID: 2. Título: Project Beta.
+2024-05-28 21:29:14,938 INFO: 127.0.0.1 - - [28/May/2024 21:29:14] "GET /project/proyectos/2 HTTP/1.1" 200 -
+2024-05-28 21:30:25,488 INFO: Proyecto actualizado exitosamente: Project Beta 2.
+2024-05-28 21:30:25,489 INFO: 127.0.0.1 - - [28/May/2024 21:30:25] "PUT /project/proyectos/2 HTTP/1.1" 200 -
+2024-05-28 21:31:21,411 INFO: Proyecto actualizado exitosamente: Project Beta 2.
+2024-05-28 21:31:21,414 INFO: 127.0.0.1 - - [28/May/2024 21:31:21] "PUT /project/proyectos/2 HTTP/1.1" 200 -
+2024-05-28 21:31:40,154 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 21:31:40,276 INFO:  * Restarting with stat
+2024-05-28 21:31:42,179 WARNING:  * Debugger is active!
+2024-05-28 21:31:42,186 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 21:31:57,658 INFO: Proyecto actualizado exitosamente: Project Beta 2.
+2024-05-28 21:31:57,661 INFO: 127.0.0.1 - - [28/May/2024 21:31:57] "PUT /project/proyectos/2 HTTP/1.1" 200 -
+2024-05-28 21:52:26,917 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 21:52:27,038 INFO:  * Restarting with stat
+2024-05-28 21:52:28,762 WARNING:  * Debugger is active!
+2024-05-28 21:52:28,769 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 21:52:49,417 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 21:52:49,527 INFO:  * Restarting with stat
+2024-05-28 21:52:51,309 WARNING:  * Debugger is active!
+2024-05-28 21:52:51,316 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 21:53:09,909 ERROR: Error al crear proyecto: 'idccreador' is an invalid keyword argument for proyectos
+2024-05-28 21:53:09,911 INFO: 127.0.0.1 - - [28/May/2024 21:53:09] "[35m[1mPOST /project/proyectos HTTP/1.1[0m" 500 -
+2024-05-28 21:53:28,127 ERROR: Error al crear proyecto: 'idccreador' is an invalid keyword argument for proyectos
+2024-05-28 21:53:28,128 INFO: 127.0.0.1 - - [28/May/2024 21:53:28] "[35m[1mPOST /project/proyectos HTTP/1.1[0m" 500 -
+2024-05-28 21:53:34,411 ERROR: Error al crear proyecto: 'idccreador' is an invalid keyword argument for proyectos
+2024-05-28 21:53:34,412 INFO: 127.0.0.1 - - [28/May/2024 21:53:34] "[35m[1mPOST /project/proyectos HTTP/1.1[0m" 500 -
+2024-05-28 21:53:49,419 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 21:53:49,538 INFO:  * Restarting with stat
+2024-05-28 21:53:51,337 WARNING:  * Debugger is active!
+2024-05-28 21:53:51,344 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 21:53:51,559 INFO: Proyecto creado exitosamente. ID: 3. string.
+2024-05-28 21:53:51,561 INFO: 127.0.0.1 - - [28/May/2024 21:53:51] "[35m[1mPOST /project/proyectos HTTP/1.1[0m" 201 -
+2024-05-28 21:54:07,290 INFO: Lectura de proyecto con ID: 3. Título: string.
+2024-05-28 21:54:07,292 INFO: 127.0.0.1 - - [28/May/2024 21:54:07] "GET /project/proyectos/3 HTTP/1.1" 200 -
+2024-05-28 21:54:16,656 INFO: Proyecto eliminado exitosamente. ID: 3. string.
+2024-05-28 21:54:16,657 INFO: 127.0.0.1 - - [28/May/2024 21:54:16] "[35m[1mDELETE /project/proyectos/3 HTTP/1.1[0m" 204 -
+2024-05-28 21:56:43,603 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 21:56:43,724 INFO:  * Restarting with stat
+2024-05-28 21:56:45,468 WARNING:  * Debugger is active!
+2024-05-28 21:56:45,474 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 21:56:53,623 INFO: Proyecto creado exitosamente. ID: 4. string.
+2024-05-28 21:56:53,625 INFO: 127.0.0.1 - - [28/May/2024 21:56:53] "[35m[1mPOST /project/proyectos HTTP/1.1[0m" 201 -
+2024-05-28 21:57:00,567 WARNING: Error en el intento de eliminación de proyecto con id: 3 no encontrado.
+2024-05-28 21:57:00,568 INFO: 127.0.0.1 - - [28/May/2024 21:57:00] "[33mDELETE /project/proyectos/3 HTTP/1.1[0m" 404 -
+2024-05-28 21:57:04,098 INFO: Proyecto eliminado exitosamente. ID: 4. string.
+2024-05-28 21:57:04,098 INFO: 127.0.0.1 - - [28/May/2024 21:57:04] "DELETE /project/proyectos/4 HTTP/1.1" 200 -
+2024-05-28 22:02:05,166 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 22:02:05,283 INFO:  * Restarting with stat
+2024-05-28 22:02:07,059 WARNING:  * Debugger is active!
+2024-05-28 22:02:07,065 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 22:02:11,913 INFO: Listado de proyectos obtenido exitosamente.
+2024-05-28 22:02:11,915 INFO: 127.0.0.1 - - [28/May/2024 22:02:11] "GET /project/proyectos HTTP/1.1" 200 -
+2024-05-28 22:02:26,642 INFO: Usuario user@gmail.com ha iniciado sesión exitosamente.
+2024-05-28 22:02:26,644 INFO: 127.0.0.1 - - [28/May/2024 22:02:26] "POST /auth/login HTTP/1.1" 200 -
+2024-05-28 22:02:40,451 ERROR: Error al obtener el listado de proyectos: type object 'miembrosproyecto' has no attribute 'id_proyecto'
+2024-05-28 22:02:40,452 INFO: 127.0.0.1 - - [28/May/2024 22:02:40] "[35m[1mGET /project/proyectos HTTP/1.1[0m" 500 -
+2024-05-28 22:03:30,080 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 22:03:30,196 INFO:  * Restarting with stat
+2024-05-28 22:03:31,944 WARNING:  * Debugger is active!
+2024-05-28 22:03:31,951 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 22:03:34,415 ERROR: Error al obtener el listado de proyectos: Entity namespace for "miembrosproyecto.idproyecto" has no property "id_usuario"
+2024-05-28 22:03:34,417 INFO: 127.0.0.1 - - [28/May/2024 22:03:34] "[35m[1mGET /project/proyectos HTTP/1.1[0m" 500 -
+2024-05-28 22:03:41,751 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 22:03:41,870 INFO:  * Restarting with stat
+2024-05-28 22:03:43,671 WARNING:  * Debugger is active!
+2024-05-28 22:03:43,678 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 22:03:47,187 INFO: Listado de proyectos obtenido exitosamente.
+2024-05-28 22:03:47,189 INFO: 127.0.0.1 - - [28/May/2024 22:03:47] "GET /project/proyectos HTTP/1.1" 200 -
+2024-05-28 22:04:18,405 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 22:04:18,527 INFO:  * Restarting with stat
+2024-05-28 22:04:20,392 WARNING:  * Debugger is active!
+2024-05-28 22:04:20,398 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 22:04:30,640 ERROR: Error al obtener proyecto con id 1: 'NoneType' object has no attribute 'permisos'
+2024-05-28 22:04:30,642 INFO: 127.0.0.1 - - [28/May/2024 22:04:30] "[35m[1mGET /project/proyectos/1 HTTP/1.1[0m" 500 -
+2024-05-28 22:05:33,981 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 22:05:34,101 INFO:  * Restarting with stat
+2024-05-28 22:05:35,863 WARNING:  * Debugger is active!
+2024-05-28 22:05:35,871 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 22:05:38,136 WARNING: Usuario 2 no autorizado para leer el proyecto id: 1.
+2024-05-28 22:05:38,138 INFO: 127.0.0.1 - - [28/May/2024 22:05:38] "[31m[1mGET /project/proyectos/1 HTTP/1.1[0m" 403 -
+2024-05-28 22:05:50,518 WARNING: Usuario 2 no autorizado para leer el proyecto id: 1.
+2024-05-28 22:05:55,445 INFO: 127.0.0.1 - - [28/May/2024 22:05:55] "[31m[1mGET /project/proyectos/1 HTTP/1.1[0m" 403 -
+2024-05-28 22:06:18,921 INFO: Lectura de proyecto con ID: 2. Título: Project Beta 2.
+2024-05-28 22:07:32,347 INFO: 127.0.0.1 - - [28/May/2024 22:07:32] "GET /project/proyectos/2 HTTP/1.1" 200 -
+2024-05-28 22:07:43,830 INFO: Lectura de proyecto con ID: 2. Título: Project Beta 2.
+2024-05-28 22:07:43,833 INFO: 127.0.0.1 - - [28/May/2024 22:07:43] "GET /project/proyectos/2 HTTP/1.1" 200 -
+2024-05-28 22:07:55,154 WARNING: Usuario 2 no autorizado para eliminar el proyecto id: 2.
+2024-05-28 22:07:55,156 INFO: 127.0.0.1 - - [28/May/2024 22:07:55] "[31m[1mDELETE /project/proyectos/2 HTTP/1.1[0m" 403 -
+2024-05-28 22:07:59,168 WARNING: Usuario 2 no autorizado para eliminar el proyecto id: 1.
+2024-05-28 22:07:59,170 INFO: 127.0.0.1 - - [28/May/2024 22:07:59] "[31m[1mDELETE /project/proyectos/1 HTTP/1.1[0m" 403 -
+2024-05-28 22:08:08,507 WARNING: Usuario 2 no autorizado para actualizar el proyecto id: 2.
+2024-05-28 22:08:08,508 INFO: 127.0.0.1 - - [28/May/2024 22:08:08] "[31m[1mPUT /project/proyectos/2 HTTP/1.1[0m" 403 -
+2024-05-28 22:08:34,972 INFO: Proyecto creado exitosamente. ID: 5. stringNuevo.
+2024-05-28 22:08:34,974 INFO: 127.0.0.1 - - [28/May/2024 22:08:34] "[35m[1mPOST /project/proyectos HTTP/1.1[0m" 201 -
+2024-05-28 22:11:28,431 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 22:11:28,562 INFO:  * Restarting with stat
+2024-05-28 22:11:30,538 WARNING:  * Debugger is active!
+2024-05-28 22:11:30,545 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 22:12:03,024 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 22:12:03,134 INFO:  * Restarting with stat
+2024-05-28 22:12:04,836 WARNING:  * Debugger is active!
+2024-05-28 22:12:04,842 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 22:12:09,261 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 22:12:09,370 INFO:  * Restarting with stat
+2024-05-28 22:12:11,164 WARNING:  * Debugger is active!
+2024-05-28 22:12:11,171 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 22:12:43,019 ERROR: Error al crear proyecto: 'IDUsuario' is an invalid keyword argument for miembrosproyecto
+2024-05-28 22:13:00,081 INFO: 127.0.0.1 - - [28/May/2024 22:13:00] "[35m[1mPOST /project/proyectos HTTP/1.1[0m" 500 -
+2024-05-28 22:13:01,073 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 22:13:01,195 INFO:  * Restarting with stat
+2024-05-28 22:13:02,989 WARNING:  * Debugger is active!
+2024-05-28 22:13:02,996 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 22:13:18,517 ERROR: Error al crear proyecto: 'Permisos' is an invalid keyword argument for miembrosproyecto
+2024-05-28 22:13:18,519 INFO: 127.0.0.1 - - [28/May/2024 22:13:18] "[35m[1mPOST /project/proyectos HTTP/1.1[0m" 500 -
+2024-05-28 22:13:19,323 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 22:13:19,445 INFO:  * Restarting with stat
+2024-05-28 22:13:21,364 WARNING:  * Debugger is active!
+2024-05-28 22:13:21,371 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 22:13:28,576 ERROR: Error al crear proyecto: 'created_at' is an invalid keyword argument for miembrosproyecto
+2024-05-28 22:15:31,918 INFO: 127.0.0.1 - - [28/May/2024 22:15:31] "[35m[1mPOST /project/proyectos HTTP/1.1[0m" 500 -
+2024-05-28 22:16:44,769 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-05-28 22:16:44,770 INFO: [33mPress CTRL+C to quit[0m
+2024-05-28 22:16:44,774 INFO:  * Restarting with stat
+2024-05-28 22:16:46,527 WARNING:  * Debugger is active!
+2024-05-28 22:16:46,533 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 22:17:02,841 INFO: Proyecto creado exitosamente. ID: 4. stringNuevo.
+2024-05-28 22:17:04,359 INFO: 127.0.0.1 - - [28/May/2024 22:17:04] "[35m[1mPOST /project/proyectos HTTP/1.1[0m" 201 -
+2024-05-28 22:20:54,138 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-05-28 22:20:54,256 INFO:  * Restarting with stat
+2024-05-28 22:20:56,012 WARNING:  * Debugger is active!
+2024-05-28 22:20:56,019 INFO:  * Debugger PIN: 118-211-066
+2024-05-28 22:21:07,326 INFO: Listado de proyectos obtenido exitosamente.
+2024-05-28 22:21:07,328 INFO: 127.0.0.1 - - [28/May/2024 22:21:07] "GET /project/proyectos HTTP/1.1" 200 -
+2024-05-28 22:21:17,881 INFO: Proyecto desactivado exitosamente. ID: 4. stringNuevo.
+2024-05-28 22:21:17,882 INFO: 127.0.0.1 - - [28/May/2024 22:21:17] "DELETE /project/proyectos/4 HTTP/1.1" 200 -
+2024-05-28 22:21:23,558 INFO: Listado de proyectos obtenido exitosamente.
+2024-05-28 22:21:23,559 INFO: 127.0.0.1 - - [28/May/2024 22:21:23] "GET /project/proyectos HTTP/1.1" 200 -
+2024-06-07 19:44:09,787 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 19:44:10,035 INFO:  * Restarting with stat
+2024-06-07 19:44:13,248 WARNING:  * Debugger is active!
+2024-06-07 19:44:13,255 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 19:44:24,144 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 19:44:24,282 INFO:  * Restarting with stat
+2024-06-07 19:44:26,175 WARNING:  * Debugger is active!
+2024-06-07 19:44:26,184 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 20:07:46,992 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 20:07:47,136 INFO:  * Restarting with stat
+2024-06-07 20:07:49,032 WARNING:  * Debugger is active!
+2024-06-07 20:07:49,039 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 20:09:08,770 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 20:09:08,886 INFO:  * Restarting with stat
+2024-06-07 20:09:10,684 WARNING:  * Debugger is active!
+2024-06-07 20:09:10,691 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 20:10:57,388 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 20:10:57,508 INFO:  * Restarting with stat
+2024-06-07 20:10:59,342 WARNING:  * Debugger is active!
+2024-06-07 20:10:59,349 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 20:16:02,940 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 20:16:03,075 INFO:  * Restarting with stat
+2024-06-07 20:16:04,935 WARNING:  * Debugger is active!
+2024-06-07 20:16:04,942 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 20:17:08,503 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 20:17:08,645 INFO:  * Restarting with stat
+2024-06-07 20:17:10,498 WARNING:  * Debugger is active!
+2024-06-07 20:17:10,505 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 20:18:58,226 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 20:18:58,346 INFO:  * Restarting with stat
+2024-06-07 20:19:00,238 WARNING:  * Debugger is active!
+2024-06-07 20:19:00,246 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 20:33:02,303 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 20:33:02,426 INFO:  * Restarting with stat
+2024-06-07 21:09:31,628 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-06-07 21:09:31,628 INFO: [33mPress CTRL+C to quit[0m
+2024-06-07 21:09:31,632 INFO:  * Restarting with stat
+2024-06-07 21:09:33,379 WARNING:  * Debugger is active!
+2024-06-07 21:09:33,386 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 21:09:46,117 INFO: 127.0.0.1 - - [07/Jun/2024 21:09:46] "GET / HTTP/1.1" 200 -
+2024-06-07 21:09:46,300 INFO: 127.0.0.1 - - [07/Jun/2024 21:09:46] "[36mGET /swaggerui/droid-sans.css HTTP/1.1[0m" 304 -
+2024-06-07 21:09:46,455 INFO: 127.0.0.1 - - [07/Jun/2024 21:09:46] "[36mGET /swaggerui/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-06-07 21:09:46,480 INFO: 127.0.0.1 - - [07/Jun/2024 21:09:46] "[36mGET /swaggerui/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-06-07 21:09:46,533 INFO: 127.0.0.1 - - [07/Jun/2024 21:09:46] "[36mGET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-06-07 21:09:46,964 INFO: 127.0.0.1 - - [07/Jun/2024 21:09:46] "GET /swagger.json HTTP/1.1" 200 -
+2024-06-07 21:09:46,970 INFO: 127.0.0.1 - - [07/Jun/2024 21:09:46] "[36mGET /swaggerui/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-06-07 21:10:17,746 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 21:10:17,859 INFO:  * Restarting with stat
+2024-06-07 21:10:19,651 WARNING:  * Debugger is active!
+2024-06-07 21:10:19,658 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 21:10:32,785 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 21:19:03,249 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-06-07 21:19:03,250 INFO: [33mPress CTRL+C to quit[0m
+2024-06-07 21:19:03,254 INFO:  * Restarting with stat
+2024-06-07 21:19:04,971 WARNING:  * Debugger is active!
+2024-06-07 21:19:04,977 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 21:19:07,813 INFO: 127.0.0.1 - - [07/Jun/2024 21:19:07] "GET / HTTP/1.1" 200 -
+2024-06-07 21:19:07,977 INFO: 127.0.0.1 - - [07/Jun/2024 21:19:07] "[36mGET /swaggerui/droid-sans.css HTTP/1.1[0m" 304 -
+2024-06-07 21:19:08,013 INFO: 127.0.0.1 - - [07/Jun/2024 21:19:08] "[36mGET /swaggerui/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-06-07 21:19:08,138 INFO: 127.0.0.1 - - [07/Jun/2024 21:19:08] "[36mGET /swaggerui/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-06-07 21:19:08,139 INFO: 127.0.0.1 - - [07/Jun/2024 21:19:08] "[36mGET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-06-07 21:19:08,642 INFO: 127.0.0.1 - - [07/Jun/2024 21:19:08] "GET /swagger.json HTTP/1.1" 200 -
+2024-06-07 21:19:08,646 INFO: 127.0.0.1 - - [07/Jun/2024 21:19:08] "[36mGET /swaggerui/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-06-07 21:19:54,663 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 21:19:54,777 INFO:  * Restarting with stat
+2024-06-07 21:19:56,710 WARNING:  * Debugger is active!
+2024-06-07 21:19:56,717 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 21:19:59,155 INFO: 127.0.0.1 - - [07/Jun/2024 21:19:59] "GET / HTTP/1.1" 200 -
+2024-06-07 21:19:59,319 INFO: 127.0.0.1 - - [07/Jun/2024 21:19:59] "[36mGET /swaggerui/droid-sans.css HTTP/1.1[0m" 304 -
+2024-06-07 21:19:59,356 INFO: 127.0.0.1 - - [07/Jun/2024 21:19:59] "[36mGET /swaggerui/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-06-07 21:19:59,493 INFO: 127.0.0.1 - - [07/Jun/2024 21:19:59] "[36mGET /swaggerui/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-06-07 21:19:59,495 INFO: 127.0.0.1 - - [07/Jun/2024 21:19:59] "[36mGET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-06-07 21:19:59,881 INFO: 127.0.0.1 - - [07/Jun/2024 21:19:59] "GET /swagger.json HTTP/1.1" 200 -
+2024-06-07 21:19:59,884 INFO: 127.0.0.1 - - [07/Jun/2024 21:19:59] "[36mGET /swaggerui/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-06-07 21:20:13,068 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 21:20:13,297 INFO:  * Restarting with stat
+2024-06-07 21:20:15,154 WARNING:  * Debugger is active!
+2024-06-07 21:20:15,161 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 21:20:20,635 INFO: 127.0.0.1 - - [07/Jun/2024 21:20:20] "GET / HTTP/1.1" 200 -
+2024-06-07 21:20:20,829 INFO: 127.0.0.1 - - [07/Jun/2024 21:20:20] "[36mGET /swaggerui/droid-sans.css HTTP/1.1[0m" 304 -
+2024-06-07 21:20:20,834 INFO: 127.0.0.1 - - [07/Jun/2024 21:20:20] "[36mGET /swaggerui/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-06-07 21:20:20,956 INFO: 127.0.0.1 - - [07/Jun/2024 21:20:20] "[36mGET /swaggerui/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-06-07 21:20:20,958 INFO: 127.0.0.1 - - [07/Jun/2024 21:20:20] "[36mGET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-06-07 21:20:21,319 INFO: 127.0.0.1 - - [07/Jun/2024 21:20:21] "GET /swagger.json HTTP/1.1" 200 -
+2024-06-07 21:20:21,323 INFO: 127.0.0.1 - - [07/Jun/2024 21:20:21] "[36mGET /swaggerui/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-06-07 21:21:02,440 INFO: 127.0.0.1 - - [07/Jun/2024 21:21:02] "POST /auth/send_mail HTTP/1.1" 200 -
+2024-06-07 21:28:21,256 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-06-07 21:28:21,257 INFO: [33mPress CTRL+C to quit[0m
+2024-06-07 21:28:21,260 INFO:  * Restarting with stat
+2024-06-07 21:28:23,061 WARNING:  * Debugger is active!
+2024-06-07 21:28:23,068 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 21:28:53,644 INFO: 127.0.0.1 - - [07/Jun/2024 21:28:53] "POST /auth/send_mail HTTP/1.1" 200 -
+2024-06-07 21:32:56,495 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 21:32:56,778 INFO:  * Restarting with stat
+2024-06-07 21:33:00,134 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-06-07 21:33:00,134 INFO: [33mPress CTRL+C to quit[0m
+2024-06-07 21:33:00,137 INFO:  * Restarting with stat
+2024-06-07 21:33:01,855 WARNING:  * Debugger is active!
+2024-06-07 21:33:01,862 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 21:33:26,899 INFO: 127.0.0.1 - - [07/Jun/2024 21:33:26] "POST /auth/send_mail HTTP/1.1" 200 -
+2024-06-07 21:37:30,093 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 21:37:30,212 INFO:  * Restarting with stat
+2024-06-07 21:37:32,028 WARNING:  * Debugger is active!
+2024-06-07 21:37:32,035 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:00:16,760 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:00:16,878 INFO:  * Restarting with stat
+2024-06-07 22:00:18,826 WARNING:  * Debugger is active!
+2024-06-07 22:00:18,833 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:01:21,574 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:01:21,686 INFO:  * Restarting with stat
+2024-06-07 22:01:23,464 WARNING:  * Debugger is active!
+2024-06-07 22:01:23,471 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:02:26,128 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:02:26,241 INFO:  * Restarting with stat
+2024-06-07 22:02:28,150 WARNING:  * Debugger is active!
+2024-06-07 22:02:28,158 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:02:37,717 INFO: 127.0.0.1 - - [07/Jun/2024 22:02:37] "POST /auth/send_mail HTTP/1.1" 200 -
+2024-06-07 22:05:55,819 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:05:55,934 INFO:  * Restarting with stat
+2024-06-07 22:05:57,879 WARNING:  * Debugger is active!
+2024-06-07 22:05:57,887 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:06:03,861 INFO: 127.0.0.1 - - [07/Jun/2024 22:06:03] "POST /auth/send_mail HTTP/1.1" 200 -
+2024-06-07 22:06:51,951 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:06:52,088 INFO:  * Restarting with stat
+2024-06-07 22:06:54,023 WARNING:  * Debugger is active!
+2024-06-07 22:06:54,029 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:06:59,100 INFO: 127.0.0.1 - - [07/Jun/2024 22:06:59] "POST /auth/send_mail HTTP/1.1" 200 -
+2024-06-07 22:07:34,045 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:07:34,161 INFO:  * Restarting with stat
+2024-06-07 22:07:36,241 WARNING:  * Debugger is active!
+2024-06-07 22:07:36,247 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:07:39,625 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:07:39,743 INFO:  * Restarting with stat
+2024-06-07 22:07:41,585 WARNING:  * Debugger is active!
+2024-06-07 22:07:41,591 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:07:46,852 INFO: 127.0.0.1 - - [07/Jun/2024 22:07:46] "POST /auth/send_mail HTTP/1.1" 200 -
+2024-06-07 22:25:47,512 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:25:47,633 INFO:  * Restarting with stat
+2024-06-07 22:25:50,375 WARNING:  * Debugger is active!
+2024-06-07 22:25:50,382 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:25:57,006 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:25:57,126 INFO:  * Restarting with stat
+2024-06-07 22:25:59,017 WARNING:  * Debugger is active!
+2024-06-07 22:25:59,023 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:26:15,360 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:26:15,486 INFO:  * Restarting with stat
+2024-06-07 22:26:17,295 WARNING:  * Debugger is active!
+2024-06-07 22:26:17,302 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:26:47,693 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:26:47,815 INFO:  * Restarting with stat
+2024-06-07 22:26:49,622 WARNING:  * Debugger is active!
+2024-06-07 22:26:49,629 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:28:10,574 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:28:10,693 INFO:  * Restarting with stat
+2024-06-07 22:28:12,555 WARNING:  * Debugger is active!
+2024-06-07 22:28:12,562 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:28:28,888 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:28:29,002 INFO:  * Restarting with stat
+2024-06-07 22:28:31,119 WARNING:  * Debugger is active!
+2024-06-07 22:28:31,126 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:28:37,152 INFO: 127.0.0.1 - - [07/Jun/2024 22:28:37] "POST /auth/send_mail HTTP/1.1" 200 -
+2024-06-07 22:29:08,911 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:29:09,030 INFO:  * Restarting with stat
+2024-06-07 22:29:10,850 WARNING:  * Debugger is active!
+2024-06-07 22:29:10,856 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:29:27,147 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:29:27,263 INFO:  * Restarting with stat
+2024-06-07 22:29:29,096 WARNING:  * Debugger is active!
+2024-06-07 22:29:29,104 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:30:04,758 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:30:04,873 INFO:  * Restarting with stat
+2024-06-07 22:30:06,742 WARNING:  * Debugger is active!
+2024-06-07 22:30:06,750 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:30:12,325 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:30:12,570 INFO:  * Restarting with stat
+2024-06-07 22:30:14,376 WARNING:  * Debugger is active!
+2024-06-07 22:30:14,383 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:30:18,318 INFO: 127.0.0.1 - - [07/Jun/2024 22:30:18] "POST /auth/send_mail HTTP/1.1" 200 -
+2024-06-07 22:31:53,581 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:31:53,696 INFO:  * Restarting with stat
+2024-06-07 22:31:55,476 WARNING:  * Debugger is active!
+2024-06-07 22:31:55,483 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:32:01,011 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:32:01,125 INFO:  * Restarting with stat
+2024-06-07 22:32:03,028 WARNING:  * Debugger is active!
+2024-06-07 22:32:03,034 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:32:30,198 INFO: 127.0.0.1 - - [07/Jun/2024 22:32:30] "GET / HTTP/1.1" 200 -
+2024-06-07 22:32:30,363 INFO: 127.0.0.1 - - [07/Jun/2024 22:32:30] "[36mGET /swaggerui/droid-sans.css HTTP/1.1[0m" 304 -
+2024-06-07 22:32:30,376 INFO: 127.0.0.1 - - [07/Jun/2024 22:32:30] "[36mGET /swaggerui/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-06-07 22:32:30,550 INFO: 127.0.0.1 - - [07/Jun/2024 22:32:30] "[36mGET /swaggerui/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-06-07 22:32:30,607 INFO: 127.0.0.1 - - [07/Jun/2024 22:32:30] "[36mGET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-06-07 22:32:31,015 INFO: 127.0.0.1 - - [07/Jun/2024 22:32:31] "GET /swagger.json HTTP/1.1" 200 -
+2024-06-07 22:32:31,022 INFO: 127.0.0.1 - - [07/Jun/2024 22:32:31] "[36mGET /swaggerui/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-06-07 22:32:36,653 WARNING: Intento de reseteo de contraseña para email no registrado string.
+2024-06-07 22:32:36,655 INFO: 127.0.0.1 - - [07/Jun/2024 22:32:36] "[33mPOST /auth/reset_password HTTP/1.1[0m" 404 -
+2024-06-07 22:32:47,278 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:32:47,400 INFO:  * Restarting with stat
+2024-06-07 22:32:51,434 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-06-07 22:32:51,434 INFO: [33mPress CTRL+C to quit[0m
+2024-06-07 22:32:51,437 INFO:  * Restarting with stat
+2024-06-07 22:32:53,264 WARNING:  * Debugger is active!
+2024-06-07 22:32:53,271 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:32:55,244 INFO: 127.0.0.1 - - [07/Jun/2024 22:32:55] "GET / HTTP/1.1" 200 -
+2024-06-07 22:32:55,401 INFO: 127.0.0.1 - - [07/Jun/2024 22:32:55] "[36mGET /swaggerui/droid-sans.css HTTP/1.1[0m" 304 -
+2024-06-07 22:32:55,449 INFO: 127.0.0.1 - - [07/Jun/2024 22:32:55] "[36mGET /swaggerui/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-06-07 22:32:55,578 INFO: 127.0.0.1 - - [07/Jun/2024 22:32:55] "[36mGET /swaggerui/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-06-07 22:32:55,582 INFO: 127.0.0.1 - - [07/Jun/2024 22:32:55] "[36mGET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-06-07 22:32:55,968 INFO: 127.0.0.1 - - [07/Jun/2024 22:32:55] "GET /swagger.json HTTP/1.1" 200 -
+2024-06-07 22:32:55,973 INFO: 127.0.0.1 - - [07/Jun/2024 22:32:55] "[36mGET /swaggerui/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-06-07 22:47:25,265 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-06-07 22:47:25,265 INFO: [33mPress CTRL+C to quit[0m
+2024-06-07 22:47:25,269 INFO:  * Restarting with stat
+2024-06-07 22:47:27,189 WARNING:  * Debugger is active!
+2024-06-07 22:47:27,196 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:47:40,686 INFO: Correo de bienvenida enviado exitosamente: iandreafh@gmail.com.
+2024-06-07 22:47:40,687 INFO: Usuario creado exitosamente: iandreafh@gmail.com.
+2024-06-07 22:47:40,691 INFO: 127.0.0.1 - - [07/Jun/2024 22:47:40] "[35m[1mPOST /user/usuarios HTTP/1.1[0m" 201 -
+2024-06-07 22:48:23,323 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:48:23,454 INFO:  * Restarting with stat
+2024-06-07 22:48:25,234 WARNING:  * Debugger is active!
+2024-06-07 22:48:25,241 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:49:11,693 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:49:11,809 INFO:  * Restarting with stat
+2024-06-07 22:49:13,554 WARNING:  * Debugger is active!
+2024-06-07 22:49:13,561 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:57:03,857 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:57:03,972 INFO:  * Restarting with stat
+2024-06-07 22:57:05,850 WARNING:  * Debugger is active!
+2024-06-07 22:57:05,856 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:57:36,178 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:57:36,297 INFO:  * Restarting with stat
+2024-06-07 22:57:38,172 WARNING:  * Debugger is active!
+2024-06-07 22:57:38,178 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:58:01,021 INFO: Contraseña reseteada y enviada al usuario iandreafh@gmail.com.
+2024-06-07 22:58:01,024 INFO: 127.0.0.1 - - [07/Jun/2024 22:58:01] "POST /auth/reset_password HTTP/1.1" 200 -
+2024-06-07 22:58:19,180 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:58:19,305 INFO:  * Restarting with stat
+2024-06-07 22:58:21,134 WARNING:  * Debugger is active!
+2024-06-07 22:58:21,141 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:59:48,341 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:59:48,546 INFO:  * Restarting with stat
+2024-06-07 22:59:50,397 WARNING:  * Debugger is active!
+2024-06-07 22:59:50,406 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 22:59:53,824 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 22:59:53,936 INFO:  * Restarting with stat
+2024-06-07 22:59:55,935 WARNING:  * Debugger is active!
+2024-06-07 22:59:55,942 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 23:00:16,573 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 23:00:16,688 INFO:  * Restarting with stat
+2024-06-07 23:00:18,540 WARNING:  * Debugger is active!
+2024-06-07 23:00:18,547 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 23:00:26,231 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 23:00:26,344 INFO:  * Restarting with stat
+2024-06-07 23:00:28,204 WARNING:  * Debugger is active!
+2024-06-07 23:00:28,211 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 23:02:43,889 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 23:02:44,048 INFO:  * Restarting with stat
+2024-06-07 23:02:45,970 WARNING:  * Debugger is active!
+2024-06-07 23:02:45,977 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 23:02:54,789 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 23:02:54,923 INFO:  * Restarting with stat
+2024-06-07 23:02:56,675 WARNING:  * Debugger is active!
+2024-06-07 23:02:56,682 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 23:03:13,368 INFO: Contraseña reseteada y enviada al usuario iandreafh@gmail.com.
+2024-06-07 23:03:13,371 INFO: 127.0.0.1 - - [07/Jun/2024 23:03:13] "POST /auth/reset_password HTTP/1.1" 200 -
+2024-06-07 23:03:53,278 ERROR: Error en el login del usuario iandreafh@gmail.com: 'usuarios' object has no attribute 'Check_activo'
+2024-06-07 23:03:53,280 INFO: 127.0.0.1 - - [07/Jun/2024 23:03:53] "[35m[1mPOST /auth/login HTTP/1.1[0m" 500 -
+2024-06-07 23:04:52,969 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 23:04:53,089 INFO:  * Restarting with stat
+2024-06-07 23:04:54,938 WARNING:  * Debugger is active!
+2024-06-07 23:04:54,945 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 23:04:58,257 INFO: Usuario iandreafh@gmail.com ha iniciado sesión exitosamente.
+2024-06-07 23:04:58,259 INFO: 127.0.0.1 - - [07/Jun/2024 23:04:58] "POST /auth/login HTTP/1.1" 200 -
+2024-06-07 23:05:43,498 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 23:05:43,626 INFO:  * Restarting with stat
+2024-06-07 23:05:45,478 WARNING:  * Debugger is active!
+2024-06-07 23:05:45,485 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 23:05:51,651 INFO: Contraseña reseteada y enviada al usuario iandreafh@gmail.com.
+2024-06-07 23:05:51,654 INFO: 127.0.0.1 - - [07/Jun/2024 23:05:51] "POST /auth/reset_password HTTP/1.1" 200 -
+2024-06-07 23:06:00,939 INFO: 127.0.0.1 - - [07/Jun/2024 23:06:00] "POST /auth/login HTTP/1.1" 200 -
+2024-06-07 23:06:11,849 INFO: Usuario iandreafh@gmail.com ha iniciado sesión exitosamente.
+2024-06-07 23:06:11,851 INFO: 127.0.0.1 - - [07/Jun/2024 23:06:11] "POST /auth/login HTTP/1.1" 200 -
+2024-06-07 23:06:23,640 INFO: 127.0.0.1 - - [07/Jun/2024 23:06:23] "POST /auth/login HTTP/1.1" 200 -
+2024-06-07 23:09:10,134 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 23:09:10,347 INFO:  * Restarting with stat
+2024-06-07 23:09:12,225 WARNING:  * Debugger is active!
+2024-06-07 23:09:12,232 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 23:09:16,069 WARNING: Intento fallido de inicio de sesión para el usuario iandreafh@gmail.com.
+2024-06-07 23:09:16,071 INFO: 127.0.0.1 - - [07/Jun/2024 23:09:16] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2024-06-07 23:18:38,492 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\config.py', reloading
+2024-06-07 23:18:38,686 INFO:  * Restarting with stat
+2024-06-07 23:20:09,741 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-06-07 23:20:09,741 INFO: [33mPress CTRL+C to quit[0m
+2024-06-07 23:20:09,745 INFO:  * Restarting with stat
+2024-06-07 23:20:11,481 WARNING:  * Debugger is active!
+2024-06-07 23:20:11,487 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 23:20:32,044 INFO: 127.0.0.1 - - [07/Jun/2024 23:20:32] "[33mPOST /auth/send_mail HTTP/1.1[0m" 404 -
+2024-06-07 23:21:00,551 INFO: 127.0.0.1 - - [07/Jun/2024 23:21:00] "GET / HTTP/1.1" 200 -
+2024-06-07 23:21:01,416 INFO: 127.0.0.1 - - [07/Jun/2024 23:21:01] "[36mGET /swaggerui/droid-sans.css HTTP/1.1[0m" 304 -
+2024-06-07 23:21:01,483 INFO: 127.0.0.1 - - [07/Jun/2024 23:21:01] "[36mGET /swaggerui/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-06-07 23:21:01,522 INFO: 127.0.0.1 - - [07/Jun/2024 23:21:01] "[36mGET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-06-07 23:21:01,533 INFO: 127.0.0.1 - - [07/Jun/2024 23:21:01] "[36mGET /swaggerui/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-06-07 23:21:01,975 INFO: 127.0.0.1 - - [07/Jun/2024 23:21:01] "GET /swagger.json HTTP/1.1" 200 -
+2024-06-07 23:21:01,978 INFO: 127.0.0.1 - - [07/Jun/2024 23:21:01] "[36mGET /swaggerui/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-06-07 23:21:07,337 INFO: 127.0.0.1 - - [07/Jun/2024 23:21:07] "POST /auth/send_mail_test HTTP/1.1" 200 -
+2024-06-07 23:22:47,714 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-06-07 23:22:47,715 INFO: [33mPress CTRL+C to quit[0m
+2024-06-07 23:22:47,718 INFO:  * Restarting with stat
+2024-06-07 23:22:49,570 WARNING:  * Debugger is active!
+2024-06-07 23:22:49,576 INFO:  * Debugger PIN: 118-211-066
+2024-06-07 23:23:04,380 INFO: 127.0.0.1 - - [07/Jun/2024 23:23:04] "POST /auth/send_mail_test HTTP/1.1" 200 -
+2024-06-07 23:23:22,036 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-07 23:23:22,161 INFO:  * Restarting with stat
+2024-06-07 23:23:24,194 WARNING:  * Debugger is active!
+2024-06-07 23:23:24,201 INFO:  * Debugger PIN: 118-211-066
