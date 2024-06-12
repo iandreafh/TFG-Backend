@@ -94,7 +94,7 @@ def to_dict(obj):
     for column in inspect(obj).mapper.column_attrs:
         if (column.key != 'password') and (column.key != 'hash'):
             value = getattr(obj, column.key)
-            if isinstance(value, datetime.datetime):
+            if isinstance(value, datetime.datetime) or isinstance(value, datetime.date):
                 value = value.isoformat()
             obj_dict[column.key.capitalize()] = value
 
@@ -565,7 +565,11 @@ proyecto_modelo = api.model('Proyecto', {
     'Titulo': fields.String(required=True, description='Título del proyecto'),
     'Descripcion': fields.String(description='Descripción del proyecto'),
     'Check_Activo': fields.Boolean(required=True, description='Estado activo del proyecto'),
-    'IDCreador': fields.Integer(required=True, description='ID del creador del proyecto')
+    'IDCreador': fields.Integer(required=True, description='ID del creador del proyecto'),
+    'Miembros': fields.List(fields.Nested(api.model('Miembro', {
+        'IDUsuario': fields.Integer(required=True, description='ID del usuario'),
+        'Permisos': fields.String(required=True, description='Permisos del usuario en el proyecto')
+    })), description='Lista de miembros del proyecto')
 })
 
 """ Permisos de proyecto posibles: lector, editor, gestor """
@@ -693,7 +697,21 @@ class ProyectoResource(Resource):
                     logging.warning(f'Error en el intento de lectura de proyecto con id: {id} no encontrado.')
                     return {'error': 'Proyecto no encontrado'}, 404
 
+                # Obtener la lista de miembros del proyecto con su nombre y su email
+                miembros = session.query(MiembrosProyecto).filter_by(idproyecto=id).all()
+                miembros_list = []
+                for miembro in miembros:
+                    usuario = session.get(Usuario, miembro.idusuario)
+                    miembros_list.append({
+                        'IDUsuario': miembro.idusuario,
+                        'Nombre': usuario.nombre,
+                        'Email': usuario.email,
+                        'Permisos': miembro.permisos
+                    })
+
                 proyecto_dict = to_dict(proyecto)
+                proyecto_dict['Miembros'] = miembros_list  # Añadir la lista de miembros al diccionario del proyecto
+
                 logging.info(f'Lectura de proyecto con ID: {proyecto.id}. Título: {proyecto.titulo}.')
                 return proyecto_dict, 200
 
@@ -708,8 +726,9 @@ class ProyectoResource(Resource):
 
     @jwt_required()
     @ns.expect(proyecto_modelo)
-    @ns.doc('update_proyecto', description='Modifica los datos introducidos del proyecto con el id indicado, en caso de que exista'
-                                           'y que el usuario sea un miembro con permisos de editor o gestor',
+    @ns.doc('update_proyecto',
+            description='Modifica los datos introducidos del proyecto con el id indicado, en caso de que exista'
+                        'y que el usuario sea un miembro con permisos de editor o gestor',
             responses={
                 200: 'Proyecto actualizado exitosamente',
                 403: 'Acceso denegado',
@@ -722,9 +741,8 @@ class ProyectoResource(Resource):
         try:
             usuario_actual = get_logged_user(session)
 
-            # Solo los administradores o miembros con permisos de editor o gestor pueden actualizar un proyecto
-            if (usuario_actual.rol == "admin"
-                    or get_permisos_proyecto(id, session) == "gestor" or get_permisos_proyecto(id, session) == "editor"):
+            # Solo los miembros con permisos de editor o gestor pueden actualizar un proyecto
+            if (get_permisos_proyecto(id, session) == "gestor" or get_permisos_proyecto(id, session) == "editor"):
 
                 proyecto = session.get(Proyecto, id)
                 if not proyecto:
@@ -735,9 +753,37 @@ class ProyectoResource(Resource):
                 proyecto.descripcion = data.get('Descripcion', proyecto.descripcion)
                 proyecto.updated_at = datetime.datetime.now()
 
-                # Solo los administradores o miembros con permisos de gestor pueden dar de baja un proyecto
-                if usuario_actual.rol == 'admin' or get_permisos_proyecto(id, session) == "gestor":
-                    proyecto.check_activo = data.get('Check_activo', proyecto.check_activo)
+                # Solo los gestores pueden dar de baja, reactivar un proyecto o modificar sus miembros
+                if get_permisos_proyecto(id, session) == "gestor":
+                    proyecto.check_activo = data.get('Check_Activo', proyecto.check_activo)
+
+                    # Actualizar la lista de miembros si se proporciona
+                    if 'Miembros' in data:
+                        miembros_nuevos = data['Miembros']
+                        miembros_actuales = session.query(MiembrosProyecto).filter_by(idproyecto=id).all()
+                        miembros_actuales_dict = {miembro.idusuario: miembro for miembro in miembros_actuales}
+
+                        # Actualizar miembros existentes y agregar nuevos miembros
+                        for miembro in miembros_nuevos:
+                            id_usuario = miembro['IDUsuario']
+                            permisos = miembro['Permisos']
+                            if id_usuario in miembros_actuales_dict:
+                                miembros_actuales_dict[id_usuario].permisos = permisos
+                                miembros_actuales_dict[id_usuario].updated_at = datetime.datetime.now()
+                            else:
+                                nuevo_miembro = MiembrosProyecto(
+                                    idusuario=id_usuario,
+                                    idproyecto=id,
+                                    permisos=permisos,
+                                    created_at=datetime.datetime.now(),
+                                    updated_at=datetime.datetime.now()
+                                )
+                                session.add(nuevo_miembro)
+
+                        # Eliminar miembros que ya no están en la lista proporcionada
+                        for miembro_actual in miembros_actuales:
+                            if miembro_actual.idusuario not in [miembro['IDUsuario'] for miembro in miembros_nuevos]:
+                                session.delete(miembro_actual)
 
                 session.commit()
                 proyecto_dict = to_dict(proyecto)
@@ -795,31 +841,270 @@ class ProyectoResource(Resource):
             session.close()
 
 
+##############################################################################################################
+# GESTIÓN CRUD DE TAREAS
+##############################################################################################################
 
-# Modelo para la entidad miembro del proyecto
-miembro_proyecto_modelo = api.model('MiembroProyecto', {
-    'IDUsuario': fields.Integer(required=True, description='ID del usuario'),
-    'IDProyecto': fields.Integer(required=True, description='ID del proyecto'),
-    'Permisos': fields.String(required=True, description='Permisos del usuario en el proyecto')
-})
+ns_tarea = api.namespace('project/{id_proyecto}/tasks', path='/project/<int:id_proyecto>/tasks',
+                         description='Operaciones sobre tareas de un proyecto específico')
 
 # Modelo para la entidad tarea
 tarea_modelo = api.model('Tarea', {
     'Titulo': fields.String(required=True, description='Título de la tarea'),
-    'Descripcion': fields.String(required=False, description='Descripción de la tarea'),
-    'FechaInicio': fields.Date(required=False, description='Fecha de inicio de la tarea'),
-    'FechaFin': fields.Date(required=False, description='Fecha de fin de la tarea'),
+    'Descripcion': fields.String(description='Descripción de la tarea'),
+    'FechaInicio': fields.Date(description='Fecha de inicio de la tarea'),
+    'FechaFin': fields.Date(description='Fecha de fin de la tarea'),
     'Estado': fields.String(required=True, description='Estado de la tarea'),
-    'IDUsuario': fields.Integer(required=False, description='ID del usuario asignado a la tarea'),
-    'IDProyecto': fields.Integer(required=False, description='ID del proyecto al que pertenece la tarea')
+    'IDUsuario': fields.Integer(description='ID del usuario asignado a la tarea'),
+    'IDProyecto': fields.Integer(required=True, description='ID del proyecto al que pertenece la tarea')
 })
 
-# Modelo para la entidad comentario
-comentario_modelo = api.model('Comentario', {
-    'Contenido': fields.String(required=False, description='Contenido del comentario'),
-    'IDProyecto': fields.Integer(required=True, description='ID del proyecto al que pertenece el comentario'),
-    'IDUsuario': fields.Integer(required=True, description='ID del usuario que hizo el comentario')
-})
+
+@ns_tarea.route('/')
+class TareaList(Resource):
+    @jwt_required()
+    @ns.doc('list_tareas',
+            description='Obtiene el listado de tareas de un proyecto',
+            responses={
+                200: 'Listado de tareas obtenido exitosamente',
+                403: 'Acceso denegado',
+                404: 'Proyecto no encontrado',
+                500: 'Error interno del servidor'
+            })
+    def get(self, id_proyecto):
+        session = Session()
+        try:
+            # Verificar si el proyecto existe
+            proyecto = session.query(Proyecto).filter_by(id=id_proyecto).first()
+            if not proyecto:
+                logging.warning(f'Error en el intento de lectura de proyecto con id: {id_proyecto} no encontrado.')
+                return {'error': 'Proyecto no encontrado'}, 404
+
+            # Verificar si el usuario tiene permisos en el proyecto
+            permisos = get_permisos_proyecto(id_proyecto, session)
+            if permisos is None:
+                return {'error': 'Acceso denegado'}, 403
+
+            tareas = session.query(Tarea).filter_by(idproyecto=id_proyecto).all()
+            tareas_dict = [to_dict(tarea) for tarea in tareas]
+
+            logging.info('Listado de tareas obtenido exitosamente.')
+            return tareas_dict, 200
+        except Exception as e:
+            logging.error(f'Error al obtener el listado de tareas: {e}')
+            return {'error': str(e)}, 500
+        finally:
+            session.close()
+
+    @jwt_required()
+    @ns.expect(tarea_modelo)
+    @ns.doc('create_tarea',
+            description='Crea una nueva tarea en un proyecto',
+            responses={
+                201: 'Tarea creada exitosamente',
+                400: 'Datos inválidos',
+                403: 'Acceso denegado',
+                404: 'Proyecto no encontrado',
+                500: 'Error interno del servidor'
+            })
+    def post(self, id_proyecto):
+        data = request.get_json()
+        session = Session()
+        try:
+            # Verificar si el proyecto existe
+            proyecto = session.query(Proyecto).filter_by(id=id_proyecto).first()
+            if not proyecto:
+                logging.warning(f'Error en el intento de lectura de proyecto con id: {id_proyecto} no encontrado.')
+                return {'error': 'Proyecto no encontrado'}, 404
+
+            # Verificar si el usuario tiene permisos en el proyecto
+            permisos = get_permisos_proyecto(id_proyecto, session)
+            if permisos is None or permisos == 'lector':
+                return {'error': 'Acceso denegado'}, 403
+
+            # Verificar si el usuario asignado a la tarea existe y es miembro del proyecto
+            if 'IDUsuario' in data:
+                usuario_asignado = session.query(MiembrosProyecto).filter_by(idusuario=data.get('IDUsuario'),
+                                                                             idproyecto=id_proyecto).first()
+                if not usuario_asignado:
+                    return {'error': 'Acceso denegado para el usuario asignado'}, 403
+
+            nueva_tarea = Tarea(
+                titulo=data['Titulo'],
+                descripcion=data.get('Descripcion', ''),
+                fechainicio=data.get('FechaInicio', None),
+                fechafin=data.get('FechaFin', None),
+                estado=data['Estado'],
+                idusuario=data.get('IDUsuario', None),
+                idproyecto=id_proyecto,
+                created_at=datetime.datetime.now(),
+                updated_at=datetime.datetime.now()
+            )
+
+            session.add(nueva_tarea)
+            session.commit()
+            tarea_dict = to_dict(nueva_tarea)
+
+            logging.info(f'Tarea creada exitosamente. ID: {nueva_tarea.id}. {nueva_tarea.titulo}.')
+            return tarea_dict, 201
+        except IntegrityError as e:
+            session.rollback()
+            logging.error(f'Error de integridad en los datos introducidos al crear tarea: {e}')
+            return {'error': str(e)}, 400
+        except Exception as e:
+            session.rollback()
+            logging.error(f'Error al crear tarea: {e}')
+            return {'error': str(e)}, 500
+        finally:
+            session.close()
+
+
+@ns_tarea.route('/<int:id>')
+class TareaResource(Resource):
+    @jwt_required()
+    @ns.doc('get_tarea',
+            description='Obtiene la tarea con el id indicado, en caso de que exista',
+            responses={
+                200: 'Tarea encontrada',
+                403: 'Acceso denegado',
+                404: 'Proyecto o tarea no encontrados',
+                500: 'Error interno del servidor'
+            })
+    def get(self, id_proyecto, id):
+        session = Session()
+        try:
+            # Verificar si el proyecto y la tarea existen
+            proyecto = session.query(Proyecto).filter_by(id=id_proyecto).first()
+            if not proyecto:
+                logging.warning(f'Error en el intento de lectura de proyecto con id: {id_proyecto} no encontrado.')
+                return {'error': 'Proyecto no encontrado'}, 404
+
+            tarea = session.get(Tarea, id)
+            if not tarea:
+                logging.warning(f'Error en el intento de lectura de tarea con id: {id} no encontrada.')
+                return {'error': 'Tarea no encontrada'}, 404
+
+            # Verificar si el usuario tiene permisos en el proyecto y que la tarea pertenece al mismo
+            permisos = get_permisos_proyecto(id_proyecto, session)
+            if permisos is None or tarea.idproyecto != id_proyecto:
+                logging.warning(
+                    f'Error en el intento de lectura, la tarea con id {id} no pertenece al proyecto {id_proyecto}.')
+                return {'error': 'Acceso denegado'}, 403
+
+            tarea_dict = to_dict(tarea)
+            logging.info(f'Lectura de tarea con ID: {tarea.id}. Título: {tarea.titulo}.')
+            return tarea_dict, 200
+        except Exception as e:
+            logging.error(f'Error al obtener tarea con id {id}: {e}')
+            return {'error': str(e)}, 500
+        finally:
+            session.close()
+
+    @jwt_required()
+    @ns.expect(tarea_modelo)
+    @ns.doc('update_tarea',
+            description='Modifica los datos de la tarea con el id indicado, en caso de que exista',
+            responses={
+                200: 'Tarea actualizada exitosamente',
+                400: 'Datos inválidos',
+                403: 'Acceso denegado',
+                404: 'Proyecto o tarea no encontrados',
+                500: 'Error interno del servidor'
+            })
+    def put(self, id_proyecto, id):
+        data = request.get_json()
+        session = Session()
+        try:
+            # Verificar si el proyecto y la tarea existen
+            proyecto = session.query(Proyecto).filter_by(id=id_proyecto).first()
+            if not proyecto:
+                logging.warning(f'Error en el intento de lectura de proyecto con id: {id_proyecto} no encontrado.')
+                return {'error': 'Proyecto no encontrado'}, 404
+
+            tarea = session.get(Tarea, id)
+            if not tarea:
+                logging.warning(f'Error en el intento de actualización de tarea con id: {id} no encontrada.')
+                return {'error': 'Tarea no encontrada'}, 404
+
+            # Verificar si el usuario tiene permisos para editar el proyecto y si la tarea pertenece al mismo
+            permisos = get_permisos_proyecto(id_proyecto, session)
+            if permisos is None or permisos == 'lector' or tarea.idproyecto != id_proyecto:
+                logging.warning(
+                    f'Error en el intento de actualización, la tarea con id {id} no pertenece al proyecto {id_proyecto}.')
+                return {'error': 'Acceso denegado'}, 403
+
+            # Verificar si el usuario asignado a la tarea existe y es miembro del proyecto
+            if 'IDUsuario' in data:
+                usuario_asignado = session.query(MiembrosProyecto).filter_by(idusuario=data.get('IDUsuario'),
+                                                                             idproyecto=id_proyecto).first()
+                if not usuario_asignado:
+                    return {'error': 'Acceso denegado para el usuario asignado'}, 403
+
+            tarea.titulo = data.get('Titulo', tarea.titulo)
+            tarea.descripcion = data.get('Descripcion', tarea.descripcion)
+            tarea.fechainicio = data.get('FechaInicio', tarea.fechainicio)
+            tarea.fechafin = data.get('FechaFin', tarea.fechafin)  # null si se quiere dejar en blanco
+            tarea.estado = data.get('Estado', tarea.estado)
+            tarea.idusuario = data.get('IDUsuario', tarea.idusuario)
+            tarea.updated_at = datetime.datetime.now()
+
+            session.commit()
+            tarea_dict = to_dict(tarea)
+            logging.info(f'Tarea actualizada exitosamente. ID: {tarea.id}. {tarea.titulo}.')
+            return tarea_dict, 200
+        except Exception as e:
+            logging.error(f'Error al actualizar tarea con id {id}: {e}')
+            return {'error': str(e)}, 500
+        finally:
+            session.close()
+
+    @jwt_required()
+    @ns.doc('delete_tarea',
+            description='Elimina la tarea con el id indicado',
+            responses={
+                200: 'Tarea eliminada exitosamente',
+                403: 'Acceso denegado',
+                404: 'Proyecto o tarea no encontrados',
+                500: 'Error interno del servidor'
+            })
+    def delete(self, id_proyecto, id):
+        session = Session()
+        try:
+            # Verificar si el proyecto y la tarea existen
+            proyecto = session.query(Proyecto).filter_by(id=id_proyecto).first()
+            if not proyecto:
+                logging.warning(f'Error en el intento de lectura de proyecto con id: {id_proyecto} no encontrado.')
+                return {'error': 'Proyecto no encontrado'}, 404
+
+            tarea = session.get(Tarea, id)
+            if not tarea:
+                logging.warning(f'Error en el intento de eliminación de tarea con id: {id} no encontrada.')
+                return {'error': 'Tarea no encontrada'}, 404
+
+            # Verificar si el usuario tiene permisos de gestor en el proyecto y si la tarea pertenece al mismo
+            permisos = get_permisos_proyecto(id_proyecto, session)
+            if permisos != 'gestor' or tarea.idproyecto != id_proyecto:
+                logging.warning(
+                    f'Error en el intento de eliminación, la tarea con id {id} no pertenece al proyecto {id_proyecto}.')
+                return {'error': 'Acceso denegado'}, 403
+
+            session.delete(tarea)
+            session.commit()
+            logging.info(f'Tarea eliminada exitosamente. ID: {tarea.id}. {tarea.titulo}.')
+            return {'message': 'Tarea eliminada exitosamente'}, 200
+        except Exception as e:
+            logging.error(f'Error al eliminar tarea con id {id}: {e}')
+            return {'error': str(e)}, 500
+        finally:
+            session.close()
+
+
+##############################################################################################################
+# GESTIÓN CRUD DE COMENTARIOS
+##############################################################################################################
+
+ns_comentario = api.namespace('project/{id_proyecto}/comments', path='/project/<int:id_proyecto>/comments',
+                              description='Operaciones sobre comentarios de un proyecto específico')
 
 # Modelo para la entidad archivo
 archivo_modelo = api.model('Archivo', {
@@ -827,6 +1112,176 @@ archivo_modelo = api.model('Archivo', {
     'Ruta': fields.String(required=True, description='Ruta del archivo'),
     'IDComentario': fields.Integer(required=False, description='ID del comentario al que pertenece el archivo')
 })
+
+# Modelo para la entidad comentario
+comentario_modelo = api.model('Comentario', {
+    'Contenido': fields.String(required=False, description='Contenido del comentario'),
+    'Archivos': fields.List(fields.Nested(archivo_modelo), description='Lista de archivos adjuntos del comentario')
+})
+
+@ns_comentario.route('/')
+class ComentarioList(Resource):
+    @jwt_required()
+    @ns.doc('list_comentarios',
+            description='Obtiene el listado de comentarios de un proyecto',
+            responses={
+                200: 'Listado de comentarios obtenido exitosamente',
+                403: 'Acceso denegado',
+                404: 'Proyecto no encontrado',
+                500: 'Error interno del servidor'
+            })
+    def get(self, id_proyecto):
+        session = Session()
+        try:
+            # Verificar si el proyecto existe
+            proyecto = session.query(Proyecto).filter_by(id=id_proyecto).first()
+            if not proyecto:
+                logging.warning(f'Error en el intento de lectura de proyecto con id: {id_proyecto} no encontrado.')
+                return {'error': 'Proyecto no encontrado'}, 404
+
+            # Verificar si el usuario tiene permisos en el proyecto
+            permisos = get_permisos_proyecto(id_proyecto, session)
+            if permisos is None:
+                return {'error': 'Acceso denegado'}, 403
+
+            comentarios = session.query(Comentario).filter_by(idproyecto=id_proyecto).all()
+            comentarios_list = []
+            for comentario in comentarios:
+                comentario_dict = to_dict(comentario)
+                archivos = session.query(Archivo).filter_by(idcomentario=comentario.id).all()
+                comentario_dict['Archivos'] = [to_dict(archivo) for archivo in archivos]
+                comentarios_list.append(comentario_dict)
+
+            logging.info('Listado de comentarios obtenido exitosamente.')
+            return comentarios_list, 200
+        except Exception as e:
+            logging.error(f'Error al obtener el listado de comentarios: {e}')
+            return {'error': str(e)}, 500
+        finally:
+            session.close()
+
+    @jwt_required()
+    @ns.expect(comentario_modelo)
+    @ns.doc('create_comentario',
+            description='Crea un nuevo comentario en un proyecto',
+            responses={
+                201: 'Comentario creado exitosamente',
+                400: 'Datos inválidos',
+                403: 'Acceso denegado',
+                404: 'Proyecto no encontrado',
+                500: 'Error interno del servidor'
+            })
+    def post(self, id_proyecto):
+        data = request.get_json()
+        session = Session()
+        try:
+            # Verificar si el proyecto existe
+            proyecto = session.query(Proyecto).filter_by(id=id_proyecto).first()
+            if not proyecto:
+                logging.warning(f'Error en el intento de lectura de proyecto con id: {id_proyecto} no encontrado.')
+                return {'error': 'Proyecto no encontrado'}, 404
+
+            # Verificar si el usuario tiene permisos en el proyecto
+            usuario_actual = get_logged_user(session)
+            permisos = get_permisos_proyecto(id_proyecto, session)
+            if permisos is None:
+                return {'error': 'Acceso denegado'}, 403
+
+            nuevo_comentario = Comentario(
+                contenido=data.get('Contenido', ''),
+                idproyecto=id_proyecto,
+                idusuario=usuario_actual.id,
+                created_at=datetime.datetime.now()
+            )
+
+            session.add(nuevo_comentario)
+            session.commit()
+
+            # Procesar archivos adjuntos
+            if 'Archivos' in data:
+                for archivo_data in data['Archivos']:
+                    nuevo_archivo = Archivo(
+                        nombre=archivo_data.get('Nombre', ''),
+                        ruta=archivo_data['Ruta'],
+                        idcomentario=nuevo_comentario.id
+                    )
+                    session.add(nuevo_archivo)
+                session.commit()
+
+            comentario_dict = to_dict(nuevo_comentario)
+            archivos = session.query(Archivo).filter_by(idcomentario=nuevo_comentario.id).all()
+            comentario_dict['Archivos'] = [to_dict(archivo) for archivo in archivos]
+
+            logging.info(f'Comentario creado exitosamente. ID: {nuevo_comentario.id}.')
+            return comentario_dict, 201
+        except IntegrityError as e:
+            session.rollback()
+            logging.error(f'Error de integridad en los datos introducidos al crear comentario: {e}')
+            return {'error': str(e)}, 400
+        except Exception as e:
+            session.rollback()
+            logging.error(f'Error al crear comentario: {e}')
+            return {'error': str(e)}, 500
+        finally:
+            session.close()
+
+@ns_comentario.route('/<int:id>')
+class ComentarioResource(Resource):
+    @jwt_required()
+    @ns.doc('delete_comentario',
+            description='Elimina un comentario con el id indicado',
+            responses={
+                200: 'Comentario eliminado exitosamente',
+                403: 'Acceso denegado',
+                404: 'Proyecto o comentario no encontrado',
+                500: 'Error interno del servidor'
+            })
+    def delete(self, id_proyecto, id):
+        session = Session()
+        try:
+            # Verificar si el proyecto y el comentario existen
+            proyecto = session.query(Proyecto).filter_by(id=id_proyecto).first()
+            if not proyecto:
+                logging.warning(f'Error en el intento de lectura de proyecto con id: {id_proyecto} no encontrado.')
+                return {'error': 'Proyecto no encontrado'}, 404
+
+            comentario = session.query(Comentario).filter_by(id=id).first()
+            if not comentario:
+                logging.warning(f'Error en el intento de eliminación de comentario con id: {id} no encontrado.')
+                return {'error': 'Comentario no encontrado'}, 404
+
+            if comentario.idproyecto != id_proyecto:
+                logging.warning(f'Error en el intento de eliminación, el comentario con id {id}'
+                                f' no pertenece al proyecto {id_proyecto}.')
+                return {'error': 'Acceso denegado'}, 403
+
+            # Verificar si el usuario tiene permisos para borrar el comentario y si este pertenece al proyecto
+            # Solo los gestores pueden borrar cualquier comentario, los editores y gestores solo los suyos
+            usuario_actual = get_logged_user(session)
+            permisos = get_permisos_proyecto(id_proyecto, session)
+            if permisos is None or (permisos != 'gestor' and comentario.idusuario != usuario_actual.id):
+                logging.warning(f'Error en el intento de eliminación de comentario con id: {id} por falta de permisos.')
+                return {'error': 'Acceso denegado'}, 403
+
+            # Eliminar archivos adjuntos
+            archivos = session.query(Archivo).filter_by(idcomentario=id).all()
+            for archivo in archivos:
+                session.delete(archivo)
+
+            session.delete(comentario)
+            session.commit()
+
+            logging.info(f'Comentario eliminado exitosamente. ID: {comentario.id}.')
+            return {'message': 'Comentario eliminado exitosamente'}, 200
+        except Exception as e:
+            session.rollback()
+            logging.error(f'Error al eliminar comentario con id {id}: {e}')
+            return {'error': str(e)}, 500
+        finally:
+            session.close()
+
+
+# MODELOS PENDIENTES DE IMPLEMENTAR
 
 # Modelo para la entidad reunión
 reunion_modelo = api.model('Reunion', {
@@ -856,81 +1311,3 @@ mensaje_modelo = api.model('Mensaje', {
 if __name__ == '__main__':
     with app.app_context():
         app.run(debug=True)
-
-
-
-"""
-#######################################################################
-# GESTIÓN CRUD DE PROYECTOS
-#######################################################################
-
-ns_proyecto = api.namespace('proyecto', description='Operaciones sobre proyectos')
-
-@ns_proyecto.route('/proyectos')
-class ProyectoList(Resource):
-    def get(self):
-        session = Session(db.engine)
-        proyectos = session.query(Proyecto).all()
-        proyectos_dict = [to_dict(proyecto) for proyecto in proyectos]
-        session.close()
-        return proyectos_dict)
-
-    def post(self):
-        data = request.get_json()
-        nuevo_proyecto = Proyecto(
-            titulo=data['Titulo'],
-            descripcion=data['Descripcion'],
-            Check_activo=data['Check_activo'],
-            created_at=data['Created_at'],
-            updated_at=data['Updated_at'],
-            idcreador=data['IDCreador']
-        )
-        session = Session(db.engine)
-        session.add(nuevo_proyecto)
-        session.commit()
-        proyecto_dict = to_dict(nuevo_proyecto)
-        session.close()
-        return proyecto_dict, 201
-
-@ns_proyecto.route('/proyectos/<int:id>')
-class ProyectoResource(Resource):
-    def get(self, id):
-        session = Session(db.engine)
-        proyecto = session.query(Proyecto).get(id)
-        if proyecto:
-            proyecto_dict = to_dict(proyecto)
-            session.close()
-            return proyecto_dict)
-        else:
-            session.close()
-            return {'error': 'Proyecto no encontrado'}), 404
-
-    def put(self, id):
-        data = request.get_json()
-        session = Session(db.engine)
-        proyecto = session.query(Proyecto).get(id)
-        if not proyecto:
-            session.close()
-            return {'error': 'Proyecto no encontrado'}), 404
-        proyecto.titulo = data['Titulo']
-        proyecto.descripcion = data['Descripcion']
-        proyecto.Check_activo = data['Check_activo']
-        proyecto.updated_at = datetime.datetime.now()
-        proyecto.idcreador = data['IDCreador']
-        session.commit()
-        proyecto_dict = to_dict(proyecto)
-        session.close()
-        return proyecto_dict)
-
-    def delete(self, id):
-        session = Session(db.engine)
-        proyecto = session.query(Proyecto).get(id)
-        if not proyecto:
-            session.close()
-            return {'error': 'Proyecto no encontrado'}), 404
-        session.delete(proyecto)
-        session.commit()
-        session.close()
-        return '', 200
-
-"""

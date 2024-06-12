@@ -60,7 +60,6 @@ CREATE TABLE Comentarios (
     ID serial PRIMARY KEY,
     Contenido varchar(255),
     Created_at timestamp NOT NULL,
-    Updated_at timestamp NOT NULL,
     IDProyecto integer NOT NULL,
     IDUsuario integer NOT NULL,
     FOREIGN KEY (IDProyecto) REFERENCES Proyectos(ID),
@@ -151,9 +150,9 @@ INSERT INTO Mensajes (Asunto, Contenido, Check_Leido, Created_at, Updated_at, ID
 ('Reminder', 'Hey, I wanted to remind you of the meeting tomorrow. See you soon!', FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2, 1);
 
 -- Comentarios
-INSERT INTO Comentarios (Contenido, Created_at, Updated_at, IDProyecto, IDUsuario) VALUES
-('Os subo las 2 versiones para ver qué portada os gusta más.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1),
-('Needs some changes. I can upload the new version with the corrections tomorrow.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2, 2);
+INSERT INTO Comentarios (Contenido, Created_at, IDProyecto, IDUsuario) VALUES
+('Os subo las 2 versiones para ver qué portada os gusta más.', CURRENT_TIMESTAMP, 1, 1),
+('Needs some changes. I can upload the new version with the corrections tomorrow.', CURRENT_TIMESTAMP, 2, 2);
 
 -- Archivos
 INSERT INTO Archivos (Nombre, Ruta, IDComentario) VALUES

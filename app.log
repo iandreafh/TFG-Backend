@@ -1029,3 +1029,444 @@ FROM proyectos]
 2024-06-07 23:23:22,161 INFO:  * Restarting with stat
 2024-06-07 23:23:24,194 WARNING:  * Debugger is active!
 2024-06-07 23:23:24,201 INFO:  * Debugger PIN: 118-211-066
+2024-06-09 18:53:23,170 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-06-09 18:53:23,172 INFO: [33mPress CTRL+C to quit[0m
+2024-06-09 18:53:23,175 INFO:  * Restarting with stat
+2024-06-09 18:53:24,954 WARNING:  * Debugger is active!
+2024-06-09 18:53:24,961 INFO:  * Debugger PIN: 118-211-066
+2024-06-09 18:53:29,101 INFO: 127.0.0.1 - - [09/Jun/2024 18:53:29] "[31m[1mGET /project/proyectos HTTP/1.1[0m" 401 -
+2024-06-09 18:58:49,390 INFO: 127.0.0.1 - - [09/Jun/2024 18:58:49] "[31m[1mGET /project/proyectos HTTP/1.1[0m" 401 -
+2024-06-09 18:59:19,461 INFO: Usuario admin@gmail.com ha iniciado sesión exitosamente.
+2024-06-09 18:59:19,463 INFO: 127.0.0.1 - - [09/Jun/2024 18:59:19] "POST /auth/login HTTP/1.1" 200 -
+2024-06-09 19:16:28,310 INFO: Listado de proyectos obtenido exitosamente.
+2024-06-09 19:16:28,312 INFO: 127.0.0.1 - - [09/Jun/2024 19:16:28] "GET /project/proyectos HTTP/1.1" 200 -
+2024-06-10 21:00:41,329 INFO: 127.0.0.1 - - [10/Jun/2024 21:00:41] "[31m[1mGET /project/proyectos HTTP/1.1[0m" 401 -
+2024-06-10 21:00:55,506 WARNING: Intento fallido de inicio de sesión para el usuario usern@gmail.com.
+2024-06-10 21:00:55,508 INFO: 127.0.0.1 - - [10/Jun/2024 21:00:55] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2024-06-10 21:01:04,049 INFO: Usuario user@gmail.com ha iniciado sesión exitosamente.
+2024-06-10 21:01:04,052 INFO: 127.0.0.1 - - [10/Jun/2024 21:01:04] "POST /auth/login HTTP/1.1" 200 -
+2024-06-10 21:02:15,276 INFO: Listado de proyectos obtenido exitosamente.
+2024-06-10 21:02:15,278 INFO: 127.0.0.1 - - [10/Jun/2024 21:02:15] "GET /project/proyectos HTTP/1.1" 200 -
+2024-06-10 21:56:32,627 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-10 21:56:32,844 INFO:  * Restarting with stat
+2024-06-10 21:56:36,158 WARNING:  * Debugger is active!
+2024-06-10 21:56:36,166 INFO:  * Debugger PIN: 118-211-066
+2024-06-10 21:59:24,138 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-10 21:59:24,254 INFO:  * Restarting with stat
+2024-06-10 21:59:26,080 WARNING:  * Debugger is active!
+2024-06-10 21:59:26,087 INFO:  * Debugger PIN: 118-211-066
+2024-06-10 22:00:42,722 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-10 22:00:42,847 INFO:  * Restarting with stat
+2024-06-10 22:00:44,859 WARNING:  * Debugger is active!
+2024-06-10 22:00:44,866 INFO:  * Debugger PIN: 118-211-066
+2024-06-10 22:01:04,395 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-10 22:01:04,519 INFO:  * Restarting with stat
+2024-06-10 22:01:06,357 WARNING:  * Debugger is active!
+2024-06-10 22:01:06,364 INFO:  * Debugger PIN: 118-211-066
+2024-06-10 22:01:21,636 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-10 22:01:21,751 INFO:  * Restarting with stat
+2024-06-10 22:01:23,564 WARNING:  * Debugger is active!
+2024-06-10 22:01:23,572 INFO:  * Debugger PIN: 118-211-066
+2024-06-10 22:01:58,263 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-10 22:01:58,392 INFO:  * Restarting with stat
+2024-06-10 22:02:00,326 WARNING:  * Debugger is active!
+2024-06-10 22:02:00,333 INFO:  * Debugger PIN: 118-211-066
+2024-06-10 22:17:57,653 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-10 22:17:57,778 INFO:  * Restarting with stat
+2024-06-10 22:18:00,228 WARNING:  * Debugger is active!
+2024-06-10 22:18:00,235 INFO:  * Debugger PIN: 118-211-066
+2024-06-10 22:18:44,754 INFO: 127.0.0.1 - - [10/Jun/2024 22:18:44] "GET / HTTP/1.1" 200 -
+2024-06-10 22:18:44,968 INFO: 127.0.0.1 - - [10/Jun/2024 22:18:44] "GET /swaggerui/droid-sans.css HTTP/1.1" 200 -
+2024-06-10 22:18:45,095 INFO: 127.0.0.1 - - [10/Jun/2024 22:18:45] "GET /swaggerui/swagger-ui.css HTTP/1.1" 200 -
+2024-06-10 22:18:45,112 INFO: 127.0.0.1 - - [10/Jun/2024 22:18:45] "GET /swaggerui/swagger-ui-bundle.js HTTP/1.1" 200 -
+2024-06-10 22:18:45,166 INFO: 127.0.0.1 - - [10/Jun/2024 22:18:45] "GET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1" 200 -
+2024-06-10 22:18:45,575 INFO: 127.0.0.1 - - [10/Jun/2024 22:18:45] "GET /swagger.json HTTP/1.1" 200 -
+2024-06-10 22:18:45,580 INFO: 127.0.0.1 - - [10/Jun/2024 22:18:45] "GET /swaggerui/favicon-32x32.png HTTP/1.1" 200 -
+2024-06-10 22:20:56,593 INFO: 127.0.0.1 - - [10/Jun/2024 22:20:56] "[31m[1mPUT /project/proyectos/4 HTTP/1.1[0m" 401 -
+2024-06-10 22:21:09,680 INFO: 127.0.0.1 - - [10/Jun/2024 22:21:09] "GET / HTTP/1.1" 200 -
+2024-06-10 22:21:09,988 INFO: 127.0.0.1 - - [10/Jun/2024 22:21:09] "[36mGET /swaggerui/droid-sans.css HTTP/1.1[0m" 304 -
+2024-06-10 22:21:10,014 INFO: 127.0.0.1 - - [10/Jun/2024 22:21:10] "[36mGET /swaggerui/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-06-10 22:21:10,017 INFO: 127.0.0.1 - - [10/Jun/2024 22:21:10] "[36mGET /swaggerui/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-06-10 22:21:10,019 INFO: 127.0.0.1 - - [10/Jun/2024 22:21:10] "[36mGET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-06-10 22:21:10,470 INFO: 127.0.0.1 - - [10/Jun/2024 22:21:10] "GET /swagger.json HTTP/1.1" 200 -
+2024-06-10 22:21:10,473 INFO: 127.0.0.1 - - [10/Jun/2024 22:21:10] "[36mGET /swaggerui/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-06-10 22:21:21,696 INFO: Usuario user@gmail.com ha iniciado sesión exitosamente.
+2024-06-10 22:21:21,697 INFO: 127.0.0.1 - - [10/Jun/2024 22:21:21] "POST /auth/login HTTP/1.1" 200 -
+2024-06-10 22:25:18,492 INFO: Proyecto actualizado exitosamente: stringNuevo.
+2024-06-10 22:25:20,041 INFO: 127.0.0.1 - - [10/Jun/2024 22:25:20] "PUT /project/proyectos/4 HTTP/1.1" 200 -
+2024-06-10 22:27:27,514 INFO: Listado de proyectos obtenido exitosamente.
+2024-06-10 22:27:27,515 INFO: 127.0.0.1 - - [10/Jun/2024 22:27:27] "GET /project/proyectos HTTP/1.1" 200 -
+2024-06-10 22:27:45,594 INFO: Lectura de proyecto con ID: 4. Título: stringNuevo.
+2024-06-10 22:27:45,596 INFO: 127.0.0.1 - - [10/Jun/2024 22:27:45] "GET /project/proyectos/4 HTTP/1.1" 200 -
+2024-06-10 22:28:15,523 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-10 22:28:15,650 INFO:  * Restarting with stat
+2024-06-10 22:28:17,517 WARNING:  * Debugger is active!
+2024-06-10 22:28:17,525 INFO:  * Debugger PIN: 118-211-066
+2024-06-10 22:30:39,607 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-10 22:30:39,728 INFO:  * Restarting with stat
+2024-06-10 22:30:41,698 WARNING:  * Debugger is active!
+2024-06-10 22:30:41,704 INFO:  * Debugger PIN: 118-211-066
+2024-06-10 22:32:56,291 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-10 22:32:56,433 INFO:  * Restarting with stat
+2024-06-10 22:32:58,460 WARNING:  * Debugger is active!
+2024-06-10 22:32:58,469 INFO:  * Debugger PIN: 118-211-066
+2024-06-10 22:33:33,176 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-10 22:33:33,307 INFO:  * Restarting with stat
+2024-06-10 22:33:35,135 WARNING:  * Debugger is active!
+2024-06-10 22:33:35,142 INFO:  * Debugger PIN: 118-211-066
+2024-06-11 17:09:26,583 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-11 17:09:26,703 INFO:  * Restarting with stat
+2024-06-11 17:09:29,766 WARNING:  * Debugger is active!
+2024-06-11 17:09:29,773 INFO:  * Debugger PIN: 118-211-066
+2024-06-11 17:10:30,201 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-11 17:10:30,318 INFO:  * Restarting with stat
+2024-06-11 17:10:32,081 WARNING:  * Debugger is active!
+2024-06-11 17:10:32,088 INFO:  * Debugger PIN: 118-211-066
+2024-06-11 17:10:36,545 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-11 17:10:36,663 INFO:  * Restarting with stat
+2024-06-11 17:10:38,488 WARNING:  * Debugger is active!
+2024-06-11 17:10:38,495 INFO:  * Debugger PIN: 118-211-066
+2024-06-11 17:10:47,755 INFO: 127.0.0.1 - - [11/Jun/2024 17:10:47] "[31m[1mGET /project/proyectos/4 HTTP/1.1[0m" 401 -
+2024-06-11 17:10:51,862 INFO: Usuario user@gmail.com ha iniciado sesión exitosamente.
+2024-06-11 17:10:51,865 INFO: 127.0.0.1 - - [11/Jun/2024 17:10:51] "POST /auth/login HTTP/1.1" 200 -
+2024-06-11 17:11:06,552 INFO: Lectura de proyecto con ID: 4. Título: stringNuevo.
+2024-06-11 17:11:06,553 INFO: 127.0.0.1 - - [11/Jun/2024 17:11:06] "GET /project/proyectos/4 HTTP/1.1" 200 -
+2024-06-11 17:12:08,151 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-11 17:12:08,277 INFO:  * Restarting with stat
+2024-06-11 17:12:10,172 WARNING:  * Debugger is active!
+2024-06-11 17:12:10,179 INFO:  * Debugger PIN: 118-211-066
+2024-06-11 17:12:10,410 INFO: Lectura de proyecto con ID: 4. Título: stringNuevo.
+2024-06-11 17:12:10,412 INFO: 127.0.0.1 - - [11/Jun/2024 17:12:10] "GET /project/proyectos/4 HTTP/1.1" 200 -
+2024-06-11 17:12:11,540 INFO: Lectura de proyecto con ID: 4. Título: stringNuevo.
+2024-06-11 17:12:11,542 INFO: 127.0.0.1 - - [11/Jun/2024 17:12:11] "GET /project/proyectos/4 HTTP/1.1" 200 -
+2024-06-11 17:12:23,426 INFO: Lectura de proyecto con ID: 4. Título: stringNuevo.
+2024-06-11 17:12:23,428 INFO: 127.0.0.1 - - [11/Jun/2024 17:12:23] "GET /project/proyectos/4 HTTP/1.1" 200 -
+2024-06-11 17:42:51,117 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-11 17:42:51,247 INFO:  * Restarting with stat
+2024-06-11 17:42:53,264 WARNING:  * Debugger is active!
+2024-06-11 17:42:53,271 INFO:  * Debugger PIN: 118-211-066
+2024-06-11 18:27:38,153 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-11 18:27:38,290 INFO:  * Restarting with stat
+2024-06-11 18:27:40,122 WARNING:  * Debugger is active!
+2024-06-11 18:27:40,129 INFO:  * Debugger PIN: 118-211-066
+2024-06-11 19:20:15,319 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-11 19:20:15,472 INFO:  * Restarting with stat
+2024-06-11 19:20:18,425 WARNING:  * Debugger is active!
+2024-06-11 19:20:18,432 INFO:  * Debugger PIN: 118-211-066
+2024-06-11 19:22:06,479 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-11 19:22:06,597 INFO:  * Restarting with stat
+2024-06-11 19:22:08,440 WARNING:  * Debugger is active!
+2024-06-11 19:22:08,446 INFO:  * Debugger PIN: 118-211-066
+2024-06-11 19:29:21,868 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-11 19:29:21,988 INFO:  * Restarting with stat
+2024-06-11 19:29:23,834 WARNING:  * Debugger is active!
+2024-06-11 19:29:23,840 INFO:  * Debugger PIN: 118-211-066
+2024-06-11 19:48:54,562 INFO: Lectura de proyecto con ID: 4. Título: stringNuevo.
+2024-06-11 19:48:54,564 INFO: 127.0.0.1 - - [11/Jun/2024 19:48:54] "GET /project/proyectos/4 HTTP/1.1" 200 -
+2024-06-12 16:45:46,701 INFO: 127.0.0.1 - - [12/Jun/2024 16:45:46] "GET / HTTP/1.1" 200 -
+2024-06-12 16:45:47,122 INFO: 127.0.0.1 - - [12/Jun/2024 16:45:47] "[36mGET /swaggerui/droid-sans.css HTTP/1.1[0m" 304 -
+2024-06-12 16:45:47,137 INFO: 127.0.0.1 - - [12/Jun/2024 16:45:47] "[36mGET /swaggerui/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-06-12 16:45:47,408 INFO: 127.0.0.1 - - [12/Jun/2024 16:45:47] "[36mGET /swaggerui/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-06-12 16:45:47,474 INFO: 127.0.0.1 - - [12/Jun/2024 16:45:47] "[36mGET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-06-12 16:45:47,877 INFO: 127.0.0.1 - - [12/Jun/2024 16:45:47] "GET /swagger.json HTTP/1.1" 200 -
+2024-06-12 16:45:47,884 INFO: 127.0.0.1 - - [12/Jun/2024 16:45:47] "[36mGET /swaggerui/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-06-12 18:37:50,456 INFO: 127.0.0.1 - - [12/Jun/2024 18:37:50] "[31m[1mGET /project/1/tasks/ HTTP/1.1[0m" 401 -
+2024-06-12 18:38:20,883 INFO: Usuario user@gmail.com ha iniciado sesión exitosamente.
+2024-06-12 18:38:20,886 INFO: 127.0.0.1 - - [12/Jun/2024 18:38:20] "POST /auth/login HTTP/1.1" 200 -
+2024-06-12 18:38:34,569 INFO: 127.0.0.1 - - [12/Jun/2024 18:38:34] "[31m[1mGET /project/1/tasks/ HTTP/1.1[0m" 403 -
+2024-06-12 18:38:38,137 INFO: 127.0.0.1 - - [12/Jun/2024 18:38:38] "[35m[1mGET /project/2/tasks/ HTTP/1.1[0m" 500 -
+2024-06-12 18:39:48,357 INFO: 127.0.0.1 - - [12/Jun/2024 18:39:48] "[35m[1mGET /project/2/tasks/ HTTP/1.1[0m" 500 -
+2024-06-12 19:00:13,163 INFO: 127.0.0.1 - - [12/Jun/2024 19:00:13] "[35m[1mGET /project/2/tasks/ HTTP/1.1[0m" 500 -
+2024-06-12 19:01:12,271 INFO: 127.0.0.1 - - [12/Jun/2024 19:01:12] "[35m[1mGET /project/2/tasks/ HTTP/1.1[0m" 500 -
+2024-06-12 19:01:14,508 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 19:01:14,736 INFO:  * Restarting with stat
+2024-06-12 19:01:18,190 WARNING:  * Debugger is active!
+2024-06-12 19:01:18,197 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 19:01:50,192 INFO: 127.0.0.1 - - [12/Jun/2024 19:01:50] "GET /project/2/tasks/ HTTP/1.1" 200 -
+2024-06-12 21:05:24,196 INFO: 127.0.0.1 - - [12/Jun/2024 21:05:24] "[31m[1mGET /project/1/tasks/ HTTP/1.1[0m" 403 -
+2024-06-12 21:05:50,844 INFO: 127.0.0.1 - - [12/Jun/2024 21:05:50] "[31m[1mGET /project/19/tasks/ HTTP/1.1[0m" 403 -
+2024-06-12 21:05:57,297 INFO: Usuario user@gmail.com ha iniciado sesión exitosamente.
+2024-06-12 21:06:01,849 INFO: 127.0.0.1 - - [12/Jun/2024 21:06:01] "POST /auth/login HTTP/1.1" 200 -
+2024-06-12 21:06:18,399 INFO: 127.0.0.1 - - [12/Jun/2024 21:06:18] "[31m[1mGET /project/19/tasks/ HTTP/1.1[0m" 403 -
+2024-06-12 21:18:45,657 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 21:18:45,835 INFO:  * Restarting with stat
+2024-06-12 21:18:48,859 WARNING:  * Debugger is active!
+2024-06-12 21:18:48,866 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 21:19:41,760 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 21:19:41,887 INFO:  * Restarting with stat
+2024-06-12 21:19:44,754 WARNING:  * Debugger is active!
+2024-06-12 21:19:44,761 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 21:19:45,635 INFO: 127.0.0.1 - - [12/Jun/2024 21:19:45] "GET / HTTP/1.1" 200 -
+2024-06-12 21:19:46,095 INFO: 127.0.0.1 - - [12/Jun/2024 21:19:46] "[36mGET /swaggerui/droid-sans.css HTTP/1.1[0m" 304 -
+2024-06-12 21:19:46,292 INFO: 127.0.0.1 - - [12/Jun/2024 21:19:46] "[36mGET /swaggerui/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-06-12 21:19:46,464 INFO: 127.0.0.1 - - [12/Jun/2024 21:19:46] "[36mGET /swaggerui/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-06-12 21:19:46,512 INFO: 127.0.0.1 - - [12/Jun/2024 21:19:46] "[36mGET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-06-12 21:19:46,943 INFO: 127.0.0.1 - - [12/Jun/2024 21:19:46] "GET /swagger.json HTTP/1.1" 200 -
+2024-06-12 21:19:46,947 INFO: 127.0.0.1 - - [12/Jun/2024 21:19:46] "[36mGET /swaggerui/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-06-12 21:20:33,655 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 21:20:33,775 INFO:  * Restarting with stat
+2024-06-12 21:20:35,679 WARNING:  * Debugger is active!
+2024-06-12 21:20:35,685 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 21:20:50,926 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 21:20:51,047 INFO:  * Restarting with stat
+2024-06-12 21:20:52,963 WARNING:  * Debugger is active!
+2024-06-12 21:20:52,970 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 21:25:49,020 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 21:25:49,144 INFO:  * Restarting with stat
+2024-06-12 21:25:50,999 WARNING:  * Debugger is active!
+2024-06-12 21:25:51,008 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 21:26:21,341 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 21:26:21,471 INFO:  * Restarting with stat
+2024-06-12 21:26:23,374 WARNING:  * Debugger is active!
+2024-06-12 21:26:23,381 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 21:26:26,231 INFO: 127.0.0.1 - - [12/Jun/2024 21:26:26] "[31m[1mGET /project/2/tasks/ HTTP/1.1[0m" 401 -
+2024-06-12 21:27:19,045 INFO: 127.0.0.1 - - [12/Jun/2024 21:27:19] "GET /project/2/tasks/ HTTP/1.1" 200 -
+2024-06-12 21:27:34,362 INFO: 127.0.0.1 - - [12/Jun/2024 21:27:34] "[31m[1mGET /project/1/tasks/ HTTP/1.1[0m" 403 -
+2024-06-12 21:27:46,928 WARNING: Error en el intento de lectura de proyecto con id: <built-in function id> no encontrado.
+2024-06-12 21:27:48,754 INFO: 127.0.0.1 - - [12/Jun/2024 21:27:48] "[33mGET /project/14/tasks/ HTTP/1.1[0m" 404 -
+2024-06-12 21:28:11,711 INFO: 127.0.0.1 - - [12/Jun/2024 21:28:11] "GET /project/2/tasks/ HTTP/1.1" 200 -
+2024-06-12 21:31:17,683 INFO: Lectura de tarea con ID: 1. Título: Task 1.
+2024-06-12 21:31:17,685 INFO: 127.0.0.1 - - [12/Jun/2024 21:31:17] "GET /project/2/tasks/1 HTTP/1.1" 200 -
+2024-06-12 21:38:20,533 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 21:38:20,732 INFO:  * Restarting with stat
+2024-06-12 21:38:22,618 WARNING:  * Debugger is active!
+2024-06-12 21:38:22,625 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 21:38:41,519 INFO: 127.0.0.1 - - [12/Jun/2024 21:38:41] "[31m[1mGET /project/2/tasks/1 HTTP/1.1[0m" 403 -
+2024-06-12 21:39:23,296 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 21:39:23,436 INFO:  * Restarting with stat
+2024-06-12 21:39:25,314 WARNING:  * Debugger is active!
+2024-06-12 21:39:25,320 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 21:39:29,394 WARNING: Error en el intento de lectura, la tarea con id: 1 no pertenece al proyecto 2.
+2024-06-12 21:39:29,396 INFO: 127.0.0.1 - - [12/Jun/2024 21:39:29] "[31m[1mGET /project/2/tasks/1 HTTP/1.1[0m" 403 -
+2024-06-12 21:39:40,569 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 21:39:40,691 INFO:  * Restarting with stat
+2024-06-12 21:39:42,678 WARNING:  * Debugger is active!
+2024-06-12 21:39:42,685 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 21:39:44,119 INFO: Lectura de tarea con ID: 2. Título: Task 2.
+2024-06-12 21:39:44,121 INFO: 127.0.0.1 - - [12/Jun/2024 21:39:44] "GET /project/2/tasks/2 HTTP/1.1" 200 -
+2024-06-12 21:45:54,592 WARNING: Error en el intento de lectura de proyecto con id: <built-in function id> no encontrado.
+2024-06-12 21:45:54,594 INFO: 127.0.0.1 - - [12/Jun/2024 21:45:54] "[33mPOST /project/0/tasks/ HTTP/1.1[0m" 404 -
+2024-06-12 21:48:26,850 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 21:48:27,045 INFO:  * Restarting with stat
+2024-06-12 21:48:29,120 WARNING:  * Debugger is active!
+2024-06-12 21:48:29,127 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 21:52:25,179 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 21:52:25,360 INFO:  * Restarting with stat
+2024-06-12 21:52:27,346 WARNING:  * Debugger is active!
+2024-06-12 21:52:27,353 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 21:55:17,690 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 21:55:17,833 INFO:  * Restarting with stat
+2024-06-12 21:55:19,715 WARNING:  * Debugger is active!
+2024-06-12 21:55:19,722 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 21:55:48,534 INFO: 127.0.0.1 - - [12/Jun/2024 21:55:48] "[31m[1mPOST /project/1/tasks/ HTTP/1.1[0m" 403 -
+2024-06-12 21:55:52,131 INFO: 127.0.0.1 - - [12/Jun/2024 21:55:52] "[31m[1mPOST /project/2/tasks/ HTTP/1.1[0m" 403 -
+2024-06-12 21:56:28,994 INFO: 127.0.0.1 - - [12/Jun/2024 21:56:28] "[31m[1mPOST /project/2/tasks/ HTTP/1.1[0m" 403 -
+2024-06-12 21:57:15,940 ERROR: Error al crear tarea: 'int' object has no attribute 'id'
+2024-06-12 21:57:15,942 INFO: 127.0.0.1 - - [12/Jun/2024 21:57:15] "[35m[1mPOST /project/2/tasks/ HTTP/1.1[0m" 500 -
+2024-06-12 21:57:16,085 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 21:57:16,215 INFO:  * Restarting with stat
+2024-06-12 21:57:18,234 WARNING:  * Debugger is active!
+2024-06-12 21:57:18,240 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 21:57:29,717 INFO: 127.0.0.1 - - [12/Jun/2024 21:57:29] "[31m[1mPOST /project/2/tasks/ HTTP/1.1[0m" 403 -
+2024-06-12 21:57:50,339 INFO: Tarea creada exitosamente. ID: 3. string.
+2024-06-12 21:57:50,342 INFO: 127.0.0.1 - - [12/Jun/2024 21:57:50] "[35m[1mPOST /project/2/tasks/ HTTP/1.1[0m" 201 -
+2024-06-12 22:11:44,535 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 22:11:44,667 INFO:  * Restarting with stat
+2024-06-12 22:11:46,441 WARNING:  * Debugger is active!
+2024-06-12 22:11:46,448 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 22:11:53,041 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 22:11:53,174 INFO:  * Restarting with stat
+2024-06-12 22:11:55,137 WARNING:  * Debugger is active!
+2024-06-12 22:11:55,143 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 22:12:00,530 INFO: 127.0.0.1 - - [12/Jun/2024 22:12:00] "GET /project/2/tasks/ HTTP/1.1" 200 -
+2024-06-12 22:13:31,244 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 22:13:31,398 INFO:  * Restarting with stat
+2024-06-12 22:13:33,249 WARNING:  * Debugger is active!
+2024-06-12 22:13:33,256 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 22:13:47,421 INFO: Tarea actualizada exitosamente. ID: 3. Tarea de prueba 3.
+2024-06-12 22:13:47,425 INFO: 127.0.0.1 - - [12/Jun/2024 22:13:47] "PUT /project/2/tasks/3 HTTP/1.1" 200 -
+2024-06-12 22:14:09,855 INFO: Tarea actualizada exitosamente. ID: 3. Tarea de prueba 3.
+2024-06-12 22:14:09,856 INFO: 127.0.0.1 - - [12/Jun/2024 22:14:09] "PUT /project/2/tasks/3 HTTP/1.1" 200 -
+2024-06-12 22:15:17,129 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 22:15:17,258 INFO:  * Restarting with stat
+2024-06-12 22:15:19,181 WARNING:  * Debugger is active!
+2024-06-12 22:15:19,188 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 22:15:43,309 INFO: Tarea actualizada exitosamente. ID: 3. Tarea de prueba 3.
+2024-06-12 22:15:43,313 INFO: 127.0.0.1 - - [12/Jun/2024 22:15:43] "PUT /project/2/tasks/3 HTTP/1.1" 200 -
+2024-06-12 22:16:21,938 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 22:16:22,063 INFO:  * Restarting with stat
+2024-06-12 22:16:23,914 WARNING:  * Debugger is active!
+2024-06-12 22:16:23,921 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 22:16:25,152 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 22:16:25,277 INFO:  * Restarting with stat
+2024-06-12 22:16:27,160 WARNING:  * Debugger is active!
+2024-06-12 22:16:27,166 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 22:16:40,304 ERROR: Error al actualizar tarea con id 3: (psycopg2.errors.InvalidDatetimeFormat) la sintaxis de entrada no es válida para tipo date: «»
+LINE 1: ...ATE tareas SET fechainicio='2024-06-12', fechafin='', update...
+                                                             ^
+
+[SQL: UPDATE tareas SET fechainicio=%(fechainicio)s, fechafin=%(fechafin)s, updated_at=%(updated_at)s WHERE tareas.id = %(tareas_id)s]
+[parameters: {'fechainicio': '2024-06-12', 'fechafin': '', 'updated_at': datetime.datetime(2024, 6, 12, 22, 16, 40, 296972), 'tareas_id': 3}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2024-06-12 22:16:40,307 INFO: 127.0.0.1 - - [12/Jun/2024 22:16:40] "[35m[1mPUT /project/2/tasks/3 HTTP/1.1[0m" 500 -
+2024-06-12 22:16:57,423 INFO: Tarea actualizada exitosamente. ID: 3. Tarea de prueba 3.
+2024-06-12 22:16:57,424 INFO: 127.0.0.1 - - [12/Jun/2024 22:16:57] "PUT /project/2/tasks/3 HTTP/1.1" 200 -
+2024-06-12 22:17:24,531 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 22:17:24,715 INFO:  * Restarting with stat
+2024-06-12 22:17:26,610 WARNING:  * Debugger is active!
+2024-06-12 22:17:26,617 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 22:17:32,716 WARNING: Error en el intento de actualización, la tarea con id 3 no pertenece al proyecto 1.
+2024-06-12 22:17:32,719 INFO: 127.0.0.1 - - [12/Jun/2024 22:17:32] "[31m[1mPUT /project/1/tasks/3 HTTP/1.1[0m" 403 -
+2024-06-12 22:17:37,053 WARNING: Error en el intento de actualización de tarea con id: 4 no encontrado.
+2024-06-12 22:17:37,054 INFO: 127.0.0.1 - - [12/Jun/2024 22:17:37] "[33mPUT /project/2/tasks/4 HTTP/1.1[0m" 404 -
+2024-06-12 22:17:40,690 WARNING: Error en el intento de actualización, la tarea con id 1 no pertenece al proyecto 2.
+2024-06-12 22:17:40,691 INFO: 127.0.0.1 - - [12/Jun/2024 22:17:40] "[31m[1mPUT /project/2/tasks/1 HTTP/1.1[0m" 403 -
+2024-06-12 22:18:49,532 INFO: Tarea actualizada exitosamente. ID: 3. Tarea de prueba 3.
+2024-06-12 22:18:49,533 INFO: 127.0.0.1 - - [12/Jun/2024 22:18:49] "PUT /project/2/tasks/3 HTTP/1.1" 200 -
+2024-06-12 22:18:59,415 INFO: Tarea actualizada exitosamente. ID: 3. Tarea de prueba 3.
+2024-06-12 22:18:59,416 INFO: 127.0.0.1 - - [12/Jun/2024 22:18:59] "PUT /project/2/tasks/3 HTTP/1.1" 200 -
+2024-06-12 22:19:38,914 INFO: 127.0.0.1 - - [12/Jun/2024 22:19:38] "[31m[1mPUT /project/2/tasks/3 HTTP/1.1[0m" 403 -
+2024-06-12 22:19:57,964 INFO: 127.0.0.1 - - [12/Jun/2024 22:19:57] "[31m[1mDELETE /project/2/tasks/3 HTTP/1.1[0m" 403 -
+2024-06-12 22:21:04,466 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 22:21:04,596 INFO:  * Restarting with stat
+2024-06-12 22:21:06,389 WARNING:  * Debugger is active!
+2024-06-12 22:21:06,395 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 22:22:32,804 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 22:22:32,921 INFO:  * Restarting with stat
+2024-06-12 22:22:34,948 WARNING:  * Debugger is active!
+2024-06-12 22:22:34,955 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 22:22:46,771 WARNING: Error en el intento de eliminación, la tarea con id 3 no pertenece al proyecto 2.
+2024-06-12 22:22:46,774 INFO: 127.0.0.1 - - [12/Jun/2024 22:22:46] "[31m[1mDELETE /project/2/tasks/3 HTTP/1.1[0m" 403 -
+2024-06-12 22:23:16,783 INFO: Lectura de proyecto con ID: 2. Título: Project Beta.
+2024-06-12 22:23:16,785 INFO: 127.0.0.1 - - [12/Jun/2024 22:23:16] "GET /project/proyectos/2 HTTP/1.1" 200 -
+2024-06-12 22:23:59,476 INFO: Proyecto actualizado exitosamente: Project Beta.
+2024-06-12 22:23:59,478 INFO: 127.0.0.1 - - [12/Jun/2024 22:23:59] "PUT /project/proyectos/2 HTTP/1.1" 200 -
+2024-06-12 22:33:16,069 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 22:33:16,196 INFO:  * Restarting with stat
+2024-06-12 22:33:18,091 WARNING:  * Debugger is active!
+2024-06-12 22:33:18,098 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 22:36:38,684 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 22:36:38,821 INFO:  * Restarting with stat
+2024-06-12 22:36:40,701 WARNING:  * Debugger is active!
+2024-06-12 22:36:40,708 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 22:44:37,969 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 22:44:38,110 INFO:  * Restarting with stat
+2024-06-12 22:44:39,986 WARNING:  * Debugger is active!
+2024-06-12 22:44:39,992 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 22:49:09,313 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 22:49:09,445 INFO:  * Restarting with stat
+2024-06-12 22:49:11,274 WARNING:  * Debugger is active!
+2024-06-12 22:49:11,280 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 22:50:05,542 INFO: 127.0.0.1 - - [12/Jun/2024 22:50:05] "GET / HTTP/1.1" 200 -
+2024-06-12 22:50:05,713 INFO: 127.0.0.1 - - [12/Jun/2024 22:50:05] "[36mGET /swaggerui/droid-sans.css HTTP/1.1[0m" 304 -
+2024-06-12 22:50:05,744 INFO: 127.0.0.1 - - [12/Jun/2024 22:50:05] "[36mGET /swaggerui/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-06-12 22:50:05,871 INFO: 127.0.0.1 - - [12/Jun/2024 22:50:05] "[36mGET /swaggerui/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-06-12 22:50:05,872 INFO: 127.0.0.1 - - [12/Jun/2024 22:50:05] "[36mGET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-06-12 22:50:06,342 INFO: 127.0.0.1 - - [12/Jun/2024 22:50:06] "GET /swagger.json HTTP/1.1" 200 -
+2024-06-12 22:50:06,345 INFO: 127.0.0.1 - - [12/Jun/2024 22:50:06] "[36mGET /swaggerui/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-06-12 22:50:19,103 INFO: 127.0.0.1 - - [12/Jun/2024 22:50:19] "[31m[1mGET /project/2/comments/ HTTP/1.1[0m" 401 -
+2024-06-12 22:50:33,208 INFO: Usuario user@gmail.com ha iniciado sesión exitosamente.
+2024-06-12 22:50:33,210 INFO: 127.0.0.1 - - [12/Jun/2024 22:50:33] "POST /auth/login HTTP/1.1" 200 -
+2024-06-12 22:50:49,807 ERROR: Error al obtener el listado de comentarios: (psycopg2.errors.UndefinedColumn) no existe la columna comentarios.updated_at
+LINE 1: ...comentarios.created_at AS comentarios_created_at, comentario...
+                                                             ^
+HINT:  Probablemente quiera hacer referencia a la columna «comentarios.created_at».
+
+[SQL: SELECT comentarios.id AS comentarios_id, comentarios.contenido AS comentarios_contenido, comentarios.created_at AS comentarios_created_at, comentarios.updated_at AS comentarios_updated_at, comentarios.idproyecto AS comentarios_idproyecto, comentarios.idusuario AS comentarios_idusuario 
+FROM comentarios 
+WHERE comentarios.idproyecto = %(idproyecto_1)s]
+[parameters: {'idproyecto_1': 2}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-06-12 22:50:49,809 INFO: 127.0.0.1 - - [12/Jun/2024 22:50:49] "[35m[1mGET /project/2/comments/ HTTP/1.1[0m" 500 -
+2024-06-12 22:51:08,142 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-06-12 22:51:08,143 INFO: [33mPress CTRL+C to quit[0m
+2024-06-12 22:51:08,146 INFO:  * Restarting with stat
+2024-06-12 22:51:09,978 WARNING:  * Debugger is active!
+2024-06-12 22:51:09,985 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 22:51:11,533 INFO: 127.0.0.1 - - [12/Jun/2024 22:51:11] "GET / HTTP/1.1" 200 -
+2024-06-12 22:51:11,695 INFO: 127.0.0.1 - - [12/Jun/2024 22:51:11] "[36mGET /swaggerui/droid-sans.css HTTP/1.1[0m" 304 -
+2024-06-12 22:51:11,733 INFO: 127.0.0.1 - - [12/Jun/2024 22:51:11] "[36mGET /swaggerui/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-06-12 22:51:11,860 INFO: 127.0.0.1 - - [12/Jun/2024 22:51:11] "[36mGET /swaggerui/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-06-12 22:51:11,861 INFO: 127.0.0.1 - - [12/Jun/2024 22:51:11] "[36mGET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-06-12 22:51:12,343 INFO: 127.0.0.1 - - [12/Jun/2024 22:51:12] "GET /swagger.json HTTP/1.1" 200 -
+2024-06-12 22:51:12,346 INFO: 127.0.0.1 - - [12/Jun/2024 22:51:12] "[36mGET /swaggerui/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-06-12 22:51:28,485 INFO: 127.0.0.1 - - [12/Jun/2024 22:51:28] "GET /project/2/comments/ HTTP/1.1" 200 -
+2024-06-12 22:53:35,905 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 22:53:36,026 INFO:  * Restarting with stat
+2024-06-12 22:53:37,927 WARNING:  * Debugger is active!
+2024-06-12 22:53:37,934 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 22:53:59,298 INFO: Comentario creado exitosamente. ID: 3.
+2024-06-12 22:53:59,300 INFO: 127.0.0.1 - - [12/Jun/2024 22:53:59] "[35m[1mPOST /project/2/comments/ HTTP/1.1[0m" 201 -
+2024-06-12 22:56:38,906 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 22:56:39,027 INFO:  * Restarting with stat
+2024-06-12 22:56:40,940 WARNING:  * Debugger is active!
+2024-06-12 22:56:40,947 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 23:00:39,119 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 23:00:39,233 INFO:  * Restarting with stat
+2024-06-12 23:00:41,089 WARNING:  * Debugger is active!
+2024-06-12 23:00:41,096 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 23:03:59,324 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 23:03:59,439 INFO:  * Restarting with stat
+2024-06-12 23:04:01,320 WARNING:  * Debugger is active!
+2024-06-12 23:04:01,327 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 23:05:43,820 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 23:05:43,937 INFO:  * Restarting with stat
+2024-06-12 23:05:45,839 WARNING:  * Debugger is active!
+2024-06-12 23:05:45,846 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 23:05:48,174 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 23:05:48,325 INFO:  * Restarting with stat
+2024-06-12 23:05:50,115 WARNING:  * Debugger is active!
+2024-06-12 23:05:50,122 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 23:05:54,752 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 23:05:54,881 INFO:  * Restarting with stat
+2024-06-12 23:05:56,925 WARNING:  * Debugger is active!
+2024-06-12 23:05:56,932 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 23:06:03,509 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 23:06:03,626 INFO:  * Restarting with stat
+2024-06-12 23:06:05,549 WARNING:  * Debugger is active!
+2024-06-12 23:06:05,556 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 23:06:06,691 INFO: 127.0.0.1 - - [12/Jun/2024 23:06:06] "[31m[1mDELETE /project/2/comments/1 HTTP/1.1[0m" 403 -
+2024-06-12 23:06:44,513 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 23:06:44,645 INFO:  * Restarting with stat
+2024-06-12 23:06:46,542 WARNING:  * Debugger is active!
+2024-06-12 23:06:46,549 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 23:06:46,778 WARNING: Error en el intento de eliminación de comentario con id: 1 por falta de permisoso por no pertenecer al proyecto actual.
+2024-06-12 23:06:46,780 INFO: 127.0.0.1 - - [12/Jun/2024 23:06:46] "[31m[1mDELETE /project/2/comments/1 HTTP/1.1[0m" 403 -
+2024-06-12 23:07:03,074 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 23:07:03,198 INFO:  * Restarting with stat
+2024-06-12 23:07:05,243 WARNING:  * Debugger is active!
+2024-06-12 23:07:05,250 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 23:08:02,876 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 23:08:03,095 INFO:  * Restarting with stat
+2024-06-12 23:08:43,183 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-06-12 23:08:43,183 INFO: [33mPress CTRL+C to quit[0m
+2024-06-12 23:08:43,187 INFO:  * Restarting with stat
+2024-06-12 23:08:45,106 WARNING:  * Debugger is active!
+2024-06-12 23:08:45,113 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 23:08:54,915 WARNING: Error en el intento de eliminación de comentario, no pertenece al proyecto actual.
+2024-06-12 23:08:58,539 INFO: 127.0.0.1 - - [12/Jun/2024 23:08:58] "[31m[1mDELETE /project/2/comments/1 HTTP/1.1[0m" 403 -
+2024-06-12 23:09:29,562 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 23:09:29,688 INFO:  * Restarting with stat
+2024-06-12 23:09:31,490 WARNING:  * Debugger is active!
+2024-06-12 23:09:31,497 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 23:09:37,057 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 23:09:37,178 INFO:  * Restarting with stat
+2024-06-12 23:09:38,947 WARNING:  * Debugger is active!
+2024-06-12 23:09:38,954 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 23:10:06,044 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 23:10:06,176 INFO:  * Restarting with stat
+2024-06-12 23:10:08,114 WARNING:  * Debugger is active!
+2024-06-12 23:10:08,120 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 23:10:42,346 INFO: Comentario eliminado exitosamente. ID: 3.
+2024-06-12 23:10:47,323 INFO: 127.0.0.1 - - [12/Jun/2024 23:10:47] "DELETE /project/2/comments/3 HTTP/1.1" 200 -
+2024-06-12 23:11:03,378 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 23:11:03,499 INFO:  * Restarting with stat
+2024-06-12 23:11:05,279 WARNING:  * Debugger is active!
+2024-06-12 23:11:05,286 INFO:  * Debugger PIN: 118-211-066
+2024-06-12 23:11:18,460 INFO:  * Detected change in 'C:\\Users\\iandr\\Desktop\\UPO\\3º-4º (22-23)\\TFG\\Codigos\\MiProyectoBackend\\app.py', reloading
+2024-06-12 23:11:18,572 INFO:  * Restarting with stat
+2024-06-12 23:11:20,574 WARNING:  * Debugger is active!
+2024-06-12 23:11:20,581 INFO:  * Debugger PIN: 118-211-066
