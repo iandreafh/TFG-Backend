@@ -1,20 +1,22 @@
-import logging
 import string
+import datetime
+import random
+import logging # Para monitoreo y trazabilidad
+import bcrypt # Para hashear passwords
+import atexit # Para cerrar el scheduler
 
 from flask import Flask, request, jsonify
 from flask_restx import Api, Resource, fields
 from flask_cors import CORS
 from flask_mail import Mail, Message
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt, verify_jwt_in_request
-import bcrypt
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.inspection import inspect
 from sqlalchemy.exc import IntegrityError
 from config import DB_HOST, DB_NAME, DB_USER, DB_PASSWORD, MAIL_USERNAME, MAIL_PASSWORD, MAIL_DEFAULT_SENDER
-import datetime
-import random
+from apscheduler.schedulers.background import BackgroundScheduler
 
 # Configuración del logger
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s',
@@ -30,7 +32,7 @@ app.config['SWAGGER_UI_DOC_EXPANSION'] = 'list'
 db = SQLAlchemy(app)
 
 # Configuración de la clave secreta para JWT
-app.config['JWT_SECRET_KEY'] = 'super1998AFHk'  # Cambia esto por una clave secreta real
+app.config['JWT_SECRET_KEY'] = 'super1998AFH14w33'  # Cambia esto por una clave secreta real
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(hours=8)
 jwt = JWTManager(app)
 
@@ -52,7 +54,7 @@ with app.app_context():
     # Mapeo de tablas
     Usuario = Base.classes.usuarios
     Proyecto = Base.classes.proyectos
-    MiembrosProyecto = Base.classes.miembrosproyecto
+    MiembroProyecto = Base.classes.miembrosproyecto
     Tarea = Base.classes.tareas
     Comentario = Base.classes.comentarios
     Archivo = Base.classes.archivos
@@ -111,22 +113,27 @@ def generate_html_email(name, title, text):
     return f"""
     <html>
     <body style="font-family: Calibri; margin: 0; padding: 0;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" width="700">
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="800">
             <tr>
-                <td align="center" bgcolor="#4B62AE" style="padding: 30px 40px 25px;">
-                    <h1 style="color: white;">{title}</h1>
+                <td align="center" bgcolor="#4B62AE" style="padding: 12px 20px;">
+                    <h2 style="color: white;">{title}</h2>
                 </td>
             </tr>
             <tr>
-                <td bgcolor="#ffffff" style="padding: 40px 80px; font-size: 17px;">
+                <td bgcolor="#ffffff" style="padding: 25px 50px 15px; font-size: 17px;">
                     <p>Hola {name},</p>
-                    <p>{text}</p>
-                    <br>
-                    <p>El equipo de Panda Planning</p>
+                    <p style="margin-top: 20px;">{text}</p>
+                    <p style="margin-top: 20px;">El equipo de Panda Planning</p>
                 </td>
             </tr>
             <tr>
-                <td bgcolor="#4B62AE" style="padding: 20px 30px;">
+                <td>
+                    <p style="color: grey; text-align: center; font-size: 12px;">Recuerda que puedes dar de baja las alertas 
+                    por correo electrónico en cualquier momento desde tu perfil.</p>
+                </td>
+            </tr>
+            <tr>
+                <td bgcolor="#4B62AE" style="padding: 12px 20px;">
                     <p style="color: white; text-align: center;">&copy; 2024 Panda Planning. Todos los derechos reservados.</p>
                 </td>
             </tr>
@@ -134,6 +141,7 @@ def generate_html_email(name, title, text):
     </body>
     </html>
     """
+
 
 
 ##############################################################################################################
@@ -182,7 +190,7 @@ class Login(Resource):
             usuario = session.query(Usuario).filter_by(email=email).first()
 
             if usuario and verify_password(password, usuario.password):
-                # Verificar si el usuario está inactivo
+                # Verificar si el usuario está inactivo, para notificar y que pueda reactivar su cuenta
                 if not usuario.check_activo:
                     logging.warning(f'Intento de inicio de sesión para usuario inactivo {email}.')
                     return {'message': 'Usuario inactivo'}, 403
@@ -232,7 +240,7 @@ class ResetPassword(Resource):
     @ns.expect(reset_password_modelo)
     @ns.doc('reset_password',
             responses={
-                200: 'Contraseña reseteada y enviada exitosamente',
+                200: 'Contraseña restaurada y enviada exitosamente',
                 404: 'Usuario no encontrado',
                 500: 'Error interno del servidor'
             })
@@ -258,9 +266,10 @@ class ResetPassword(Resource):
             session.commit()
 
             # Enviar la nueva contraseña por correo electrónico
-            email_title = "Reseteo de contraseña"
+            email_title = "Nueva contraseña restaurada"
             email_text = (f"<p>Tu nueva contraseña es: <strong>{nueva_password}</strong></p>"
-                          "<p>Por favor, cambia esta contraseña después de iniciar sesión.</p>"
+                          "<p>Por favor, es importante que por motivos de seguridad "
+                          "cambies esta contraseña en tu perfil después de iniciar sesión.</p>"
                           "<p>Gracias.</p>")
             html_body = generate_html_email(usuario.nombre, email_title, email_text)
             msg = Message(subject=email_title,
@@ -269,7 +278,7 @@ class ResetPassword(Resource):
             msg.html = html_body
             mail.send(msg)
 
-            logging.info(f'Contraseña reseteada y enviada al usuario {email}.')
+            logging.info(f'Contraseña restaurada y enviada al usuario {email}.')
             return {'message': 'Nueva contraseña enviada al correo electrónico'}, 200
         except Exception as e:
             logging.error(f'Error en el reseteo de contraseña para el usuario {email}: {e}')
@@ -286,13 +295,24 @@ class SendEmailTest(Resource):
                 500: 'Error interno del servidor'
             })
     def post(self):
+        session = Session()
         try:
+            nueva_tarea = session.query(Tarea).first()
             nueva_password = "1234Test"
             # Enviar la nueva contraseña por correo electrónico
-            email_title = "Reseteo contraseña"
-            email_text = (f"<p>Tu nueva contraseña es: <strong>{nueva_password}</strong></p>"
-                          "<p>Por favor, cambia esta contraseña después de iniciar sesión.</p>"
-                          "<p>Gracias,</p>")
+            prioridad_tarea = {
+                0: "Baja",
+                1: "Media",
+                2: "Alta"
+            }
+            email_title = "Nueva tarea asignada"
+            email_text = (f"<p>Te han asignado una nueva tarea del proyecto: Proyecto Alpha </p><hr>"
+                          f"<p>&emsp; Título: <strong>{nueva_tarea.titulo}</strong></p>"
+                          f"<p>&emsp; Prioridad: {prioridad_tarea.get(nueva_tarea.prioridad)}</p>"
+                          f"<p>&emsp; Estado: {nueva_tarea.estado}</p><hr>"
+                          "<p>Puedes consultar todos los detalles a través de nuestra aplicación. "
+                          "Nos vemos pronto.</p>")
+
             html_body = generate_html_email("Andrea", email_title, email_text)
             msg = Message(email_title,
                           sender=app.config['MAIL_DEFAULT_SENDER'],
@@ -302,6 +322,7 @@ class SendEmailTest(Resource):
             return 'Mail sent!'
         except Exception as e:
             return str(e)
+
 
 ##############################################################################################################
 # GESTIÓN CRUD DE USUARIOS
@@ -314,8 +335,8 @@ usuario_modelo = api.model('Usuario', {
     'Email': fields.String(required=True, description='Email del usuario'),
     'Password': fields.String(required=True, description='Contraseña'),
     'Nombre': fields.String(required=True, description='Nombre del usuario'),
-    'Edad': fields.Integer(required=True, description='Edad del usuario'),
-    'Rol': fields.String(required=False, description='Rol del usuario'),
+    'Foto': fields.String(required=False, description='Ruta de la foto de perfil del usuario'),
+    'Rol': fields.String(required=False, description='Rol del usuario, puede ser user o admin, por defecto user'),
     'Check_activo': fields.Boolean(required=False, description='Estado activo del usuario')
 })
 
@@ -333,15 +354,15 @@ class UsuarioList(Resource):
     def get(self):
         session = Session()
         try:
-            usuarios = session.query(Usuario).all()
-            if not usuarios:
-                logging.warning(f'Error en el intento de lectura del listado de usuarios, no encontrado.')
-                return {'error': 'Listado de usuarios no encontrado'}, 404
-
             usuario_actual = get_logged_user(session)
 
             # Solo los administradores pueden obtener el listado completo
             if usuario_actual.rol == 'admin':
+                usuarios = session.query(Usuario).all()
+                if not usuarios:
+                    logging.warning(f'Error en el intento de lectura del listado de usuarios, no encontrado.')
+                    return {'error': 'Listado de usuarios no encontrado'}, 404
+
                 usuarios_dict = [to_dict(usuario) for usuario in usuarios]
                 logging.info('Listado de usuarios obtenido exitosamente.')
                 return usuarios_dict, 200
@@ -356,10 +377,12 @@ class UsuarioList(Resource):
 
 
     # No es necesario estar logueado para crear un nuevo usuario, cualquier persona puede registrarse
+    # Pero solo un administrador podrá crear a otro usuario con rol de admin
+    @jwt_required(optional=True)
     @ns.expect(usuario_modelo)
     @ns.doc('create_usuario',
             description='Crea el nuevo usuario con los datos introducidos, asignando el ID, rol, check activo y fechas por defecto,'
-                        ' en caso de que no exista ya ese email.',
+                        ' en caso de que no exista ya ese email. Si es admin si podrá asignarle el rol de admin a un nuevo usuario.',
             responses={
                 201: 'Usuario creado exitosamente',
                 400: 'Datos inválidos',
@@ -380,9 +403,11 @@ class UsuarioList(Resource):
                 email=data['Email'],
                 password=hash_password(data['Password']),  # Hashear la contraseña para almacenarla
                 nombre=data['Nombre'],
-                edad=data['Edad'],
-                # Estos valores son por defecto, no afecta lo que introduzca el usuario
-                # TODO Pendiente de evaluar si se asigna de base un rol pending hasta confirmar correo
+                foto=data.get('Foto', ''),
+                ###############################################################################################################
+                # TODO Cambiar alertas a True por defecto ANTES DE ENTREGAR PROYECTO
+                ###############################################################################################################
+                alertas=data.get('Alertas', False),
                 rol='user',
                 check_activo=True,
                 created_at=datetime.datetime.now(),
@@ -391,13 +416,15 @@ class UsuarioList(Resource):
 
             # Solo los administradores pueden asignarle cualquier rol, si no será tipo user por defecto
             try:
+                # Verifica si el token JWT está presente y es válido, si no saltará la excepción y continuará
                 verify_jwt_in_request()
                 usuario_actual = get_logged_user(session)
 
+                # Si el admin logueado asigna un rol, se incluye, si no será por defecto user
                 if usuario_actual.rol == 'admin':
                     nuevo_usuario.rol = data.get('Rol', 'user')
             except:
-                # No se requiere autenticación JWT para crear un nuevo usuario, por lo que si falla, simplemente continuamos
+                # Si no está logueado, se continúa la ejecución del proceso
                 pass
 
             session.add(nuevo_usuario)
@@ -405,19 +432,20 @@ class UsuarioList(Resource):
             usuario_dict = to_dict(nuevo_usuario)
 
             # Enviar correo electrónico de confirmación del registro
-            email_title = f"¡Bienvenido a Panda Planning, {nuevo_usuario.nombre}!"
-            email_text = (f"<h2>¡Bienvenido a Panda Planning!</h2>"
-                          "<p>Gracias por registrarte en nuestra web, a partir de ahora podrás acceder a tus proyectos"
-                          "y gestionar las tareas de forma eficiente y sincronizada, concretar reuniones "
-                          "e intercambiar mensajes con otros usuarios.</p>"
-                          "<p>Esperamos verte pronto.</p>")
-            html_body = generate_html_email(nuevo_usuario.nombre, email_title, email_text)
-            msg = Message(subject="¡Bienvenido!",
-                          sender=app.config['MAIL_DEFAULT_SENDER'],
-                          recipients=[nuevo_usuario.email])
-            msg.html = html_body
-            mail.send(msg)
-            logging.info(f'Correo de bienvenida enviado exitosamente: {nuevo_usuario.email}.')
+            if nuevo_usuario.alertas:
+                email_title = f"¡Bienvenido a Panda Planning!"
+                email_text = (f"<p>Gracias por registrarte en nuestra web, a partir de ahora podrás acceder a tus "
+                              "proyectos y gestionar las tareas y comentarios de forma eficiente, "
+                              "además de convocar reuniones e intercambiar mensajes con otros usuarios para estar"
+                              " al día. Esperamos verte pronto.</p>")
+                html_body = generate_html_email(nuevo_usuario.nombre, email_title, email_text)
+                nombre_usuario = nuevo_usuario.nombre.split()[0]
+                msg = Message(subject=f"Bienvenido a Panda Planning, {nombre_usuario}",
+                              sender=app.config['MAIL_DEFAULT_SENDER'],
+                              recipients=[nuevo_usuario.email])
+                msg.html = html_body
+                mail.send(msg)
+                logging.info(f'Correo de bienvenida enviado exitosamente: {nuevo_usuario.email}.')
 
             logging.info(f'Usuario creado exitosamente: {nuevo_usuario.email}.')
             return usuario_dict, 201
@@ -434,8 +462,9 @@ class UsuarioList(Resource):
 
 @ns_usuario.route('/usuarios/<int:id>')
 class UsuarioResource(Resource):
-    @jwt_required()
-    @ns.doc('get_usuario', description='Obtiene el usuario con el id indicado, en caso de que exista',
+    @jwt_required(optional=True)
+    @ns.doc('get_usuario', description='Obtiene los datos del usuario con el id indicado, en caso de que exista',
+            params={'id': 'ID del usuario'},
             responses={
                 200: 'Usuario encontrado',
                 403: 'Acceso denegado',
@@ -468,7 +497,8 @@ class UsuarioResource(Resource):
 
     @jwt_required()
     @ns.expect(usuario_modelo)
-    @ns.doc('update_usuario', description='Modifica los datos introducidos del usuario con el id indicado, en caso de que exista',
+    @ns.doc('update_usuario', description='Modifica los datos introducidos del usuario con el id indicado,'
+                                          ' en caso de que exista', params={'id': 'ID del usuario'},
             responses={
                 200: 'Usuario actualizado exitosamente',
                 403: 'Acceso denegado',
@@ -481,22 +511,18 @@ class UsuarioResource(Resource):
         try:
             usuario_actual = get_logged_user(session)
 
-            # Los administradores pueden modificar a cualquier usuario, el resto solo puede modificar sus propios datos
-            if usuario_actual.rol == 'admin' or usuario_actual.id == id:
+            # Solo el usuario actual puede modificar sus propios datos
+            if usuario_actual.id == id:
                 usuario = session.get(Usuario, id)
                 if not usuario:
                     logging.warning(f'Error en el intento de actualización de usuario con id {id} no encontrado.')
                     return {'error': 'Usuario no encontrado'}, 404
-                # Se actualizan solo los campos que se hayan introducido y la fecha updated_at, el resto se mantiene igual
+                # Se actualizan solo los campos que se hayan introducido y la fecha updated_at, el resto se mantiene
                 usuario.email = data.get('Email', usuario.email)
                 usuario.nombre = data.get('Nombre', usuario.nombre)
-                usuario.edad = data.get('Edad', usuario.edad)
+                usuario.foto = data.get('Foto', usuario.foto)
+                usuario.check_activo = data.get('Check_activo', usuario.check_activo)
                 usuario.updated_at = datetime.datetime.now()
-
-                # Solo los administradores pueden modificar el rol y estado activo del usuario
-                if usuario_actual.rol == 'admin':
-                    usuario.rol = data.get('Rol', usuario.rol)
-                    usuario.check_activo = data.get('Check_activo', usuario.check_activo)
 
                 session.commit()
                 usuario_dict = to_dict(usuario)
@@ -512,7 +538,8 @@ class UsuarioResource(Resource):
             session.close()
 
     @jwt_required()
-    @ns.doc('delete_usuario', description='Elimina o da de baja al usuario con el id indicado',
+    @ns.doc('delete_usuario', description='Elimina o da de baja al usuario con el id indicado en función del rol',
+            params={'id': 'ID del usuario'},
             responses={
                 200: 'Operación exitosa',
                 403: 'Acceso denegado',
@@ -530,10 +557,12 @@ class UsuarioResource(Resource):
                 if not usuario:
                     logging.warning(f'Error en el intento de eliminación de usuario con id: {id} no encontrado.')
                     return {'error': 'Usuario no encontrado'}, 404
-                session.delete(usuario)
-                session.commit()
-                logging.info(f'Usuario eliminado exitosamente por admin: {usuario.email}.')
-                return {'message': 'Usuario eliminado exitosamente'}, 200
+                # Se comprueba que el usuario no esté activo, para evitar su eliminación por error
+                if not usuario.check_activo:
+                    session.delete(usuario)
+                    session.commit()
+                    logging.info(f'Usuario eliminado exitosamente por admin: {usuario.email}.')
+                    return {'message': 'Usuario eliminado exitosamente'}, 200
             # Un usuario puede darse de baja a si mismo, pero no eliminarse
             elif usuario_actual.id == id:
                 usuario = session.get(Usuario, id)
@@ -565,9 +594,8 @@ proyecto_modelo = api.model('Proyecto', {
     'Titulo': fields.String(required=True, description='Título del proyecto'),
     'Descripcion': fields.String(description='Descripción del proyecto'),
     'Check_Activo': fields.Boolean(required=True, description='Estado activo del proyecto'),
-    'IDCreador': fields.Integer(required=True, description='ID del creador del proyecto'),
     'Miembros': fields.List(fields.Nested(api.model('Miembro', {
-        'IDUsuario': fields.Integer(required=True, description='ID del usuario'),
+        'Email': fields.String(required=True, description='Email del usuario'),
         'Permisos': fields.String(required=True, description='Permisos del usuario en el proyecto')
     })), description='Lista de miembros del proyecto')
 })
@@ -576,7 +604,7 @@ proyecto_modelo = api.model('Proyecto', {
 def get_permisos_proyecto(id_proyecto, session):
     """ Devuelve los permisos que tiene el usuario actual sobre el proyecto indicado, en caso de ser miembro """
     usuario = get_logged_user(session)
-    miembro = session.query(MiembrosProyecto).filter_by(idusuario=usuario.id, idproyecto=id_proyecto).first()
+    miembro = session.query(MiembroProyecto).filter_by(idusuario=usuario.id, idproyecto=id_proyecto).first()
 
     permisos = None
     if miembro:
@@ -589,7 +617,8 @@ def get_permisos_proyecto(id_proyecto, session):
 class ProyectoList(Resource):
     @jwt_required()
     @ns.doc('list_proyectos',
-            description='Obtiene el listado de proyectos de los que es miembro el usuario logueado o completo para los administradores',
+            description='Obtiene el listado de proyectos de los que es miembro el usuario logueado o completo'
+                        ' si es administrador',
             responses={
                 200: 'Proyectos listados exitosamente',
                 403: 'Acceso denegado',
@@ -607,7 +636,7 @@ class ProyectoList(Resource):
             else:
                 proyectos = session.query(Proyecto).filter(
                     (Proyecto.id.in_(
-                        session.query(MiembrosProyecto.idproyecto).filter_by(idusuario=usuario_actual.id)
+                        session.query(MiembroProyecto.idproyecto).filter_by(idusuario=usuario_actual.id)
                     ))
                 ).all()
 
@@ -637,11 +666,13 @@ class ProyectoList(Resource):
         data = request.get_json()
         session = Session()
         try:
+            usuario_actual = get_logged_user(session)
+
             nuevo_proyecto = Proyecto(
                 titulo=data['Titulo'],
                 descripcion=data.get('Descripcion', ''),
-                check_activo=True,
-                idcreador=get_jwt()['sub'],
+                check_activo=data['Check_Activo'],
+                idcreador=usuario_actual.id,
                 created_at=datetime.datetime.now(),
                 updated_at=datetime.datetime.now()
             )
@@ -651,14 +682,61 @@ class ProyectoList(Resource):
             proyecto_dict = to_dict(nuevo_proyecto)
 
             # Se añade al usuario creador como miembro del proyecto con permisos de gestor
-            nuevo_miembro_proyecto = MiembrosProyecto(
-                idusuario=nuevo_proyecto.idcreador,
+            nuevo_miembro_proyecto = MiembroProyecto(
+                idusuario=usuario_actual.id,
                 idproyecto=nuevo_proyecto.id,
                 permisos='gestor',
                 created_at=datetime.datetime.now(),
                 updated_at=datetime.datetime.now()
             )
             session.add(nuevo_miembro_proyecto)
+
+            # Añadir otros miembros proporcionados en la solicitud
+            if 'Miembros' in data:
+                for miembro in data['Miembros']:
+                    email = miembro['Email']
+                    permisos = miembro['Permisos']
+                    usuario_miembro = session.query(Usuario).filter_by(email=email).first()
+                    if not usuario_miembro:
+                        logging.warning(f'Error al intentar añadir miembro. Email no encontrado: {email}')
+                        return {'error': f'Email de miembro no encontrado: {email}'}, 404
+
+                    nuevo_miembro = MiembroProyecto(
+                        idusuario=usuario_miembro.id,
+                        idproyecto=nuevo_proyecto.id,
+                        permisos=permisos,
+                        created_at=datetime.datetime.now(),
+                        updated_at=datetime.datetime.now()
+                    )
+                    session.add(nuevo_miembro)
+
+                    # Enviar mensaje a cada nuevo miembro
+                    mensaje = Mensaje(
+                        asunto='Nuevo proyecto',
+                        contenido=f'{usuario_actual.nombre} te ha invitado a un nuevo proyecto: {nuevo_proyecto.titulo}.'
+                                  f' Ya puedes acceder a él desde tu workspace.',
+                        check_leido=False,
+                        created_at=datetime.datetime.now(),
+                        updated_at=datetime.datetime.now(),
+                        idemisor=usuario_actual.id,
+                        idreceptor=usuario_miembro.id
+                    )
+                    session.add(mensaje)
+
+                    # Se notifica por email si el nuevo miembro tiene activadas las alertas
+                    if usuario_miembro.alertas:
+                        email_title = "Nueva invitación a proyecto"
+                        email_text = (f"<p>{usuario_actual.nombre} te ha invitado a un nuevo proyecto:"
+                                      f" <strong>{nuevo_proyecto.titulo}</strong></p>"
+                                      "<p>Puedes consultar todos los detalles a través de nuestra aplicación. "
+                                      "Nos vemos pronto.</p>")
+                        html_body = generate_html_email(usuario_miembro.nombre, email_title, email_text)
+                        msg = Message(subject=email_title,
+                                      sender=app.config['MAIL_DEFAULT_SENDER'],
+                                      recipients=[email])
+                        msg.html = html_body
+                        mail.send(msg)
+
             session.commit()
 
             logging.info(f'Proyecto creado exitosamente. ID: {nuevo_proyecto.id}. {nuevo_proyecto.titulo}.')
@@ -678,6 +756,7 @@ class ProyectoList(Resource):
 class ProyectoResource(Resource):
     @jwt_required()
     @ns.doc('get_proyecto', description='Obtiene el proyecto con el id indicado, en caso de que exista',
+            params={'id': 'ID del proyecto'},
             responses={
                 200: 'Proyecto encontrado',
                 403: 'Acceso denegado',
@@ -689,8 +768,8 @@ class ProyectoResource(Resource):
         try:
             usuario_actual = get_logged_user(session)
 
-            # Solo los administradores o miembros pueden acceder a un proyecto
-            if (usuario_actual.rol == "admin" or get_permisos_proyecto(id, session) is not None):
+            # Solo los miembros del proyecto pueden acceder
+            if get_permisos_proyecto(id, session) is not None:
 
                 proyecto = session.get(Proyecto, id)
                 if not proyecto:
@@ -698,7 +777,7 @@ class ProyectoResource(Resource):
                     return {'error': 'Proyecto no encontrado'}, 404
 
                 # Obtener la lista de miembros del proyecto con su nombre y su email
-                miembros = session.query(MiembrosProyecto).filter_by(idproyecto=id).all()
+                miembros = session.query(MiembroProyecto).filter_by(idproyecto=id).all()
                 miembros_list = []
                 for miembro in miembros:
                     usuario = session.get(Usuario, miembro.idusuario)
@@ -728,7 +807,7 @@ class ProyectoResource(Resource):
     @ns.expect(proyecto_modelo)
     @ns.doc('update_proyecto',
             description='Modifica los datos introducidos del proyecto con el id indicado, en caso de que exista'
-                        'y que el usuario sea un miembro con permisos de editor o gestor',
+                        'y que el usuario sea un miembro con permisos de editor o gestor', params={'id': 'ID del proyecto'},
             responses={
                 200: 'Proyecto actualizado exitosamente',
                 403: 'Acceso denegado',
@@ -746,7 +825,7 @@ class ProyectoResource(Resource):
 
                 proyecto = session.get(Proyecto, id)
                 if not proyecto:
-                    logging.warning(f'Error en el intento de eliminación de proyecto con id: {id} no encontrado.')
+                    logging.warning(f'Error en el intento de actualización de proyecto con id: {id} no encontrado.')
                     return {'error': 'Proyecto no encontrado'}, 404
 
                 proyecto.titulo = data.get('Titulo', proyecto.titulo)
@@ -760,19 +839,24 @@ class ProyectoResource(Resource):
                     # Actualizar la lista de miembros si se proporciona
                     if 'Miembros' in data:
                         miembros_nuevos = data['Miembros']
-                        miembros_actuales = session.query(MiembrosProyecto).filter_by(idproyecto=id).all()
+                        miembros_actuales = session.query(MiembroProyecto).filter_by(idproyecto=id).all()
                         miembros_actuales_dict = {miembro.idusuario: miembro for miembro in miembros_actuales}
 
                         # Actualizar miembros existentes y agregar nuevos miembros
                         for miembro in miembros_nuevos:
-                            id_usuario = miembro['IDUsuario']
+                            email = miembro['Email']
                             permisos = miembro['Permisos']
-                            if id_usuario in miembros_actuales_dict:
-                                miembros_actuales_dict[id_usuario].permisos = permisos
-                                miembros_actuales_dict[id_usuario].updated_at = datetime.datetime.now()
+                            participante = session.query(Usuario).filter_by(email=email).first()
+                            if not participante:
+                                logging.warning(f'Error al intentar añadir miembro. Email no encontrado: {email}')
+                                return {'error': f'Email de miembro no encontrado: {email}'}, 404
+
+                            if participante.id in miembros_actuales_dict:
+                                miembros_actuales_dict[participante.id].permisos = permisos
+                                miembros_actuales_dict[participante.id].updated_at = datetime.datetime.now()
                             else:
-                                nuevo_miembro = MiembrosProyecto(
-                                    idusuario=id_usuario,
+                                nuevo_miembro = MiembroProyecto(
+                                    idusuario=participante.id,
                                     idproyecto=id,
                                     permisos=permisos,
                                     created_at=datetime.datetime.now(),
@@ -782,7 +866,7 @@ class ProyectoResource(Resource):
 
                         # Eliminar miembros que ya no están en la lista proporcionada
                         for miembro_actual in miembros_actuales:
-                            if miembro_actual.idusuario not in [miembro['IDUsuario'] for miembro in miembros_nuevos]:
+                            if miembro_actual.idusuario not in [session.query(Usuario).filter_by(email=miembro['Email']).first().id for miembro in miembros_nuevos]:
                                 session.delete(miembro_actual)
 
                 session.commit()
@@ -800,7 +884,8 @@ class ProyectoResource(Resource):
             session.close()
 
     @jwt_required()
-    @ns.doc('delete_proyecto', description='Elimina o desactiva el proyecto con el id indicado',
+    @ns.doc('delete_proyecto', description='Elimina o desactiva el proyecto con el id indicado en función del rol',
+            params={'id': 'ID del proyecto'},
             responses={
                 200: 'Operación exitosa',
                 403: 'Acceso denegado',
@@ -812,7 +897,8 @@ class ProyectoResource(Resource):
         try:
             usuario_actual = get_logged_user(session)
 
-            # Solo los administradores pueden eliminar un proyecto, los miembros con permisos de gestor pueden darlo de baja
+            # Solo los administradores pueden eliminar un proyecto
+            # Los miembros con permisos de gestor pueden darlo de baja
             if (usuario_actual.rol == "admin" or get_permisos_proyecto(id, session) == "gestor"):
 
                 proyecto = session.get(Proyecto, id)
@@ -820,7 +906,8 @@ class ProyectoResource(Resource):
                     logging.warning(f'Error en el intento de eliminación de proyecto con id: {id} no encontrado.')
                     return {'error': 'Proyecto no encontrado'}, 404
 
-                if usuario_actual.rol == 'admin':
+                # Se comprueba que el proyecto no esté activo, para evitar su eliminación por error
+                if usuario_actual.rol == 'admin' and not proyecto.check_activo:
                     session.delete(proyecto)
                     session.commit()
                     logging.info(f'Proyecto eliminado exitosamente. ID: {proyecto.id}. {proyecto.titulo}.')
@@ -841,6 +928,7 @@ class ProyectoResource(Resource):
             session.close()
 
 
+
 ##############################################################################################################
 # GESTIÓN CRUD DE TAREAS
 ##############################################################################################################
@@ -854,9 +942,9 @@ tarea_modelo = api.model('Tarea', {
     'Descripcion': fields.String(description='Descripción de la tarea'),
     'FechaInicio': fields.Date(description='Fecha de inicio de la tarea'),
     'FechaFin': fields.Date(description='Fecha de fin de la tarea'),
-    'Estado': fields.String(required=True, description='Estado de la tarea'),
-    'IDUsuario': fields.Integer(description='ID del usuario asignado a la tarea'),
-    'IDProyecto': fields.Integer(required=True, description='ID del proyecto al que pertenece la tarea')
+    'Prioridad': fields.Integer(required=True, description='Prioridad de la tarea: 0 = Baja, 1 = Media, 2 = Alta'),
+    'Estado': fields.String(description='Estado de la tarea: To do, In progress, Blocked, Done'),
+    'IDUsuario': fields.Integer(description='ID del usuario asignado a la tarea')
 })
 
 
@@ -864,7 +952,8 @@ tarea_modelo = api.model('Tarea', {
 class TareaList(Resource):
     @jwt_required()
     @ns.doc('list_tareas',
-            description='Obtiene el listado de tareas de un proyecto',
+            description='Obtiene el listado de tareas de un proyecto ordenadas por estado y prioridad',
+            params={'id_proyecto': 'ID del proyecto'},
             responses={
                 200: 'Listado de tareas obtenido exitosamente',
                 403: 'Acceso denegado',
@@ -885,7 +974,8 @@ class TareaList(Resource):
             if permisos is None:
                 return {'error': 'Acceso denegado'}, 403
 
-            tareas = session.query(Tarea).filter_by(idproyecto=id_proyecto).all()
+            tareas = (session.query(Tarea).filter_by(idproyecto=id_proyecto)
+                      .order_by(Tarea.estado, Tarea.prioridad.desc()).all())
             tareas_dict = [to_dict(tarea) for tarea in tareas]
 
             logging.info('Listado de tareas obtenido exitosamente.')
@@ -899,7 +989,7 @@ class TareaList(Resource):
     @jwt_required()
     @ns.expect(tarea_modelo)
     @ns.doc('create_tarea',
-            description='Crea una nueva tarea en un proyecto',
+            description='Crea una nueva tarea en un proyecto', params={'id_proyecto': 'ID del proyecto'},
             responses={
                 201: 'Tarea creada exitosamente',
                 400: 'Datos inválidos',
@@ -924,7 +1014,7 @@ class TareaList(Resource):
 
             # Verificar si el usuario asignado a la tarea existe y es miembro del proyecto
             if 'IDUsuario' in data:
-                usuario_asignado = session.query(MiembrosProyecto).filter_by(idusuario=data.get('IDUsuario'),
+                usuario_asignado = session.query(MiembroProyecto).filter_by(idusuario=data.get('IDUsuario'),
                                                                              idproyecto=id_proyecto).first()
                 if not usuario_asignado:
                     return {'error': 'Acceso denegado para el usuario asignado'}, 403
@@ -934,6 +1024,7 @@ class TareaList(Resource):
                 descripcion=data.get('Descripcion', ''),
                 fechainicio=data.get('FechaInicio', None),
                 fechafin=data.get('FechaFin', None),
+                prioridad=data['Prioridad'],
                 estado=data['Estado'],
                 idusuario=data.get('IDUsuario', None),
                 idproyecto=id_proyecto,
@@ -944,6 +1035,28 @@ class TareaList(Resource):
             session.add(nueva_tarea)
             session.commit()
             tarea_dict = to_dict(nueva_tarea)
+
+            if usuario_asignado:
+                # Se notifica por email si el usuario asignado tiene activadas las alertas
+                if usuario_asignado.alertas:
+                    prioridad_tarea = {
+                        0: "Baja",
+                        1: "Media",
+                        2: "Alta"
+                    }
+                    email_title = "Nueva tarea asignada"
+                    email_text = (f"<p>Te han asignado una nueva tarea del proyecto: {proyecto.titulo} </p><hr>"
+                                  f"<p>&emsp; Título: <strong>{nueva_tarea.titulo}</strong></p>"
+                                  f"<p>&emsp; Prioridad: {prioridad_tarea.get(nueva_tarea.prioridad)}</p>"
+                                  f"<p>&emsp; Estado: {nueva_tarea.estado}</p><hr>"
+                                  "<p>Puedes consultar todos los detalles a través de nuestra aplicación. "
+                                      "Nos vemos pronto.</p>")
+                    html_body = generate_html_email(usuario_asignado.nombre, email_title, email_text)
+                    msg = Message(subject=email_title,
+                                  sender=app.config['MAIL_DEFAULT_SENDER'],
+                                  recipients=[usuario_asignado.email])
+                    msg.html = html_body
+                    mail.send(msg)
 
             logging.info(f'Tarea creada exitosamente. ID: {nueva_tarea.id}. {nueva_tarea.titulo}.')
             return tarea_dict, 201
@@ -964,6 +1077,7 @@ class TareaResource(Resource):
     @jwt_required()
     @ns.doc('get_tarea',
             description='Obtiene la tarea con el id indicado, en caso de que exista',
+            params={'id_proyecto': 'ID del proyecto', 'id': 'ID de la tarea'},
             responses={
                 200: 'Tarea encontrada',
                 403: 'Acceso denegado',
@@ -1004,6 +1118,7 @@ class TareaResource(Resource):
     @ns.expect(tarea_modelo)
     @ns.doc('update_tarea',
             description='Modifica los datos de la tarea con el id indicado, en caso de que exista',
+            params={'id_proyecto': 'ID del proyecto', 'id': 'ID de la tarea'},
             responses={
                 200: 'Tarea actualizada exitosamente',
                 400: 'Datos inválidos',
@@ -1035,7 +1150,7 @@ class TareaResource(Resource):
 
             # Verificar si el usuario asignado a la tarea existe y es miembro del proyecto
             if 'IDUsuario' in data:
-                usuario_asignado = session.query(MiembrosProyecto).filter_by(idusuario=data.get('IDUsuario'),
+                usuario_asignado = session.query(MiembroProyecto).filter_by(idusuario=data.get('IDUsuario'),
                                                                              idproyecto=id_proyecto).first()
                 if not usuario_asignado:
                     return {'error': 'Acceso denegado para el usuario asignado'}, 403
@@ -1044,6 +1159,7 @@ class TareaResource(Resource):
             tarea.descripcion = data.get('Descripcion', tarea.descripcion)
             tarea.fechainicio = data.get('FechaInicio', tarea.fechainicio)
             tarea.fechafin = data.get('FechaFin', tarea.fechafin)  # null si se quiere dejar en blanco
+            tarea.prioridad = data.get('Prioridad', tarea.prioridad)
             tarea.estado = data.get('Estado', tarea.estado)
             tarea.idusuario = data.get('IDUsuario', tarea.idusuario)
             tarea.updated_at = datetime.datetime.now()
@@ -1061,6 +1177,7 @@ class TareaResource(Resource):
     @jwt_required()
     @ns.doc('delete_tarea',
             description='Elimina la tarea con el id indicado',
+            params={'id_proyecto': 'ID del proyecto', 'id': 'ID de la tarea'},
             responses={
                 200: 'Tarea eliminada exitosamente',
                 403: 'Acceso denegado',
@@ -1099,6 +1216,7 @@ class TareaResource(Resource):
             session.close()
 
 
+
 ##############################################################################################################
 # GESTIÓN CRUD DE COMENTARIOS
 ##############################################################################################################
@@ -1123,7 +1241,7 @@ comentario_modelo = api.model('Comentario', {
 class ComentarioList(Resource):
     @jwt_required()
     @ns.doc('list_comentarios',
-            description='Obtiene el listado de comentarios de un proyecto',
+            description='Obtiene el listado de comentarios de un proyecto', params={'id_proyecto': 'ID del proyecto'},
             responses={
                 200: 'Listado de comentarios obtenido exitosamente',
                 403: 'Acceso denegado',
@@ -1163,7 +1281,7 @@ class ComentarioList(Resource):
     @jwt_required()
     @ns.expect(comentario_modelo)
     @ns.doc('create_comentario',
-            description='Crea un nuevo comentario en un proyecto',
+            description='Crea un nuevo comentario en un proyecto', params={'id_proyecto': 'ID del proyecto'},
             responses={
                 201: 'Comentario creado exitosamente',
                 400: 'Datos inválidos',
@@ -1230,6 +1348,7 @@ class ComentarioResource(Resource):
     @jwt_required()
     @ns.doc('delete_comentario',
             description='Elimina un comentario con el id indicado',
+            params={'id_proyecto': 'ID del proyecto','id': 'ID del comentario'},
             responses={
                 200: 'Comentario eliminado exitosamente',
                 403: 'Acceso denegado',
@@ -1250,6 +1369,7 @@ class ComentarioResource(Resource):
                 logging.warning(f'Error en el intento de eliminación de comentario con id: {id} no encontrado.')
                 return {'error': 'Comentario no encontrado'}, 404
 
+            # Verificar que el comentario pertenece a ese proyecto
             if comentario.idproyecto != id_proyecto:
                 logging.warning(f'Error en el intento de eliminación, el comentario con id {id}'
                                 f' no pertenece al proyecto {id_proyecto}.')
@@ -1281,33 +1401,573 @@ class ComentarioResource(Resource):
             session.close()
 
 
-# MODELOS PENDIENTES DE IMPLEMENTAR
+
+##############################################################################################################
+# GESTIÓN CRUD DE MENSAJES
+##############################################################################################################
+
+ns_mensaje = api.namespace('messages', description='Operaciones sobre mensajes entre usuarios')
+
+# Modelo para la entidad mensaje
+mensaje_modelo = api.model('Mensaje', {
+    'EmailReceptor': fields.String(required=True, description='Email del receptor del mensaje'),
+    'Asunto': fields.String(required=True, description='Asunto del mensaje'),
+    'Contenido': fields.String(required=True, description='Contenido del mensaje')
+})
+
+@ns_mensaje.route('/chats')
+class ChatList(Resource):
+    @jwt_required()
+    @ns.doc('list_chats', description='Obtiene el listado de chats del usuario logueado con el último mensaje',
+            responses={
+                200: 'Listado de chats obtenido exitosamente',
+                403: 'Acceso denegado',
+                500: 'Error interno del servidor'
+            })
+    def get(self):
+        session = Session()
+        try:
+            usuario_actual = get_logged_user(session)
+
+            # Obtener los mensajes donde el usuario actual sea emisor o receptor
+            mensajes = session.query(Mensaje).filter(
+                (Mensaje.idemisor == usuario_actual.id) | (Mensaje.idreceptor == usuario_actual.id)
+            ).order_by(Mensaje.created_at.desc()).all()
+
+            # Almaceno los id de los usuarios con los que comparte el chat, para listarlos
+            chats_dict = {}
+            for mensaje in mensajes:
+                if mensaje.idemisor != usuario_actual.id:
+                    otro_usuario_id = mensaje.idemisor
+                else:
+                    otro_usuario_id = mensaje.idreceptor
+
+                # Filtrar los distintos usuarios por orden de recientes
+                if otro_usuario_id not in chats_dict:
+                    otro_usuario = session.query(Usuario).filter_by(id=otro_usuario_id).first()
+                    chats_dict[otro_usuario_id] = {
+                        'IDUsuario': otro_usuario.id,
+                        'Email': otro_usuario.email,
+                        'Nombre': otro_usuario.nombre,
+                        'Foto': otro_usuario.foto,
+                        'UltimoMensaje': mensaje.created_at.isoformat(),
+                        'Leido': mensaje.check_leido
+                    }
+
+            chats_list = [{'IDUsuario': key, **value} for key, value in chats_dict.items()]
+            return chats_list, 200
+        except Exception as e:
+            logging.error(f'Error al obtener el listado de chats: {e}')
+            return {'error': str(e)}, 500
+        finally:
+            session.close()
+
+@ns_mensaje.route('/chats/<int:id_usuario>')
+class ChatResource(Resource):
+    @jwt_required()
+    @ns.doc('get_chat', description='Obtiene el chat con un usuario específico', params={'id_usuario': 'ID del usuario'},
+            responses={
+                200: 'Chat obtenido exitosamente',
+                403: 'Acceso denegado',
+                404: 'Usuario no encontrado',
+                500: 'Error interno del servidor'
+            })
+    def get(self, id_usuario):
+        session = Session()
+        try:
+            usuario_actual = get_logged_user(session)
+
+            # Verificar si el usuario receptor existe
+            receptor = session.query(Usuario).filter_by(id=id_usuario).first()
+            if not receptor:
+                logging.warning(f'Error en el intento de lectura de usuario con id: {id_usuario} no encontrado.')
+                return {'error': 'Usuario no encontrado'}, 404
+
+            # Obtener los mensajes entre los dos usuarios
+            mensajes = session.query(Mensaje).filter(
+                ((Mensaje.idemisor == usuario_actual.id) & (Mensaje.idreceptor == id_usuario)) |
+                ((Mensaje.idemisor == id_usuario) & (Mensaje.idreceptor == usuario_actual.id))
+            ).order_by(Mensaje.created_at.desc()).all()
+
+            # Marcar como leídos los mensajes recibidos por el usuario actual
+            for mensaje in mensajes:
+                if mensaje.idreceptor == usuario_actual.id and not mensaje.check_leido:
+                    mensaje.check_leido = True
+            session.commit()
+
+            mensajes_dict = [to_dict(mensaje) for mensaje in mensajes]
+            return mensajes_dict, 200
+        except Exception as e:
+            logging.error(f'Error al obtener el chat con el usuario {id_usuario}: {e}')
+            return {'error': str(e)}, 500
+        finally:
+            session.close()
+
+@ns_mensaje.route('/')
+class MensajeSend(Resource):
+    @jwt_required()
+    @ns.expect(mensaje_modelo)
+    @ns.doc('send_mensaje',
+            description='Envía un mensaje a otro usuario o hace un comunicado general si el emisor es administrador',
+            responses={
+                201: 'Mensaje enviado exitosamente',
+                400: 'Datos inválidos',
+                403: 'Acceso denegado',
+                404: 'Usuario receptor no encontrado',
+                500: 'Error interno del servidor'
+            })
+    def post(self):
+        data = request.get_json()
+        session = Session()
+        try:
+            usuario_actual = get_logged_user(session)
+
+            # Verificar si el usuario es administrador
+            if usuario_actual.rol == 'admin':
+                # Enviar mensaje a todos los usuarios excepto otros administradores
+                usuarios_receptores = session.query(Usuario).filter(Usuario.rol != 'admin').all()
+                if not usuarios_receptores:
+                    logging.warning('No hay usuarios disponibles para enviar el comunicado.')
+                    return {'error': 'No hay usuarios disponibles para enviar el comunicado'}, 404
+
+                for receptor in usuarios_receptores:
+                    nuevo_mensaje = Mensaje(
+                        asunto=data['Asunto'],
+                        contenido=data['Contenido'],
+                        check_leido=False,
+                        created_at=datetime.datetime.now(),
+                        updated_at=datetime.datetime.now(),
+                        idemisor=usuario_actual.id,
+                        idreceptor=receptor.id
+                    )
+                    session.add(nuevo_mensaje)
+
+                session.commit()
+
+                # TODO Añadir email si tiene alertas activadas
+
+                logging.info(f'Comunicado enviado exitosamente por administrador con id: {usuario_actual.id}.')
+                return {'message': 'Comunicado enviado exitosamente'}, 201
+
+            # Si el usuario no es administrador, se envía un mensaje individual entre usuarios
+            # Verificar si el receptor existe mediante el correo electrónico
+            receptor = session.query(Usuario).filter_by(email=data['EmailReceptor']).first()
+            if not receptor:
+                logging.warning(f'Error en el intento de envío de mensaje. '
+                                f'Usuario receptor con email: {data["EmailReceptor"]} no encontrado.')
+                return {'error': 'Usuario receptor no encontrado'}, 404
+
+            # Verificar si el usuario receptor no es el mismo que el emisor
+            if usuario_actual.id == receptor.id:
+                logging.warning(f'Error en el intento de envío de mensaje. Usuario con email: {data["EmailReceptor"]} '
+                                f'ha intentado enviarse un mensaje a sí mismo.')
+                return {'error': 'Usuario emisor y receptor idénticos'}, 400
+
+            nuevo_mensaje = Mensaje(
+                asunto=data['Asunto'],
+                contenido=data['Contenido'],
+                check_leido=False,
+                created_at=datetime.datetime.now(),
+                updated_at=datetime.datetime.now(),
+                idemisor=usuario_actual.id,
+                idreceptor=receptor.id
+            )
+
+            session.add(nuevo_mensaje)
+            session.commit()
+            mensaje_dict = to_dict(nuevo_mensaje)
+
+            logging.info(f'Mensaje enviado exitosamente. ID: {nuevo_mensaje.id}.')
+            return mensaje_dict, 201
+        except IntegrityError as e:
+            session.rollback()
+            logging.error(f'Error de integridad en los datos introducidos al enviar mensaje: {e}')
+            return {'error': str(e)}, 400
+        except Exception as e:
+            session.rollback()
+            logging.error(f'Error al enviar mensaje: {e}')
+            return {'error': str(e)}, 500
+        finally:
+            session.close()
+
+
+
+##############################################################################################################
+# GESTIÓN CRUD DE REUNIONES
+##############################################################################################################
+
+ns_reunion = api.namespace('meetings', description='Operaciones sobre reuniones')
 
 # Modelo para la entidad reunión
 reunion_modelo = api.model('Reunion', {
     'Titulo': fields.String(required=True, description='Título de la reunión'),
-    'Descripcion': fields.String(required=False, description='Descripción de la reunión'),
-    'FechaHora': fields.DateTime(required=True, description='Fecha y hora de la reunión')
+    'Descripcion': fields.String(description='Descripción de la reunión'),
+    'FechaHora': fields.DateTime(required=True, description='Fecha y hora de la reunión'),
+    'Duracion': fields.Integer(required=True, description='Duración de la reunión en minutos'),
+    'Modalidad': fields.String(required=True, description='Modalidad de la reunión: presencial, virtual o hibrido'),
+    'Participantes': fields.List(fields.String, required=True, description='Lista de correos electrónicos de los participantes')
 })
 
-# Modelo para la entidad participante de la reunión
-participante_reunion_modelo = api.model('ParticipanteReunion', {
-    'IDReunion': fields.Integer(required=True, description='ID de la reunión'),
-    'IDUsuario': fields.Integer(required=True, description='ID del usuario participante'),
-    'Aceptada': fields.String(required=True, description='Estado de aceptación del usuario')
-})
+@ns_reunion.route('/')
+class ReunionesList(Resource):
+    @jwt_required()
+    @ns.doc('list_reuniones', description='Obtiene el listado de reuniones del usuario logueado',
+            responses={
+                200: 'Listado de reuniones obtenido exitosamente',
+                403: 'Acceso denegado',
+                500: 'Error interno del servidor'
+            })
+    def get(self):
+        session = Session()
+        try:
+            usuario_actual = get_logged_user(session)
 
-# Modelo para la entidad mensaje
-mensaje_modelo = api.model('Mensaje', {
-    'Asunto': fields.String(required=True, description='Asunto del mensaje'),
-    'Contenido': fields.String(required=True, description='Contenido del mensaje'),
-    'Check_Leido': fields.Boolean(required=True, description='Estado de lectura del mensaje'),
-    'IDEmisor': fields.Integer(required=True, description='ID del emisor del mensaje'),
-    'IDReceptor': fields.Integer(required=True, description='ID del receptor del mensaje')
-})
+            # Obtener las reuniones donde el usuario actual sea participante
+            participantes = session.query(ParticipanteReunion).filter_by(idusuario=usuario_actual.id).all()
+            reuniones_ids = [p.idreunion for p in participantes]
 
+            reuniones = session.query(Reunion).filter(Reunion.id.in_(reuniones_ids)).all()
+
+            reuniones_list = []
+            for reunion in reuniones:
+                reunion_dict = to_dict(reunion)
+                participantes = session.query(ParticipanteReunion).filter_by(idreunion=reunion.id).all()
+                reunion_dict['Participantes'] = [to_dict(p) for p in participantes]
+                reuniones_list.append(reunion_dict)
+
+            return reuniones_list, 200
+        except Exception as e:
+            logging.error(f'Error al obtener el listado de reuniones: {e}')
+            return {'error': str(e)}, 500
+        finally:
+            session.close()
+
+    @jwt_required()
+    @ns.expect(reunion_modelo)
+    @ns.doc('create_reunion', description='Crea una convocatoria para una nueva reunión',
+            responses={
+                201: 'Reunión creada exitosamente',
+                400: 'Datos inválidos',
+                404: 'Email de participante no encontrado',
+                500: 'Error interno del servidor'
+            })
+    def post(self):
+        data = request.get_json()
+        session = Session()
+        try:
+            usuario_actual = get_logged_user(session)
+
+            # Verificar si todos los participantes existen en el sistema
+            participantes_no_encontrados = []
+            for email in data['Participantes']:
+                participante = session.query(Usuario).filter_by(email=email).first()
+                if not participante:
+                    participantes_no_encontrados.append(email)
+
+            if participantes_no_encontrados:
+                logging.warning(f'No se ha podido enviar la convocatoria, '
+                                f'no se encuentran los emails {participantes_no_encontrados}.')
+                return {'error': f'Emails de participantes no encontrados: '
+                                 f'{", ".join(participantes_no_encontrados)}'}, 404
+
+            nueva_reunion = Reunion(
+                titulo=data['Titulo'],
+                descripcion=data.get('Descripcion', ''),
+                fechahora=data['FechaHora'],
+                duracion=data['Duracion'],
+                modalidad=data['Modalidad'],
+                created_at=datetime.datetime.now(),
+                idcreador=usuario_actual.id
+            )
+
+            session.add(nueva_reunion)
+            session.commit()
+
+            # Añadir al usuario actual como participante
+            nuevo_participante = ParticipanteReunion(
+                idreunion=nueva_reunion.id,
+                idusuario=usuario_actual.id,
+                respuesta='ACEPTADA',
+                created_at=datetime.datetime.now(),
+                updated_at=datetime.datetime.now()
+            )
+            session.add(nuevo_participante)
+
+            # Añadir otros participantes como pendientes de responder a la convocatoria
+            for email in data['Participantes']:
+                participante = session.query(Usuario).filter_by(email=email).first()
+                nuevo_participante = ParticipanteReunion(
+                    idreunion=nueva_reunion.id,
+                    idusuario=participante.id,
+                    respuesta='PENDIENTE',
+                    created_at=datetime.datetime.now(),
+                    updated_at=datetime.datetime.now()
+                )
+                session.add(nuevo_participante)
+
+                # TODO Borrar envio de mensaje antes de entregar
+                # mensaje = Mensaje(
+                #     asunto='Nueva reunión',
+                #     contenido=f'Has sido invitado a una nueva reunión por {usuario_actual.nombre}.',
+                #     check_leido=False,
+                #     created_at=datetime.datetime.now(),
+                #     updated_at=datetime.datetime.now(),
+                #     idemisor=usuario_actual.id,
+                #     idreceptor=participante.id
+                # )
+                # session.add(mensaje)
+
+                # Se notifica por email a cada usuario participante
+                email_title = "Nueva reunión convocada"
+                email_text = (f"<p>{usuario_actual.nombre} te ha convocado a una nueva reunión: </p><hr>"
+                      f"<p>&emsp; Título: <strong>{nueva_reunion.titulo}</strong></p>"
+                      f"<p>&emsp; Fecha y Hora: {nueva_reunion.fechahora}</p>"
+                      f"<p>&emsp; Duración: {nueva_reunion.duracion} minutos</p>"
+                      f"<p>&emsp; Modalidad: {nueva_reunion.modalidad}</p><hr>"
+                      "<p>No olvides dar una respuesta a través de nuestra aplicación, "
+                      "donde podrás consultar todos los detalles de la convocatoria. Nos vemos pronto.</p>")
+                html_body = generate_html_email(participante.nombre, email_title, email_text)
+                msg = Message(subject=email_title,
+                              sender=app.config['MAIL_DEFAULT_SENDER'],
+                              recipients=[email])
+                msg.html = html_body
+                mail.send(msg)
+                logging.info(f'Correo de notificación de nueva convocatoria enviado a {email}.')
+
+            session.commit()
+
+            reunion_dict = to_dict(nueva_reunion)
+            reunion_dict['Participantes'] = data['Participantes']
+            logging.info(f'Reunión creada exitosamente. ID: {nueva_reunion.id}.')
+            return reunion_dict, 201
+        except IntegrityError as e:
+            session.rollback()
+            logging.error(f'Error de integridad en los datos introducidos al crear reunión: {e}')
+            return {'error': str(e)}, 400
+        except Exception as e:
+            session.rollback()
+            logging.error(f'Error al crear reunión: {e}')
+            return {'error': str(e)}, 500
+        finally:
+            session.close()
+
+@ns_reunion.route('/<int:id>')
+class ReunionResource(Resource):
+    @jwt_required()
+    @ns.doc('delete_reunion', description='Elimina una reunión con el id indicado en caso de que sea su creador',
+            params={'id': 'ID de la reunión'},
+            responses={
+                200: 'Reunión eliminada exitosamente',
+                403: 'Acceso denegado',
+                404: 'Reunión no encontrada',
+                500: 'Error interno del servidor'
+            })
+    def delete(self, id):
+        session = Session()
+        try:
+            usuario_actual = get_logged_user(session)
+
+            reunion = session.query(Reunion).filter_by(id=id).first()
+            if not reunion:
+                logging.warning(f'Error en el intento de eliminación de reunión con id {id} no encontrada.')
+                return {'error': 'Reunión no encontrada'}, 404
+
+            # Verificar si el usuario actual es el creador de la reunión
+            if reunion.idcreador != usuario_actual.id:
+                logging.warning(f'Usuario con id: {usuario_actual.id} no autorizado para eliminar la reunión con id: {id}.')
+                return {'error': 'Acceso denegado'}, 403
+
+            # Eliminar todos los participantes de la reunión
+            participantes = session.query(ParticipanteReunion).filter_by(idreunion=id).all()
+            for participante in participantes:
+                session.delete(participante)
+
+            session.delete(reunion)
+            session.commit()
+
+            # Notificar a todos los participantes
+            for participante in participantes:
+
+                # TODO Borrar envio de mensaje antes de entregar
+                # mensaje = Mensaje(
+                #     asunto='Reunión cancelada',
+                #     contenido=f"<p>Se ha cancelado la siguiente reunión: </p><hr>"
+                #           f"<p>&emsp; Título: <strong>{reunion.titulo}</strong></p>"
+                #           f"<p>&emsp; Fecha y Hora: {reunion.fechahora}</p>"
+                #           f"<p>&emsp; Duración: {reunion.duracion} minutos</p>"
+                #           f"<p>&emsp; Modalidad: {reunion.modalidad}</p><hr>"
+                #           "<p>Nos vemos pronto.</p>",
+                #     check_leido=False,
+                #     created_at=datetime.datetime.now(),
+                #     updated_at=datetime.datetime.now(),
+                #     idemisor=usuario_actual.id,
+                #     idreceptor=participante.idusuario
+                # )
+                # session.add(mensaje)
+
+                usuario_participante = session.query(Usuario).filter_by(id=participante.idusuario).first()
+
+                # Se notifica por email a cada usuario participante
+                email_title = "Reunión cancelada"
+                email_text = (f"<p>Se ha cancelado la siguiente reunión:</p>"
+                              f"<hr><p>&emsp; Título: <strong>{reunion.titulo}</strong></p>"
+                              f"<p>&emsp; Fecha y Hora: {reunion.fechahora}</p>"
+                              f"<p>&emsp; Duración: {reunion.duracion} minutos</p>"
+                              f"<p>&emsp; Modalidad: {reunion.modalidad}</p><hr>"
+                              "<p>Nos vemos pronto.</p>")
+                html_body = generate_html_email(usuario_participante.nombre, email_title, email_text)
+                msg = Message(subject=email_title,
+                              sender=app.config['MAIL_DEFAULT_SENDER'],
+                              recipients=[usuario_participante.email])
+                msg.html = html_body
+                mail.send(msg)
+                logging.info(f'Correo de notificación de convocatoria cancelada enviado a {usuario_participante.email}.')
+
+            session.commit()
+            logging.info(f'Reunión eliminada exitosamente. ID: {reunion.id}.')
+            return {'message': 'Reunión eliminada exitosamente'}, 200
+        except Exception as e:
+            session.rollback()
+            logging.error(f'Error al eliminar reunión con id {id}: {e}')
+            return {'error': str(e)}, 500
+        finally:
+            session.close()
+
+@ns_reunion.route('/respuesta/<int:id>')
+class RespuestaReunion(Resource):
+    @jwt_required()
+    @ns.doc('responder_reunion', description='Responde a una convocatoria de reunión pendiente',
+            params={'id': 'ID de la reunión'},
+            responses={
+                200: 'Respuesta a la reunión registrada exitosamente',
+                400: 'Datos inválidos',
+                404: 'Reunión o usuario no encontrado',
+                500: 'Error interno del servidor'
+            })
+    @ns.expect(api.model('Respuesta', {
+        'Respuesta': fields.String(required=True, description='Respuesta del usuario a la reunión: ACEPTADA o RECHAZADA')
+    }), validate=True)
+    def post(self, id):
+        data = request.get_json()
+        session = Session()
+        try:
+            usuario_actual = get_logged_user(session)
+
+            # Verificar si la reunión existe
+            reunion = session.query(Reunion).filter_by(id=id).first()
+            if not reunion:
+                logging.warning(f'Error en el intento de responder a la reunión con id: {id} no encontrada.')
+                return {'error': 'Reunión no encontrada'}, 404
+
+            # Verificar si el usuario es participante de la reunión
+            participante = session.query(ParticipanteReunion).filter_by(idreunion=id, idusuario=usuario_actual.id).first()
+            if not participante:
+                logging.warning(f'Error en el intento de responder a la reunión. Usuario con id: {usuario_actual.id} no es participante.')
+                return {'error': 'Usuario no es participante de la reunión'}, 404
+
+            # Actualizar la respuesta del participante
+            if 'Respuesta' not in data:
+                logging.warning('Error en el intento de responder a la reunión. Falta la respuesta en los datos proporcionados.')
+                return {'error': 'Falta la respuesta en los datos proporcionados'}, 400
+
+            participante.respuesta = data['Respuesta']
+            participante.updated_at = datetime.datetime.now()
+
+            usuario_participante = session.query(Usuario).filter_by(id=participante.idusuario).first()
+            usuario_creador = session.query(Usuario).filter_by(id=reunion.idcreador).first()
+            # Se notifica por email al creador de la convocatoria
+            email_title = "Reunión " + data['Respuesta']
+            email_text = (f"<p>{usuario_participante.nombre} ha contestado a tu convocatoria:</p>"
+                          f"<hr><p>&emsp; Título: <strong>{reunion.titulo}</strong></p>"
+                          f"<p>&emsp; Fecha y Hora: {reunion.fechahora}</p>"
+                          f"<p>&emsp; Duración: {reunion.duracion} minutos</p>"
+                          f"<p>&emsp; Modalidad: {reunion.modalidad} minutos</p>"
+                          f"<p>&emsp; Respuesta: <strong>{data['Respuesta']}<strong></p><hr>"
+                          "<p>Nos vemos pronto.</p>")
+            html_body = generate_html_email(usuario_creador.nombre, email_title, email_text)
+            msg = Message(subject=email_title,
+                          sender=app.config['MAIL_DEFAULT_SENDER'],
+                          recipients=[usuario_creador.email])
+            msg.html = html_body
+            mail.send(msg)
+            logging.info(f'Correo de notificación de respuesta a la convocatoria enviado a {usuario_creador.email}.')
+
+            session.commit()
+            logging.info(f'Respuesta a la reunión registrada exitosamente. ID Reunión: {reunion.id}.')
+            return to_dict(participante), 200
+        except IntegrityError as e:
+            session.rollback()
+            logging.error(f'Error de integridad en los datos introducidos al responder reunión: {e}')
+            return {'error': str(e)}, 400
+        except Exception as e:
+            session.rollback()
+            logging.error(f'Error al responder reunión: {e}')
+            return {'error': str(e)}, 500
+        finally:
+            session.close()
+
+
+
+##############################################################################################################
+# CONFIGURACIÓN DEL SCHEDULER Y SCRIPT AUTOMATIZADO CADA 24H PARA MENSAJES NO LEÍDOS
+##############################################################################################################
+
+def revisar_mensajes_no_leidos():
+    session = Session()
+    try:
+        # Obtener solo los usuarios con rol 'user' y alertas configuradas como True
+        usuarios = session.query(Usuario).filter(
+            Usuario.rol == 'user',
+            Usuario.alertas == True
+        ).all()
+
+        # Revisar número de mensajes sin leer recibidos hace más de 24 horas y notificar por correo
+        for usuario in usuarios:
+            mensajes_no_leidos = session.query(Mensaje).filter(
+        Mensaje.idreceptor == usuario.id,
+                Mensaje.check_leido == False,
+                Mensaje.created_at <= (datetime.datetime.now() - datetime.timedelta(hours=24))
+            ).count()
+
+            if mensajes_no_leidos > 0:
+                enviar_correo_notificacion(usuario, mensajes_no_leidos)
+    except Exception as e:
+        logging.error(f'Error al revisar mensajes no leídos: {e}')
+    finally:
+        session.close()
+
+
+def enviar_correo_notificacion(usuario, mensajes_no_leidos):
+    try:
+        email_title = "Tienes mensajes sin leer"
+        email_text = (f"<p>Tienes {mensajes_no_leidos} mensajes nuevos esperando en nuestra aplicación.</p>"
+                      "<p>No te olvides de revisarlos.</p>"
+                      "<p>Gracias.</p>")
+        html_body = generate_html_email(usuario.nombre, email_title, email_text)
+        msg = Message(subject=email_title,
+                      sender=app.config['MAIL_DEFAULT_SENDER'],
+                      recipients=[usuario.email])
+        msg.html = html_body
+        mail.send(msg)
+        logging.info(f'Correo de notificación enviado a {usuario.email}.')
+    except Exception as e:
+        logging.error(f'Error al enviar el correo de notificación a {usuario.email}: {e}')
+
+
+def job_wrapper():
+    with app.app_context():
+        revisar_mensajes_no_leidos()
+
+
+# Configuración del scheduler
+scheduler = BackgroundScheduler()
+scheduler.add_job(job_wrapper, 'cron', hour=11)  # Ejecución diaria a las 11 AM
+scheduler.start()
+
+# Se cierra el scheduler al apagar la aplicación
+atexit.register(lambda: scheduler.shutdown())
 
 
 if __name__ == '__main__':
     with app.app_context():
-        app.run(debug=True)
+        app.run(debug=False)

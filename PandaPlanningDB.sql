@@ -8,7 +8,8 @@ CREATE TABLE Usuarios (
     Email varchar(255) UNIQUE NOT NULL,
     Password varchar(255) NOT NULL,
     Nombre varchar(255) NOT NULL,
-    Edad integer NOT NULL,
+    Foto varchar(255),
+    Alertas boolean NOT NULL,
     Rol varchar(50) NOT NULL,
     Check_Activo boolean NOT NULL,
     Created_at timestamp NOT NULL,
@@ -16,6 +17,7 @@ CREATE TABLE Usuarios (
 );
 
 -- Crear tabla Proyectos
+-- Si se borra un proyecto, se borran sus tareas, miembros, comentarios y archivos adjuntos
 CREATE TABLE Proyectos (
     ID serial PRIMARY KEY,
     Titulo varchar(50) NOT NULL,
@@ -36,7 +38,7 @@ CREATE TABLE MiembrosProyecto (
     Created_at timestamp NOT NULL,
     Updated_at timestamp NOT NULL,
     FOREIGN KEY (IDUsuario) REFERENCES Usuarios(ID),
-    FOREIGN KEY (IDProyecto) REFERENCES Proyectos(ID)
+    FOREIGN KEY (IDProyecto) REFERENCES Proyectos(ID) ON DELETE CASCADE
 );
 
 -- Crear tabla Tareas
@@ -46,13 +48,14 @@ CREATE TABLE Tareas (
     Descripcion varchar(255),
     FechaInicio date,
     FechaFin date,
+    Prioridad integer NOT NULL,
     Estado varchar(50) NOT NULL,
     Created_at timestamp NOT NULL,
     Updated_at timestamp NOT NULL,
     IDUsuario integer,
     IDProyecto integer,
     FOREIGN KEY (IDUsuario) REFERENCES Usuarios(ID),
-    FOREIGN KEY (IDProyecto) REFERENCES Proyectos(ID)
+    FOREIGN KEY (IDProyecto) REFERENCES Proyectos(ID) ON DELETE CASCADE
 );
 
 -- Crear tabla Comentarios
@@ -62,7 +65,7 @@ CREATE TABLE Comentarios (
     Created_at timestamp NOT NULL,
     IDProyecto integer NOT NULL,
     IDUsuario integer NOT NULL,
-    FOREIGN KEY (IDProyecto) REFERENCES Proyectos(ID),
+    FOREIGN KEY (IDProyecto) REFERENCES Proyectos(ID) ON DELETE CASCADE,
     FOREIGN KEY (IDUsuario) REFERENCES Usuarios(ID)
 );
 
@@ -72,29 +75,7 @@ CREATE TABLE Archivos (
     Nombre varchar(255),
     Ruta varchar(255) NOT NULL,
     IDComentario integer,
-    FOREIGN KEY (IDComentario) REFERENCES Comentarios(ID)
-);
-
--- Crear tabla Reuniones
-CREATE TABLE Reuniones (
-    ID serial PRIMARY KEY,
-    Titulo varchar(50) NOT NULL,
-    Descripcion varchar(255),
-    FechaHora timestamp NOT NULL,
-    Created_at timestamp NOT NULL,
-    Updated_at timestamp NOT NULL
-);
-
--- Crear tabla ParticipantesReunion
-CREATE TABLE ParticipantesReunion (
-    ID serial PRIMARY KEY,
-    IDReunion integer NOT NULL,
-    IDUsuario integer NOT NULL,
-    Aceptada varchar(50) NOT NULL,
-    Created_at timestamp NOT NULL,
-    Updated_at timestamp NOT NULL,
-    FOREIGN KEY (IDReunion) REFERENCES Reuniones(ID),
-    FOREIGN KEY (IDUsuario) REFERENCES Usuarios(ID)
+    FOREIGN KEY (IDComentario) REFERENCES Comentarios(ID) ON DELETE CASCADE
 );
 
 -- Crear tabla Mensajes
@@ -111,50 +92,105 @@ CREATE TABLE Mensajes (
     FOREIGN KEY (IDReceptor) REFERENCES Usuarios(ID)
 );
 
+-- Crear tabla Reuniones
+CREATE TABLE Reuniones (
+    ID serial PRIMARY KEY,
+    Titulo varchar(50) NOT NULL,
+    Descripcion varchar(255),
+    FechaHora timestamp NOT NULL,
+    Duracion integer NOT NULL,
+    Modalidad varchar(50) NOT NULL,
+    Created_at timestamp NOT NULL,
+    IDCreador integer NOT NULL,
+    FOREIGN KEY (IDCreador) REFERENCES Usuarios(ID)
+);
+
+-- Crear tabla ParticipantesReunion
+CREATE TABLE ParticipantesReunion (
+    ID serial PRIMARY KEY,
+    IDReunion integer NOT NULL,
+    IDUsuario integer NOT NULL,
+    Respuesta varchar(50) NOT NULL,
+    Created_at timestamp NOT NULL,
+    Updated_at timestamp NOT NULL,
+    FOREIGN KEY (IDReunion) REFERENCES Reuniones(ID),
+    FOREIGN KEY (IDUsuario) REFERENCES Usuarios(ID)
+);
+
+
+
 
 -- Insertar datos de prueba en las tablas
 -- Usuarios
-INSERT INTO Usuarios (Email, Password, Nombre, Edad, Rol, Check_Activo, Created_at, Updated_at) VALUES
-('admin@gmail.com', '$2b$12$Kt8r5Epc.xr4hiStgwwS2.8VwD/ZoN7VoDWoDMhT.SAtLv6aueB/y', 'Administrador', 30, 'admin', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('user@gmail.com', '$2b$12$bsWlAoOB9StSouDLhZFdmOYavpdI4IDw0PPxt93vrcR4ScZtt6dfi', 'User de prueba', 25, 'user', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+-- Passwords: admin, user, andrea y pablo
+INSERT INTO Usuarios (Email, Password, Nombre, Alertas, Rol, Check_Activo, Created_at, Updated_at) VALUES
+('admin@gmail.com', '$2b$12$Kt8r5Epc.xr4hiStgwwS2.8VwD/ZoN7VoDWoDMhT.SAtLv6aueB/y', 'Administrador', False, 'admin', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('user@gmail.com', '$2b$12$bsWlAoOB9StSouDLhZFdmOYavpdI4IDw0PPxt93vrcR4ScZtt6dfi', 'User de prueba', False, 'user', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('iandreafh@gmail.com', '$2b$12$l1GN7N05KK2I9M8iqnYndOYf4rM64eaObgbTG4hI8h0ZmAR.K0JSy', 'Andrea Fernández', True, 'user', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('pablo@gmail.com', '$2b$12$l1GN7N05KK2I9M8iqnYndOYf4rM64eaObgbTG4hI8h0ZmAR.K0JSy', 'Pablo Casas', False, 'user', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- Proyectos
+-- IDCreador se declara siempre como gestor en miembros del proyecto
 INSERT INTO Proyectos (Titulo, Descripcion, Check_Activo, Created_at, Updated_at, IDCreador) VALUES
-('Project Alpha', 'Description of Project Alpha', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
-('Project Beta', 'Description of Project Beta', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2);
-
--- Tareas
-INSERT INTO Tareas (Titulo, Descripcion, FechaInicio, FechaFin, Estado, Created_at, Updated_at, IDUsuario, IDProyecto) VALUES
-('Task 1', 'Description of Task 1', '2024-05-01', '2024-05-20', 'In progress', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1),
-('Task 2', 'Description of Task 2', '2024-05-07', '2024-05-25', 'To do', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2, 2);
-
--- Reuniones
-INSERT INTO Reuniones (Titulo, Descripcion, FechaHora, Created_at, Updated_at) VALUES
-('Meeting 1', 'Discussion on project', '2024-05-08 10:00:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('Meeting 2', 'Review of the project', '2024-05-15 11:00:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
--- ParticipantesReunion
-INSERT INTO ParticipantesReunion (IDReunion, IDUsuario, Aceptada, Created_at, Updated_at) VALUES
-(1, 1, 'ACEPTADA', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(1, 2, 'PENDIENTE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+('Proyecto Alpha', 'Descripción del Proyecto Alpha', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3),
+('Proyecto Beta', 'Descripción del Proyecto Beta', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 4),
+('Proyecto Gamma', 'Descripción del Proyecto Gamma', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3);
 
 -- MiembrosProyecto
 INSERT INTO MiembrosProyecto (IDUsuario, IDProyecto, Permisos, Created_at, Updated_at) VALUES
-(1, 1, 'gestor', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(1, 2, 'gestor', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(2, 2, 'lector', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+(3, 1, 'gestor', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(4, 2, 'gestor', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(3, 3, 'gestor', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(4, 3, 'gestor', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
--- Mensajes
-INSERT INTO Mensajes (Asunto, Contenido, Check_Leido, Created_at, Updated_at, IDEmisor, IDReceptor) VALUES
-('Welcome', 'Welcome to the team!', FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 2),
-('Reminder', 'Hey, I wanted to remind you of the meeting tomorrow. See you soon!', FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2, 1);
+-- Tareas
+-- Prioridades posibles: 0 (Baja), 1 (Media), 2 (Alta)
+-- Estados posibles: To do, In progress, Blocked, Done
+INSERT INTO Tareas (Titulo, Descripcion, FechaInicio, FechaFin, Prioridad, Estado, Created_at, Updated_at, IDUsuario, IDProyecto) VALUES
+('Tarea 1 de Alpha', 'Descripción de la tarea 1 del Proyecto Alpha', '2024-05-01', '2024-05-20', 1, 'In progress', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3, 1),
+('Tarea 2 de Alpha', 'Descripción de la tarea 2 del Proyecto Alpha', '2024-05-10', '2024-05-25', 0, 'To do', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3, 1),
+('Tarea 1 de Beta', 'Descripción de la tarea 1 del Proyecto Beta', '2024-05-07', '2024-05-25', 2, 'To do', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 4, 2),
+('Tarea 2 de Beta', 'Descripción de la tarea 2 del Proyecto Beta', '2024-06-01', '2024-06-30', 1, 'In progress', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 4, 2),
+('Tarea 1 de Gamma', 'Descripción de la tarea 1 del Proyecto Gamma', '2024-06-01', '2024-06-15', 2, 'Blocked', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3, 3),
+('Tarea 2 de Gamma', 'Descripción de la tarea 2 del Proyecto Gamma', '2024-06-10', '2024-06-20', 0, 'Done', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3, 3),
+('Tarea 3 de Gamma', 'Descripción de la tarea 3 del Proyecto Gamma', '2024-06-15', '2024-06-25', 1, 'In progress', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3, 3),
+('Tarea 4 de Gamma', 'Descripción de la tarea 4 del Proyecto Gamma', '2024-06-20', '2024-06-30', 2, 'To do', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 4, 3),
+('Tarea 5 de Gamma', 'Descripción de la tarea 5 del Proyecto Gamma', '2024-06-25', '2024-07-05', 1, 'Done', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 4, 3);
 
 -- Comentarios
 INSERT INTO Comentarios (Contenido, Created_at, IDProyecto, IDUsuario) VALUES
-('Os subo las 2 versiones para ver qué portada os gusta más.', CURRENT_TIMESTAMP, 1, 1),
-('Needs some changes. I can upload the new version with the corrections tomorrow.', CURRENT_TIMESTAMP, 2, 2);
+('Comentario de Andrea en Proyecto Alpha', CURRENT_TIMESTAMP, 1, 3),
+('Comentario de Pablo en Proyecto Beta', CURRENT_TIMESTAMP, 2, 4),
+('Comentario de Andrea en Proyecto Gamma', CURRENT_TIMESTAMP, 3, 3),
+('Comentario de Pablo en Proyecto Gamma', CURRENT_TIMESTAMP, 3, 4),
+('Comentario adicional de Andrea en Proyecto Gamma', CURRENT_TIMESTAMP, 3, 3);
 
 -- Archivos
 INSERT INTO Archivos (Nombre, Ruta, IDComentario) VALUES
-('Plan de proyecto', '/files/file1.pdf', 1),
-('PP', '/files/file2.pdf', 1);
+('Archivo de Proyecto Alpha', '/files/file1.pdf', 1),
+('Archivo de Proyecto Beta', '/files/file2.pdf', 2),
+('Archivo de Proyecto Gamma', '/files/file3.pdf', 3),
+('Archivo adicional de Proyecto Gamma', '/files/file4.pdf', 5);
+
+-- Mensajes
+INSERT INTO Mensajes (Asunto, Contenido, Check_Leido, Created_at, Updated_at, IDEmisor, IDReceptor) VALUES
+('Bienvenida', '¡Bienvenido al equipo!', FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 2),
+('Recordatorio', 'Hola, quería recordarte la reunión de mañana. ¡Nos vemos pronto!', FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3, 4),
+('Intercambio de Andrea y Pablo', 'Mensaje de Andrea a Pablo', FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3, 4),
+('Intercambio de Pablo y Andrea', 'Mensaje de Pablo a Andrea', FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 4, 3),
+('Comunicado General', 'Este es un comunicado general para todos los usuarios.', FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 2),
+('Comunicado General', 'Este es un comunicado general para todos los usuarios.', FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 3),
+('Comunicado General', 'Este es un comunicado general para todos los usuarios.', FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 4);
+
+-- Reuniones
+INSERT INTO Reuniones (Titulo, Descripcion, FechaHora, Duracion, Modalidad, Created_at, IDCreador) VALUES
+('Reunión de Seguimiento 1', 'Primera reunión de seguimiento del proyecto', '2024-06-01 10:00:00', 60, 'Virtual', CURRENT_TIMESTAMP, 3),
+('Reunión de Seguimiento 2', 'Segunda reunión de seguimiento del proyecto', '2024-06-15 11:00:00', 30, 'Presencial', CURRENT_TIMESTAMP, 3);
+
+-- ParticipantesReunion
+-- Respuestas posibles: PENDIENTE, ACEPTADA, RECHAZADA
+INSERT INTO ParticipantesReunion (IDReunion, IDUsuario, Respuesta, Created_at, Updated_at) VALUES
+(1, 3, 'ACEPTADA', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, 4, 'ACEPTADA', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, 3, 'ACEPTADA', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, 4, 'ACEPTADA', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
