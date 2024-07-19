@@ -6,3 +6,6 @@ DB_PASSWORD = "7UwP8mo2."
 MAIL_USERNAME = 'pandaplanningweb@gmail.com'
 MAIL_PASSWORD = 'gdbjopjbxufxtitq'
 MAIL_DEFAULT_SENDER = 'pandaplanningweb@gmail.com'
+SCHEDULER_HOUR = 11 # Ejecución diaria para notificar mensajes no leídos
+
+JWT_SECRET_KEY = 'super1998AFH14w33'

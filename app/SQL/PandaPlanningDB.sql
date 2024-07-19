@@ -123,11 +123,11 @@ CREATE TABLE ParticipantesReunion (
 -- Insertar datos de prueba en las tablas
 -- Usuarios
 -- Passwords: admin, user, andrea y pablo
-INSERT INTO Usuarios (Email, Password, Nombre, Alertas, Rol, Check_Activo, Created_at, Updated_at) VALUES
-('admin@gmail.com', '$2b$12$Kt8r5Epc.xr4hiStgwwS2.8VwD/ZoN7VoDWoDMhT.SAtLv6aueB/y', 'Administrador', False, 'admin', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('user@gmail.com', '$2b$12$bsWlAoOB9StSouDLhZFdmOYavpdI4IDw0PPxt93vrcR4ScZtt6dfi', 'User de prueba', False, 'user', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('iandreafh@gmail.com', '$2b$12$l1GN7N05KK2I9M8iqnYndOYf4rM64eaObgbTG4hI8h0ZmAR.K0JSy', 'Andrea Fernández', True, 'user', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('pablo@gmail.com', '$2b$12$l1GN7N05KK2I9M8iqnYndOYf4rM64eaObgbTG4hI8h0ZmAR.K0JSy', 'Pablo Casas', False, 'user', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO Usuarios (Email, Password, Nombre, Foto, Alertas, Rol, Check_Activo, Created_at, Updated_at) VALUES
+('admin@gmail.com', '$2b$12$Kt8r5Epc.xr4hiStgwwS2.8VwD/ZoN7VoDWoDMhT.SAtLv6aueB/y', 'Administrador', 'profile6.png', False, 'admin', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('user@gmail.com', '$2b$12$bsWlAoOB9StSouDLhZFdmOYavpdI4IDw0PPxt93vrcR4ScZtt6dfi', 'User de prueba', 'profile5.png', False, 'user', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('iandreafh@gmail.com', '$2b$12$l1GN7N05KK2I9M8iqnYndOYf4rM64eaObgbTG4hI8h0ZmAR.K0JSy', 'Andrea Fernández', 'profile1.png', True, 'user', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('pablo@gmail.com', '$2b$12$l1GN7N05KK2I9M8iqnYndOYf4rM64eaObgbTG4hI8h0ZmAR.K0JSy', 'Pablo Casas', 'profile4.png', False, 'user', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- Proyectos
 -- IDCreador se declara siempre como gestor en miembros del proyecto

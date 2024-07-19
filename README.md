@@ -48,6 +48,10 @@ Panda Planning es una aplicación diseñada para ayudar en la gestión y planifi
 3. Configura las variables de entorno necesarias en el archivo `config.py`
 
 
+4. Ejecuta el proyecto:
+   ```bash
+   py app/app.py
+
 ## Uso
 
 ### Documentación de la API

@@ -4,8 +4,9 @@ import random
 import logging # Para monitoreo y trazabilidad
 import bcrypt # Para hashear passwords
 import atexit # Para cerrar el scheduler
+import os
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, send_from_directory
 from flask_restx import Api, Resource, fields
 from flask_cors import CORS
 from flask_mail import Mail, Message
@@ -15,12 +16,14 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.inspection import inspect
 from sqlalchemy.exc import IntegrityError
-from config import DB_HOST, DB_NAME, DB_USER, DB_PASSWORD, MAIL_USERNAME, MAIL_PASSWORD, MAIL_DEFAULT_SENDER
+from werkzeug.utils import secure_filename
+from utils.config import *
+from utils.generate_email import generate_html_email
 from apscheduler.schedulers.background import BackgroundScheduler
 
 # Configuración del logger
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s',
-                    handlers=[logging.FileHandler("app.log"), logging.StreamHandler()])
+                    handlers=[logging.FileHandler("logs/app.log"), logging.StreamHandler()])
 
 app = Flask(__name__)
 CORS(app)
@@ -31,8 +34,28 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SWAGGER_UI_DOC_EXPANSION'] = 'list'
 db = SQLAlchemy(app)
 
+# Configuración del directorio para subir archivos
+PROFILE_UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads/profile_uploads')
+if not os.path.exists(PROFILE_UPLOAD_FOLDER):
+    os.makedirs(PROFILE_UPLOAD_FOLDER)
+app.config['PROFILE_UPLOAD_FOLDER'] = PROFILE_UPLOAD_FOLDER
+
+FILES_UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads/files_uploads')
+if not os.path.exists(FILES_UPLOAD_FOLDER):
+    os.makedirs(FILES_UPLOAD_FOLDER)
+app.config['FILES_UPLOAD_FOLDER'] = FILES_UPLOAD_FOLDER
+
+@app.route('/uploads/profile_uploads/<filename>')
+def uploaded_profile_file(filename):
+    return send_from_directory(app.config['PROFILE_UPLOAD_FOLDER'], filename)
+
+@app.route('/uploads/files_uploads/<filename>')
+def uploaded_files_file(filename):
+    return send_from_directory(app.config['FILES_UPLOAD_FOLDER'], filename)
+
 # Configuración de la clave secreta para JWT
-app.config['JWT_SECRET_KEY'] = 'super1998AFH14w33'  # Cambia esto por una clave secreta real
+app.config['JWT_SECRET_KEY'] = JWT_SECRET_KEY  # Cambia esto por una clave secreta real
+# TODO: Cambiar a 8 horas o menos antes de subir
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(hours=8)
 jwt = JWTManager(app)
 
@@ -98,50 +121,18 @@ def to_dict(obj):
             value = getattr(obj, column.key)
             if isinstance(value, datetime.datetime) or isinstance(value, datetime.date):
                 value = value.isoformat()
+            if column.key == 'foto' and value:
+                value = f"{request.url_root}uploads/profile_uploads/{value}"
             obj_dict[column.key.capitalize()] = value
 
     return obj_dict
+
 
 def get_logged_user(session):
     """ Devuelve los datos del usuario logueado en la session """
     identidad_actual = get_jwt()['sub']
     usuario_actual = session.query(Usuario).filter_by(id=identidad_actual).first()
     return usuario_actual
-
-# Función que devuelve el cuerpo de un email con estilo personalizado
-def generate_html_email(name, title, text):
-    return f"""
-    <html>
-    <body style="font-family: Calibri; margin: 0; padding: 0;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" width="800">
-            <tr>
-                <td align="center" bgcolor="#4B62AE" style="padding: 12px 20px;">
-                    <h2 style="color: white;">{title}</h2>
-                </td>
-            </tr>
-            <tr>
-                <td bgcolor="#ffffff" style="padding: 25px 50px 15px; font-size: 17px;">
-                    <p>Hola {name},</p>
-                    <p style="margin-top: 20px;">{text}</p>
-                    <p style="margin-top: 20px;">El equipo de Panda Planning</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p style="color: grey; text-align: center; font-size: 12px;">Recuerda que puedes dar de baja las alertas 
-                    por correo electrónico en cualquier momento desde tu perfil.</p>
-                </td>
-            </tr>
-            <tr>
-                <td bgcolor="#4B62AE" style="padding: 12px 20px;">
-                    <p style="color: white; text-align: center;">&copy; 2024 Panda Planning. Todos los derechos reservados.</p>
-                </td>
-            </tr>
-        </table>
-    </body>
-    </html>
-    """
-
 
 
 ##############################################################################################################
@@ -158,7 +149,7 @@ authorizations = {
 }
 
 api = Api(app, version='1.0', title='Panda Planning API',
-          description='Una API de ejemplo con Flask y Swagger',
+          description='API RESTful del proyecto Panda Planning',
           authorizations=authorizations,
           security='Bearer')
 
@@ -261,9 +252,9 @@ class ResetPassword(Resource):
             hashed_password = hash_password(nueva_password)
 
             # Actualizar la contraseña del usuario en la base de datos
-            usuario.password = hashed_password
-            usuario.updated_at=datetime.datetime.now()
-            session.commit()
+            #usuario.password = hashed_password
+            #usuario.updated_at=datetime.datetime.now()
+            #session.commit()
 
             # Enviar la nueva contraseña por correo electrónico
             email_title = "Nueva contraseña restaurada"
@@ -276,7 +267,7 @@ class ResetPassword(Resource):
                           sender=app.config['MAIL_DEFAULT_SENDER'],
                           recipients=[email])
             msg.html = html_body
-            mail.send(msg)
+            #mail.send(msg)
 
             logging.info(f'Contraseña restaurada y enviada al usuario {email}.')
             return {'message': 'Nueva contraseña enviada al correo electrónico'}, 200
@@ -298,7 +289,6 @@ class SendEmailTest(Resource):
         session = Session()
         try:
             nueva_tarea = session.query(Tarea).first()
-            nueva_password = "1234Test"
             # Enviar la nueva contraseña por correo electrónico
             prioridad_tarea = {
                 0: "Baja",
@@ -306,12 +296,13 @@ class SendEmailTest(Resource):
                 2: "Alta"
             }
             email_title = "Nueva tarea asignada"
-            email_text = (f"<p>Te han asignado una nueva tarea del proyecto: Proyecto Alpha </p><hr>"
+            email_text = (f"<p>Te han asignado una nueva tarea del proyecto: Proyecto Alpha </p>"
+                          f"<div class='info-card'>"
                           f"<p>&emsp; Título: <strong>{nueva_tarea.titulo}</strong></p>"
                           f"<p>&emsp; Prioridad: {prioridad_tarea.get(nueva_tarea.prioridad)}</p>"
-                          f"<p>&emsp; Estado: {nueva_tarea.estado}</p><hr>"
+                          f"<p>&emsp; Estado: {nueva_tarea.estado}</p></div>"
                           "<p>Puedes consultar todos los detalles a través de nuestra aplicación. "
-                          "Nos vemos pronto.</p>")
+                          )
 
             html_body = generate_html_email("Andrea", email_title, email_text)
             msg = Message(email_title,
@@ -328,7 +319,7 @@ class SendEmailTest(Resource):
 # GESTIÓN CRUD DE USUARIOS
 ##############################################################################################################
 
-ns_usuario = api.namespace('user', description='Operaciones sobre usuarios')
+ns_usuario = api.namespace('usuarios', description='Operaciones sobre usuarios')
 
 # Modelo para la entidad usuario
 usuario_modelo = api.model('Usuario', {
@@ -340,7 +331,8 @@ usuario_modelo = api.model('Usuario', {
     'Check_activo': fields.Boolean(required=False, description='Estado activo del usuario')
 })
 
-@ns_usuario.route('/usuarios')
+
+@ns_usuario.route('')
 class UsuarioList(Resource):
     @jwt_required()
     @ns.doc('list_usuarios',
@@ -351,6 +343,8 @@ class UsuarioList(Resource):
                 404: 'Usuario no encontrado',
                 500: 'Error interno del servidor'
             })
+    @ns.param('start', 'Inicio del rango de registros', type=int, required=False, default=0)
+    @ns.param('limit', 'Número de registros a devolver', type=int, required=False, default=25)
     def get(self):
         session = Session()
         try:
@@ -358,7 +352,15 @@ class UsuarioList(Resource):
 
             # Solo los administradores pueden obtener el listado completo
             if usuario_actual.rol == 'admin':
-                usuarios = session.query(Usuario).all()
+                start = request.args.get('start', 0, type=int)
+                limit = request.args.get('limit', 25, type=int)
+
+                usuarios = (session.query(Usuario)
+                            .order_by(Usuario.updated_at)
+                            .offset(start)
+                            .limit(limit)
+                            .all())
+
                 if not usuarios:
                     logging.warning(f'Error en el intento de lectura del listado de usuarios, no encontrado.')
                     return {'error': 'Listado de usuarios no encontrado'}, 404
@@ -375,7 +377,6 @@ class UsuarioList(Resource):
         finally:
             session.close()
 
-
     # No es necesario estar logueado para crear un nuevo usuario, cualquier persona puede registrarse
     # Pero solo un administrador podrá crear a otro usuario con rol de admin
     @jwt_required(optional=True)
@@ -390,7 +391,9 @@ class UsuarioList(Resource):
                 500: 'Error interno del servidor'
             })
     def post(self):
-        data = request.get_json()
+        data = request.form.to_dict()
+        file = request.files.get('Foto')
+        avatar = data.get('avatar')
         session = Session()
         try:
             # Verificar si el email ya existe en bbdd
@@ -403,16 +406,23 @@ class UsuarioList(Resource):
                 email=data['Email'],
                 password=hash_password(data['Password']),  # Hashear la contraseña para almacenarla
                 nombre=data['Nombre'],
-                foto=data.get('Foto', ''),
-                ###############################################################################################################
-                # TODO Cambiar alertas a True por defecto ANTES DE ENTREGAR PROYECTO
-                ###############################################################################################################
-                alertas=data.get('Alertas', False),
+                foto='profile1.png',  # Avatar por defecto
+                # TODO Descomentar antes de subir
+                # alertas=data.get('Alertas', 'false').lower() == 'true',  # Convert to boolean
+                alertas=False,
                 rol='user',
                 check_activo=True,
                 created_at=datetime.datetime.now(),
                 updated_at=datetime.datetime.now()
             )
+
+            # Gestionar la carga de la foto de perfil si sube alguna
+            if file:
+                filename = secure_filename(f"{nuevo_usuario.email}_{file.filename}")
+                file.save(os.path.join(app.config['PROFILE_UPLOAD_FOLDER'], filename))
+                nuevo_usuario.foto = filename
+            elif avatar:
+                nuevo_usuario.foto = avatar
 
             # Solo los administradores pueden asignarle cualquier rol, si no será tipo user por defecto
             try:
@@ -444,7 +454,7 @@ class UsuarioList(Resource):
                               sender=app.config['MAIL_DEFAULT_SENDER'],
                               recipients=[nuevo_usuario.email])
                 msg.html = html_body
-                mail.send(msg)
+                #mail.send(msg)
                 logging.info(f'Correo de bienvenida enviado exitosamente: {nuevo_usuario.email}.')
 
             logging.info(f'Usuario creado exitosamente: {nuevo_usuario.email}.')
@@ -460,7 +470,28 @@ class UsuarioList(Resource):
         finally:
             session.close()
 
-@ns_usuario.route('/usuarios/<int:id>')
+
+@ns_usuario.route('/profile')
+class UserProfile(Resource):
+    @jwt_required()
+    @ns.doc('get_user_profile', description='Obtiene el perfil del usuario autenticado',
+            responses={
+                200: 'Perfil obtenido exitosamente',
+                500: 'Error interno del servidor'
+            })
+    def get(self):
+        session = Session()
+        try:
+            usuario_actual = get_logged_user(session)
+            usuario_dict = to_dict(usuario_actual)
+            return usuario_dict, 200
+        except Exception as e:
+            logging.error(f'Error al obtener el perfil del usuario: {e}')
+            return {'error': str(e)}, 500
+        finally:
+            session.close()
+
+@ns_usuario.route('/<int:id>')
 class UsuarioResource(Resource):
     @jwt_required(optional=True)
     @ns.doc('get_usuario', description='Obtiene los datos del usuario con el id indicado, en caso de que exista',
@@ -503,34 +534,78 @@ class UsuarioResource(Resource):
                 200: 'Usuario actualizado exitosamente',
                 403: 'Acceso denegado',
                 404: 'Usuario no encontrado',
+                409: 'Email ya registrado',
                 500: 'Error interno del servidor'
             })
     def put(self, id):
-        data = request.get_json()
+        data = request.form.to_dict()
+        file = request.files.get('Foto')
+        avatar = data.get('avatar')
+
         session = Session()
         try:
             usuario_actual = get_logged_user(session)
 
-            # Solo el usuario actual puede modificar sus propios datos
-            if usuario_actual.id == id:
-                usuario = session.get(Usuario, id)
-                if not usuario:
-                    logging.warning(f'Error en el intento de actualización de usuario con id {id} no encontrado.')
-                    return {'error': 'Usuario no encontrado'}, 404
-                # Se actualizan solo los campos que se hayan introducido y la fecha updated_at, el resto se mantiene
-                usuario.email = data.get('Email', usuario.email)
-                usuario.nombre = data.get('Nombre', usuario.nombre)
-                usuario.foto = data.get('Foto', usuario.foto)
-                usuario.check_activo = data.get('Check_activo', usuario.check_activo)
-                usuario.updated_at = datetime.datetime.now()
-
-                session.commit()
-                usuario_dict = to_dict(usuario)
-                logging.info(f'Usuario actualizado exitosamente: {usuario.email}.')
-                return usuario_dict, 200
-            else:
+            if usuario_actual.id != id:
                 logging.warning(f'Usuario {usuario_actual.email} no autorizado para actualizar el id: {id}.')
                 return {'error': 'Acceso denegado'}, 403
+
+            usuario = session.get(Usuario, id)
+            if not usuario:
+                logging.warning(f'Error en el intento de actualización de usuario con id {id} no encontrado.')
+                return {'error': 'Usuario no encontrado'}, 404
+
+            new_email = data.get('Email')
+            if new_email and new_email != usuario.email:
+                # Verificar si el nuevo email ya existe
+                email_exists = session.query(Usuario).filter(Usuario.email == new_email).first()
+                if email_exists:
+                    logging.warning(f'El nuevo email {new_email} ya está registrado.')
+                    return {'error': 'El nuevo email introducido ya está registrado.'}, 409
+
+            # Actualizar datos
+            usuario.email = new_email
+            usuario.nombre = data.get('Nombre', usuario.nombre)
+            usuario.alertas = data.get('Alertas', usuario.alertas).lower() == 'true'  # Convertir de nuevo a boolean
+            usuario.updated_at = datetime.datetime.now()
+
+            # Gestionar la actualización de la contraseña
+            actual_password = data.get('actualPassword')
+            new_password = data.get('newPassword')
+
+            # Si indica contraseñas se comprueba que la actual sea correcta y se actualiza
+            if actual_password and new_password:
+                if not (actual_password and new_password):
+                    logging.warning('Todas las contraseñas deben estar completas.')
+                    return {'error': 'Rellene todos los campos de contraseña.'}, 400
+
+                if not verify_password(actual_password, usuario.password):
+                    logging.warning('La contraseña actual no es correcta.')
+                    return {'error': 'La contraseña actual no es correcta.'}, 403
+
+                usuario.password = hash_password(new_password)
+
+            # Gestionar la actualización de la foto de perfil
+            if file or avatar:
+                old_photo = usuario.foto
+                # Eliminar la imagen de perfil anterior para liberar espacio
+                if old_photo and not old_photo.startswith('profile'):
+                    old_photo_path = os.path.join(app.config['PROFILE_UPLOAD_FOLDER'], old_photo)
+                    if os.path.exists(old_photo_path):
+                        os.remove(old_photo_path)
+
+                if file:
+                    filename = secure_filename(f"{usuario.email}_{file.filename}")
+                    file.save(os.path.join(app.config['PROFILE_UPLOAD_FOLDER'], filename))
+                    usuario.foto = filename
+                elif avatar:
+                    usuario.foto = avatar
+
+            session.commit()
+            usuario_dict = to_dict(usuario)
+            logging.info(f'Usuario actualizado exitosamente: {usuario.email}.')
+            return usuario_dict, 200
+
         except Exception as e:
             logging.error(f'Error al actualizar usuario con id {id}: {e}')
             return {'error': str(e)}, 500
@@ -557,25 +632,34 @@ class UsuarioResource(Resource):
                 if not usuario:
                     logging.warning(f'Error en el intento de eliminación de usuario con id: {id} no encontrado.')
                     return {'error': 'Usuario no encontrado'}, 404
-                # Se comprueba que el usuario no esté activo, para evitar su eliminación por error
-                if not usuario.check_activo:
-                    session.delete(usuario)
-                    session.commit()
-                    logging.info(f'Usuario eliminado exitosamente por admin: {usuario.email}.')
-                    return {'message': 'Usuario eliminado exitosamente'}, 200
+
+                # Eliminar la imagen de perfil del servidor para liberar espacio
+                if usuario.foto:
+                    foto_path = os.path.join(app.config['PROFILE_UPLOAD_FOLDER'], usuario.foto)
+                    if os.path.exists(foto_path):
+                        os.remove(foto_path)
+
+                session.delete(usuario)
+                session.commit()
+                logging.info(f'Usuario eliminado exitosamente por admin: {usuario.email}.')
+                return {'message': 'Usuario eliminado exitosamente'}, 200
+
             # Un usuario puede darse de baja a si mismo, pero no eliminarse
             elif usuario_actual.id == id:
                 usuario = session.get(Usuario, id)
                 if not usuario:
                     logging.warning(f'Intento de eliminación de usuario no encontrado, con id: {id}.')
                     return {'error': 'Usuario no encontrado'}, 404
+
                 usuario.check_activo = False
                 session.commit()
                 logging.info(f'Usuario desactivado exitosamente: {usuario.email}.')
                 return {'message': 'Usuario desactivado exitosamente'}, 200
+
             else:
                 logging.warning(f'Usuario {usuario_actual.email} no autorizado para eliminar el id: {id}.')
                 return {'error': 'Acceso denegado'}, 403
+
         except Exception as e:
             logging.error(f'Error al eliminar usuario con id {id}: {e}')
             return {'error': str(e)}, 500
@@ -587,7 +671,7 @@ class UsuarioResource(Resource):
 # GESTIÓN CRUD DE PROYECTOS
 ##############################################################################################################
 
-ns_proyecto = api.namespace('project', description='Operaciones sobre proyectos')
+ns_proyecto = api.namespace('proyectos', description='Operaciones sobre proyectos')
 
 # Modelo para la entidad proyecto
 proyecto_modelo = api.model('Proyecto', {
@@ -613,7 +697,7 @@ def get_permisos_proyecto(id_proyecto, session):
     return permisos
 
 
-@ns_proyecto.route('/proyectos')
+@ns_proyecto.route('')
 class ProyectoList(Resource):
     @jwt_required()
     @ns.doc('list_proyectos',
@@ -632,7 +716,7 @@ class ProyectoList(Resource):
 
             # Solo los administradores pueden acceder al listado completo
             if usuario_actual.rol == 'admin':
-                proyectos = session.query(Proyecto).all()
+                proyectos = session.query(Proyecto).order_by(Proyecto.updated_at).all()
             else:
                 proyectos = session.query(Proyecto).filter(
                     (Proyecto.id.in_(
@@ -729,13 +813,13 @@ class ProyectoList(Resource):
                         email_text = (f"<p>{usuario_actual.nombre} te ha invitado a un nuevo proyecto:"
                                       f" <strong>{nuevo_proyecto.titulo}</strong></p>"
                                       "<p>Puedes consultar todos los detalles a través de nuestra aplicación. "
-                                      "Nos vemos pronto.</p>")
+                                      )
                         html_body = generate_html_email(usuario_miembro.nombre, email_title, email_text)
                         msg = Message(subject=email_title,
                                       sender=app.config['MAIL_DEFAULT_SENDER'],
                                       recipients=[email])
                         msg.html = html_body
-                        mail.send(msg)
+                        #mail.send(msg)
 
             session.commit()
 
@@ -752,7 +836,7 @@ class ProyectoList(Resource):
         finally:
             session.close()
 
-@ns_proyecto.route('/proyectos/<int:id>')
+@ns_proyecto.route('/<int:id>')
 class ProyectoResource(Resource):
     @jwt_required()
     @ns.doc('get_proyecto', description='Obtiene el proyecto con el id indicado, en caso de que exista',
@@ -785,7 +869,8 @@ class ProyectoResource(Resource):
                         'IDUsuario': miembro.idusuario,
                         'Nombre': usuario.nombre,
                         'Email': usuario.email,
-                        'Permisos': miembro.permisos
+                        'Permisos': miembro.permisos,
+                        'Foto': miembro.foto
                     })
 
                 proyecto_dict = to_dict(proyecto)
@@ -933,7 +1018,7 @@ class ProyectoResource(Resource):
 # GESTIÓN CRUD DE TAREAS
 ##############################################################################################################
 
-ns_tarea = api.namespace('project/{id_proyecto}/tasks', path='/project/<int:id_proyecto>/tasks',
+ns_tarea = api.namespace('tareas', path='/proyectos/<int:id_proyecto>/tareas',
                          description='Operaciones sobre tareas de un proyecto específico')
 
 # Modelo para la entidad tarea
@@ -948,7 +1033,7 @@ tarea_modelo = api.model('Tarea', {
 })
 
 
-@ns_tarea.route('/')
+@ns_tarea.route('')
 class TareaList(Resource):
     @jwt_required()
     @ns.doc('list_tareas',
@@ -1045,18 +1130,19 @@ class TareaList(Resource):
                         2: "Alta"
                     }
                     email_title = "Nueva tarea asignada"
-                    email_text = (f"<p>Te han asignado una nueva tarea del proyecto: {proyecto.titulo} </p><hr>"
+                    email_text = (f"<p>Te han asignado una nueva tarea del proyecto: {proyecto.titulo} </p>"
+                                  f"<div class='info-card'>"
                                   f"<p>&emsp; Título: <strong>{nueva_tarea.titulo}</strong></p>"
                                   f"<p>&emsp; Prioridad: {prioridad_tarea.get(nueva_tarea.prioridad)}</p>"
-                                  f"<p>&emsp; Estado: {nueva_tarea.estado}</p><hr>"
+                                  f"<p>&emsp; Estado: {nueva_tarea.estado}</p></div>"
                                   "<p>Puedes consultar todos los detalles a través de nuestra aplicación. "
-                                      "Nos vemos pronto.</p>")
+                                      )
                     html_body = generate_html_email(usuario_asignado.nombre, email_title, email_text)
                     msg = Message(subject=email_title,
                                   sender=app.config['MAIL_DEFAULT_SENDER'],
                                   recipients=[usuario_asignado.email])
                     msg.html = html_body
-                    mail.send(msg)
+                    #mail.send(msg)
 
             logging.info(f'Tarea creada exitosamente. ID: {nueva_tarea.id}. {nueva_tarea.titulo}.')
             return tarea_dict, 201
@@ -1221,7 +1307,7 @@ class TareaResource(Resource):
 # GESTIÓN CRUD DE COMENTARIOS
 ##############################################################################################################
 
-ns_comentario = api.namespace('project/{id_proyecto}/comments', path='/project/<int:id_proyecto>/comments',
+ns_comentario = api.namespace('comentarios', path='/proyectos/<int:id_proyecto>/comentarios',
                               description='Operaciones sobre comentarios de un proyecto específico')
 
 # Modelo para la entidad archivo
@@ -1237,7 +1323,7 @@ comentario_modelo = api.model('Comentario', {
     'Archivos': fields.List(fields.Nested(archivo_modelo), description='Lista de archivos adjuntos del comentario')
 })
 
-@ns_comentario.route('/')
+@ns_comentario.route('')
 class ComentarioList(Resource):
     @jwt_required()
     @ns.doc('list_comentarios',
@@ -1406,7 +1492,7 @@ class ComentarioResource(Resource):
 # GESTIÓN CRUD DE MENSAJES
 ##############################################################################################################
 
-ns_mensaje = api.namespace('messages', description='Operaciones sobre mensajes entre usuarios')
+ns_mensaje = api.namespace('mensajes', description='Operaciones sobre mensajes entre usuarios')
 
 # Modelo para la entidad mensaje
 mensaje_modelo = api.model('Mensaje', {
@@ -1503,7 +1589,7 @@ class ChatResource(Resource):
         finally:
             session.close()
 
-@ns_mensaje.route('/')
+@ns_mensaje.route('')
 class MensajeSend(Resource):
     @jwt_required()
     @ns.expect(mensaje_modelo)
@@ -1596,7 +1682,7 @@ class MensajeSend(Resource):
 # GESTIÓN CRUD DE REUNIONES
 ##############################################################################################################
 
-ns_reunion = api.namespace('meetings', description='Operaciones sobre reuniones')
+ns_reunion = api.namespace('reuniones', description='Operaciones sobre reuniones')
 
 # Modelo para la entidad reunión
 reunion_modelo = api.model('Reunion', {
@@ -1608,7 +1694,7 @@ reunion_modelo = api.model('Reunion', {
     'Participantes': fields.List(fields.String, required=True, description='Lista de correos electrónicos de los participantes')
 })
 
-@ns_reunion.route('/')
+@ns_reunion.route('')
 class ReunionesList(Resource):
     @jwt_required()
     @ns.doc('list_reuniones', description='Obtiene el listado de reuniones del usuario logueado',
@@ -1719,11 +1805,12 @@ class ReunionesList(Resource):
 
                 # Se notifica por email a cada usuario participante
                 email_title = "Nueva reunión convocada"
-                email_text = (f"<p>{usuario_actual.nombre} te ha convocado a una nueva reunión: </p><hr>"
+                email_text = (f"<p>{usuario_actual.nombre} te ha convocado a una nueva reunión: </p>"
+                              f"<div class='info-card'>"
                       f"<p>&emsp; Título: <strong>{nueva_reunion.titulo}</strong></p>"
                       f"<p>&emsp; Fecha y Hora: {nueva_reunion.fechahora}</p>"
                       f"<p>&emsp; Duración: {nueva_reunion.duracion} minutos</p>"
-                      f"<p>&emsp; Modalidad: {nueva_reunion.modalidad}</p><hr>"
+                      f"<p>&emsp; Modalidad: {nueva_reunion.modalidad}</p></div>"
                       "<p>No olvides dar una respuesta a través de nuestra aplicación, "
                       "donde podrás consultar todos los detalles de la convocatoria. Nos vemos pronto.</p>")
                 html_body = generate_html_email(participante.nombre, email_title, email_text)
@@ -1731,7 +1818,7 @@ class ReunionesList(Resource):
                               sender=app.config['MAIL_DEFAULT_SENDER'],
                               recipients=[email])
                 msg.html = html_body
-                mail.send(msg)
+                #mail.send(msg)
                 logging.info(f'Correo de notificación de nueva convocatoria enviado a {email}.')
 
             session.commit()
@@ -1788,39 +1875,23 @@ class ReunionResource(Resource):
             # Notificar a todos los participantes
             for participante in participantes:
 
-                # TODO Borrar envio de mensaje antes de entregar
-                # mensaje = Mensaje(
-                #     asunto='Reunión cancelada',
-                #     contenido=f"<p>Se ha cancelado la siguiente reunión: </p><hr>"
-                #           f"<p>&emsp; Título: <strong>{reunion.titulo}</strong></p>"
-                #           f"<p>&emsp; Fecha y Hora: {reunion.fechahora}</p>"
-                #           f"<p>&emsp; Duración: {reunion.duracion} minutos</p>"
-                #           f"<p>&emsp; Modalidad: {reunion.modalidad}</p><hr>"
-                #           "<p>Nos vemos pronto.</p>",
-                #     check_leido=False,
-                #     created_at=datetime.datetime.now(),
-                #     updated_at=datetime.datetime.now(),
-                #     idemisor=usuario_actual.id,
-                #     idreceptor=participante.idusuario
-                # )
-                # session.add(mensaje)
-
                 usuario_participante = session.query(Usuario).filter_by(id=participante.idusuario).first()
 
                 # Se notifica por email a cada usuario participante
                 email_title = "Reunión cancelada"
                 email_text = (f"<p>Se ha cancelado la siguiente reunión:</p>"
-                              f"<hr><p>&emsp; Título: <strong>{reunion.titulo}</strong></p>"
+                              f"<div class='info-card'>"
+                              f"<p>&emsp; Título: <strong>{reunion.titulo}</strong></p>"
                               f"<p>&emsp; Fecha y Hora: {reunion.fechahora}</p>"
                               f"<p>&emsp; Duración: {reunion.duracion} minutos</p>"
-                              f"<p>&emsp; Modalidad: {reunion.modalidad}</p><hr>"
-                              "<p>Nos vemos pronto.</p>")
+                              f"<p>&emsp; Modalidad: {reunion.modalidad}</p></div>"
+                              )
                 html_body = generate_html_email(usuario_participante.nombre, email_title, email_text)
                 msg = Message(subject=email_title,
                               sender=app.config['MAIL_DEFAULT_SENDER'],
                               recipients=[usuario_participante.email])
                 msg.html = html_body
-                mail.send(msg)
+                #mail.send(msg)
                 logging.info(f'Correo de notificación de convocatoria cancelada enviado a {usuario_participante.email}.')
 
             session.commit()
@@ -1878,18 +1949,19 @@ class RespuestaReunion(Resource):
             # Se notifica por email al creador de la convocatoria
             email_title = "Reunión " + data['Respuesta']
             email_text = (f"<p>{usuario_participante.nombre} ha contestado a tu convocatoria:</p>"
-                          f"<hr><p>&emsp; Título: <strong>{reunion.titulo}</strong></p>"
+                          f"<div class='info-card'>"
+                          f"<p>&emsp; Título: <strong>{reunion.titulo}</strong></p>"
                           f"<p>&emsp; Fecha y Hora: {reunion.fechahora}</p>"
                           f"<p>&emsp; Duración: {reunion.duracion} minutos</p>"
                           f"<p>&emsp; Modalidad: {reunion.modalidad} minutos</p>"
-                          f"<p>&emsp; Respuesta: <strong>{data['Respuesta']}<strong></p><hr>"
-                          "<p>Nos vemos pronto.</p>")
+                          f"<p>&emsp; Respuesta: <strong>{data['Respuesta']}<strong></p></div>"
+                          )
             html_body = generate_html_email(usuario_creador.nombre, email_title, email_text)
             msg = Message(subject=email_title,
                           sender=app.config['MAIL_DEFAULT_SENDER'],
                           recipients=[usuario_creador.email])
             msg.html = html_body
-            mail.send(msg)
+            #mail.send(msg)
             logging.info(f'Correo de notificación de respuesta a la convocatoria enviado a {usuario_creador.email}.')
 
             session.commit()
@@ -1948,7 +2020,7 @@ def enviar_correo_notificacion(usuario, mensajes_no_leidos):
                       sender=app.config['MAIL_DEFAULT_SENDER'],
                       recipients=[usuario.email])
         msg.html = html_body
-        mail.send(msg)
+        #mail.send(msg)
         logging.info(f'Correo de notificación enviado a {usuario.email}.')
     except Exception as e:
         logging.error(f'Error al enviar el correo de notificación a {usuario.email}: {e}')
@@ -1961,7 +2033,7 @@ def job_wrapper():
 
 # Configuración del scheduler
 scheduler = BackgroundScheduler()
-scheduler.add_job(job_wrapper, 'cron', hour=11)  # Ejecución diaria a las 11 AM
+scheduler.add_job(job_wrapper, 'cron', hour=SCHEDULER_HOUR)  # Ejecución diaria programada en config
 scheduler.start()
 
 # Se cierra el scheduler al apagar la aplicación

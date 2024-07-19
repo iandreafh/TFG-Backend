@@ -1,0 +1,139 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <title>Email de Panda Planning</title>-->
+<!--</head>-->
+<!--<body style="font-family: Calibri, sans-serif; margin: 0; padding: 0; background-color: #f6f7fc;">-->
+<!--    <div style="width: 90%; max-width: 950px; margin: 25px auto; background-color: #fff; border: 1px solid #ddd; border-radius: 8px;-->
+<!--                text-align: center; overflow: hidden; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">-->
+<!--        <div style="text-align: center; padding: 20px; position: relative; color: #ef8a42ea;">-->
+<!--            <img src="/app/uploads/Panda_grande_azul.png" alt="Logo" style="width: 120px; margin-bottom: 10px;">-->
+<!--            <h2 style="font-size: 2rem; margin: 0;">{{ title }}</h2>-->
+<!--        </div>-->
+<!--        <div style="padding: 20px 40px;">-->
+<!--            <p style="margin: 10px 0; line-height: 1.6;">Hola {{ name }},</p>-->
+<!--            <p style="margin: 10px 0; line-height: 1.6;">{{ text }}</p>-->
+<!--            <p style="margin: 10px 0; line-height: 1.6;"><em>El equipo de Panda Planning</em></p>-->
+<!--        </div>-->
+<!--        <div style="text-align: center; padding: 10px 20px;">-->
+<!--            <p style="color: #ef8a42ea; text-align: center; font-size: 12px; margin-top: 20px;">-->
+<!--                Recuerda que puedes dar de baja las alertas por correo electrónico en cualquier momento desde tu perfil.-->
+<!--            </p>-->
+<!--            <p style="font-size: 14px;">&copy; 2024 Panda Planning. Todos los derechos reservados.</p>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Calibri, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .email-container {
+            font-family: Calibri, sans-serif;
+            width: 90%;
+            max-width: 950px;
+            margin: 25px auto;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .email-header {
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            color: #ef8a42ea;
+        }
+
+        .email-header .logo {
+            width: 120px;
+            margin-bottom: 10px;
+        }
+
+        .email-content {
+            padding: 20px 40px;
+            font-size: 16px;
+        }
+
+        .email-footer {
+            text-align: center;
+            padding: 10px 20px;
+        }
+
+        .email-footer p {
+        font-size: 14px;
+        }
+
+        .footer-text {
+            color: #ef8a42ea;
+            text-align: center;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        a.btn-hover {
+            padding: 15px 25px;
+            background: #ed7d2b;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        a.btn-hover:hover {
+            background: #f79740;
+        }
+
+        .info-card {
+            width: 40%;
+            border-top: 1px solid grey;
+            border-bottom: 1px solid grey;
+            padding: 5px;
+            margin: auto;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+<!--            <img src="http://localhost:5000/uploads/profile_uploads/Panda_grande_azul.png" alt="Logo" class="logo">-->
+            <h2>{{ title }}</h2>
+        </div>
+        <div class="email-content">
+            <p>Hola {{ name }},</p>
+            <p>{{ text }}</p>
+            <p>Nos vemos pronto,</p>
+            <p><em>El equipo de Panda Planning</em></p>
+        </div>
+        <div class="email-footer">
+            <p class="footer-text">Recuerda que puedes dar de baja las alertas por correo electrónico en cualquier momento desde tu perfil.</p>
+            <p>&copy; 2024 Panda Planning.</p>
+        </div>
+    </div>
+</body>
+</html>
