@@ -12,7 +12,7 @@ Panda Planning es una aplicación diseñada para ayudar en la gestión y planifi
 - **Gestión de Usuarios**: Registro, actualización y eliminación de usuarios.
 - **Gestión de Proyectos**: Creación, actualización y eliminación de proyectos.
 - **Gestión de Tareas**: Creación, actualización y eliminación de tareas asociadas a proyectos.
-- **Gestión de Comentarios**: Creación, actualización y eliminación de comentarios en proyectos.
+- **Gestión de Comentarios**: Creación y listado de comentarios en proyectos, con opción de adjuntar archivos.
 - **Gestión de Mensajes**: Envío y recepción de mensajes entre usuarios.
 - **Gestión de Reuniones**: Creación, actualización y eliminación de reuniones.
 
@@ -32,7 +32,7 @@ Panda Planning es una aplicación diseñada para ayudar en la gestión y planifi
 ### Requisitos Previos
 
 - Python 3.8 o superior
-- PostgreSQL
+- PostgreSQL 8.2 o superior
 
 ### Instalación
 
@@ -45,7 +45,7 @@ Panda Planning es una aplicación diseñada para ayudar en la gestión y planifi
    ```bash
    pip install -r requirements.txt
 
-3. Configura las variables de entorno necesarias en el archivo `config.py`
+3. Configura los valores necesarios en el archivo `config.py`
 
 
 4. Ejecuta el proyecto:
@@ -56,7 +56,7 @@ Panda Planning es una aplicación diseñada para ayudar en la gestión y planifi
 
 ### Documentación de la API
 
-La documentación interactiva de la API se encuentra disponible en `http://localhost:5000/` una vez que la aplicación está en funcionamiento. 
+La documentación interactiva de la API se encuentra disponible en `http://localhost:5000/` una vez que la aplicación está en funcionamiento.
 
 ### Endpoints Principales
 
@@ -68,43 +68,47 @@ La documentación interactiva de la API se encuentra disponible en `http://local
 
 #### Usuarios
 
-- **GET /user/usuarios**: Listar todos los usuarios (solo administradores).
-- **POST /user/usuarios**: Crear un nuevo usuario.
-- **GET /user/usuarios/<int:id>**: Obtener detalles de un usuario específico.
-- **PUT /user/usuarios/<int:id>**: Actualizar un usuario específico.
-- **DELETE /user/usuarios/<int:id>**: Eliminar un usuario específico.
+- **GET /usuarios**: Listar todos los usuarios (solo administradores).
+- **POST /usuarios**: Crear un nuevo usuario.
+- **GET /usuarios/\<int:id\>**: Obtener detalles de un usuario específico.
+- **PUT /usuarios/\<int:id\>**: Actualizar un usuario específico.
+- **DELETE /usuarios/\<int:id\>**: Dar de baja o eliminar un usuario específico.
+- **GET /usuarios/profile**: Obtener el perfil del usuario autenticado.
 
 #### Proyectos
 
-- **GET /project/proyectos**: Listar todos los proyectos del usuario logueado.
-- **POST /project/proyectos**: Crear un nuevo proyecto.
-- **GET /project/proyectos/<int:id>**: Obtener detalles de un proyecto específico.
-- **PUT /project/proyectos/<int:id>**: Actualizar un proyecto específico.
-- **DELETE /project/proyectos/<int:id>**: Eliminar un proyecto específico.
+- **GET /proyectos**: Listar todos los proyectos del usuario logueado o completos si es administrador.
+- **POST /proyectos**: Crear un nuevo proyecto.
+- **GET /proyectos/\<int:id\>**: Obtener detalles de un proyecto específico.
+- **PUT /proyectos/\<int:id\>**: Actualizar un proyecto específico.
+- **DELETE /proyectos/\<int:id\>**: Dar de baja o eliminar un proyecto específico.
 
 #### Tareas
 
-- **GET /project/<int:id_proyecto>/tasks**: Listar todas las tareas de un proyecto.
-- **POST /project/<int:id_proyecto>/tasks**: Crear una nueva tarea en un proyecto.
-- **GET /project/<int:id_proyecto>/tasks/<int:id>**: Obtener detalles de una tarea específica.
-- **PUT /project/<int:id_proyecto>/tasks/<int:id>**: Actualizar una tarea específica.
-- **DELETE /project/<int:id_proyecto>/tasks/<int:id>**: Eliminar una tarea específica.
+- **GET /proyectos/\<int:id_proyecto\>/tareas**: Listar todas las tareas de un proyecto.
+- **POST /proyectos/\<int:id_proyecto\>/tareas**: Crear una nueva tarea en un proyecto.
+- **GET /proyectos/\<int:id_proyecto\>/tareas/\<int:id\>**: Obtener detalles de una tarea específica.
+- **PUT /proyectos/\<int:id_proyecto\>/tareas/\<int:id\>**: Actualizar una tarea específica.
+- **DELETE /proyectos/\<int:id_proyecto\>/tareas/\<int:id\>**: Eliminar una tarea específica.
 
 #### Comentarios
 
-- **GET /project/<int:id_proyecto>/comments**: Listar todos los comentarios de un proyecto y sus archivos adjuntos.
-- **POST /project/<int:id_proyecto>/comments**: Crear un nuevo comentario en un proyecto, con opción de adjuntar archivos.
-- **DELETE /project/<int:id_proyecto>/comments/<int:id>**: Eliminar un comentario específico.
+- **GET /proyectos/\<int:id_proyecto\>/comentarios**: Listar todos los comentarios de un proyecto y sus archivos adjuntos.
+- **POST /proyectos/\<int:id_proyecto\>/comentarios**: Crear un nuevo comentario en un proyecto, con opción de adjuntar archivos.
 
 #### Mensajes
 
-- **GET /messages/chats**: Listar todos los chats del usuario logueado con el último mensaje.
-- **GET /messages/chats/<int:id_usuario>**: Obtener el chat con un usuario específico.
-- **POST /messages**: Enviar un mensaje a otro usuario o hacer un comunicado general si el emisor es administrador.
+- **GET /mensajes/chats**: Listar todos los chats del usuario logueado con el último mensaje.
+- **GET /mensajes/chats/\<int:id_usuario\>**: Obtener el chat con un usuario específico.
+- **POST /mensajes**: Enviar un mensaje a otro usuario o hacer un comunicado general si el emisor es administrador.
 
 #### Reuniones
 
-- **GET /meetings**: Listar todas las reuniones del usuario logueado.
-- **POST /meetings**: Crear una nueva reunión.
-- **DELETE /meetings/<int:id>**: Eliminar una reunión específica.
-- **POST /meetings/respuesta/<int:id>**: Responder a una convocatoria de reunión.
+- **GET /reuniones**: Listar todas las reuniones del usuario logueado, pudiendo filtrar para ocultar las pasadas.
+- **POST /reuniones**: Crear una nueva reunión.
+- **DELETE /reuniones/\<int:id\>**: Cancelar una reunión específica.
+- **POST /reuniones/respuesta/\<int:id\>**: Responder a una convocatoria de reunión.
+
+#### Correo
+
+- **POST /auth/send_mail_test**: Enviar un correo de prueba para comprobar la configuración y estilo.
