@@ -251,7 +251,6 @@ class Login(Resource):
             session.close()
 
 @ns.route('/logout')
-@ns.route('/logout')
 class Logout(Resource):
     @jwt_required()
     @ns.doc('logout',
@@ -704,6 +703,21 @@ class UsuarioResource(Resource):
                     tarea.updated_at = datetime.datetime.now()
 
                 usuario.check_activo = False
+
+                # Enviar correo electrónico de confirmación de la baja
+                email_title = f"Tu solicitud de baja ha sido procesada"
+                email_text = (f"<p>Se ha procesado correctamente tu petición para dar de baja tu perfil, a partir de ahora no podrás acceder a Panda Planning. "
+                              "Tus proyectos seguirán activos durante un tiempo, pero no podrás acceder a ellos. Si deseas reactivar tu cuenta, "
+                              "puedes ponerte en contacto con nuestro equipo en esta dirección de correo electrónico.</p>")
+                html_body = generate_html_email(usuario.nombre, email_title, email_text)
+                nombre_usuario = usuario.nombre.split()[0]
+                msg = Message(subject=f"Bienvenido a Panda Planning, {nombre_usuario}",
+                              sender=app.config['MAIL_DEFAULT_SENDER'],
+                              recipients=[usuario.email])  # nuevo_usuario.email
+                msg.html = html_body
+                mail.send(msg)
+                logging.debug(f'Correo de bienvenida enviado exitosamente: {usuario.email}')
+
                 session.commit()
                 logging.info(f'Usuario desactivado exitosamente: {usuario.email}')
                 return {'message': 'Usuario desactivado exitosamente'}, 200
