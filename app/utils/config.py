@@ -4,11 +4,11 @@ import os
 DB_HOST = "localhost"
 DB_NAME = "PandaPlanningDB"
 DB_USER = "postgres"
-DB_PASSWORD = "7UwP8mo2."  # Considera mover esto a una variable de entorno
+DB_PASSWORD = "7UwP8mo2."
 
 # Configuraciones del correo electrónico
 MAIL_USERNAME = 'pandaplanningweb@gmail.com'
-MAIL_PASSWORD = 'gdbjopjbxufxtitq'  # Considera mover esto a una variable de entorno
+MAIL_PASSWORD = 'gdbjopjbxufxtitq'
 MAIL_DEFAULT_SENDER = 'pandaplanningweb@gmail.com'
 MAIL_DEFAULT_TESTER = 'iandreafh@gmail.com'  # Correo electrónico para pruebas de envío
 

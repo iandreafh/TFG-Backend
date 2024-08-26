@@ -484,20 +484,19 @@ class UsuarioList(Resource):
             usuario_dict = to_dict(nuevo_usuario)
 
             # Enviar correo electrónico de confirmación del registro
-            if nuevo_usuario.alertas:
-                email_title = f"¡Bienvenido a Panda Planning!"
-                email_text = (f"<p>Gracias por registrarte en nuestra web, a partir de ahora podrás acceder a tus "
-                              "proyectos y gestionar las tareas y comentarios de forma eficiente, "
-                              "además de convocar reuniones e intercambiar mensajes con otros usuarios para estar"
-                              " al día.</p>")
-                html_body = generate_html_email(nuevo_usuario.nombre, email_title, email_text)
-                nombre_usuario = nuevo_usuario.nombre.split()[0]
-                msg = Message(subject=f"Bienvenido a Panda Planning, {nombre_usuario}",
-                              sender=app.config['MAIL_DEFAULT_SENDER'],
-                              recipients=[nuevo_usuario.email]) # nuevo_usuario.email
-                msg.html = html_body
-                mail.send(msg)
-                logging.debug(f'Correo de bienvenida enviado exitosamente: {nuevo_usuario.email}')
+            email_title = f"¡Bienvenido a Panda Planning!"
+            email_text = (f"<p>Gracias por registrarte en nuestra web, a partir de ahora podrás acceder a tus "
+                          "proyectos y gestionar las tareas y comentarios de forma eficiente, "
+                          "además de convocar reuniones e intercambiar mensajes con otros usuarios para estar"
+                          " al día.</p>")
+            html_body = generate_html_email(nuevo_usuario.nombre, email_title, email_text)
+            nombre_usuario = nuevo_usuario.nombre.split()[0]
+            msg = Message(subject=f"Bienvenido a Panda Planning, {nombre_usuario}",
+                          sender=app.config['MAIL_DEFAULT_SENDER'],
+                          recipients=[nuevo_usuario.email]) # nuevo_usuario.email
+            msg.html = html_body
+            mail.send(msg)
+            logging.debug(f'Correo de bienvenida enviado exitosamente: {nuevo_usuario.email}')
 
             logging.info(f'Usuario creado exitosamente: {nuevo_usuario.email}')
             return usuario_dict, 201
@@ -1303,7 +1302,7 @@ class TareaList(Resource):
                                   sender=app.config['MAIL_DEFAULT_SENDER'],
                                   recipients=[usuario_asignado_detalles.email])
                     msg.html = html_body
-                    # mail.send(msg)
+                    mail.send(msg)
 
             logging.debug(f'Tarea creada exitosamente. ID: {nueva_tarea.id}. {nueva_tarea.titulo}.')
             return tarea_dict, 201
@@ -1443,7 +1442,7 @@ class TareaResource(Resource):
                                   sender=app.config['MAIL_DEFAULT_SENDER'],
                                   recipients=[usuario_asignado_detalles.email])
                     msg.html = html_body
-                    # mail.send(msg)
+                    mail.send(msg)
 
             logging.debug(f'Tarea actualizada exitosamente. ID: {tarea.id}. {tarea.titulo}.')
             return tarea_dict, 200
