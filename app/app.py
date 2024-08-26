@@ -60,7 +60,7 @@ http_logger = logging.getLogger('http_logger')
 http_logger.addHandler(http_handler)
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["https://pandaplanning.es"])
 @app.before_request
 def log_request_info():
     http_logger.info(f'{request.remote_addr} - - [{datetime.datetime.now().strftime("%d/%b/%Y %H:%M:%S")}] "{request.method} {request.path} {request.scheme}/{request.environ.get("SERVER_PROTOCOL")}"')
@@ -703,12 +703,13 @@ class UsuarioResource(Resource):
                     tarea.updated_at = datetime.datetime.now()
 
                 usuario.check_activo = False
+                usuario.alertas = False
 
                 # Enviar correo electrónico de confirmación de la baja
                 email_title = f"Tu solicitud de baja ha sido procesada"
                 email_text = (f"<p>Se ha procesado correctamente tu petición para dar de baja tu perfil, a partir de ahora no podrás acceder a Panda Planning. "
-                              "Tus proyectos seguirán activos durante un tiempo, pero no podrás acceder a ellos. Si deseas reactivar tu cuenta, "
-                              "puedes ponerte en contacto con nuestro equipo en esta dirección de correo electrónico.</p>")
+                              "Tus proyectos y mensajes seguirán activos durante un tiempo, pero pasados 6 meses el equipo de Panda Planning podrá eliminar todos tus datos de la aplicación. "
+                              "Si deseas reactivar tu cuenta, puedes ponerte en contacto con nuestro equipo en esta dirección de correo electrónico.</p>")
                 html_body = generate_html_email(usuario.nombre, email_title, email_text)
                 nombre_usuario = usuario.nombre.split()[0]
                 msg = Message(subject=f"Bienvenido a Panda Planning, {nombre_usuario}",
@@ -1749,7 +1750,25 @@ class ChatList(Resource):
             session.close()
 
 
-@ns_mensaje.route('/chats/<int:id_usuario>')
+# Configuración del directorio para subir archivos
+PROFILE_UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads/profile_uploads')
+if not os.path.exists(PROFILE_UPLOAD_FOLDER):
+    os.makedirs(PROFILE_UPLOAD_FOLDER)
+app.config['PROFILE_UPLOAD_FOLDER'] = PROFILE_UPLOAD_FOLDER
+
+FILES_UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads/files_uploads')
+if not os.path.exists(FILES_UPLOAD_FOLDER):
+    os.makedirs(FILES_UPLOAD_FOLDER)
+app.config['FILES_UPLOAD_FOLDER'] = FILES_UPLOAD_FOLDER
+
+@app.route('/uploads/profile_uploads/<filename>')
+def uploaded_profile_file(filename):
+    return send_from_directory(app.config['PROFILE_UPLOAD_FOLDER'], filename)
+
+@app.route('/uploads/files_uploads/<filename>')
+def uploaded_files_file(filename):
+    return send_from_directory(app.config['FILES_UPLOAD_FOLDER'], filename)
+
 class ChatResource(Resource):
     @jwt_required()
     @ns.doc('get_chat', description='Obtiene el chat con un usuario específico', params={'id_usuario': 'ID del usuario'},
@@ -1814,8 +1833,8 @@ class MensajeSend(Resource):
 
             # Verificar si el usuario es administrador y quiere enviar un comunicado
             if comunicado and usuario_actual.rol == 'admin':
-                # Enviar mensaje a todos los usuarios excepto otros administradores
-                usuarios_receptores = session.query(Usuario).all()
+                # Enviar mensaje a todos los usuarios activos
+                usuarios_receptores = session.query(Usuario).filter(Usuario.check_activo == True).all()
                 if not usuarios_receptores:
                     logging.warning('No hay usuarios disponibles para enviar el comunicado.')
                     return {'error': 'No hay usuarios disponibles para enviar el comunicado'}, 404
@@ -1856,12 +1875,16 @@ class MensajeSend(Resource):
                 return {'message': 'Comunicado enviado exitosamente'}, 201
 
             # Si el usuario no es administrador o no quiere enviar un comunicado, se envía un mensaje individual entre usuarios
-            # Verificar si el receptor existe mediante el correo electrónico
+            # Verificar si el receptor existe y es un usuario activo mediante el correo electrónico
             receptor = session.query(Usuario).filter_by(email=data['EmailReceptor']).first()
             if not receptor:
                 logging.warning(f'Error en el intento de envío de mensaje. '
                                 f'Usuario receptor con email: {data["EmailReceptor"]} no encontrado.')
                 return {'error': 'Usuario receptor no encontrado'}, 404
+            if receptor.check_activo == False:
+                logging.warning(f'Error en el intento de envío de mensaje. '
+                                f'Usuario receptor con email: {data["EmailReceptor"]} inactivo.')
+                return {'error': 'Usuario receptor inactivo'}, 400
 
             # Verificar si el usuario receptor no es el mismo que el emisor
             if usuario_actual.id == receptor.id:
@@ -2011,16 +2034,25 @@ class ReunionesList(Resource):
 
             # Verificar si todos los participantes existen en el sistema
             participantes_no_encontrados = []
+            participantes_no_activos = []
             for email in data['Participantes']:
                 participante = session.query(Usuario).filter_by(email=email).first()
                 if not participante:
                     participantes_no_encontrados.append(email)
+                if participante.check_activo == False:
+                    participantes_no_activos.append(email)
 
             if participantes_no_encontrados:
                 logging.warning(f'No se ha podido enviar la convocatoria, '
                                 f'no se encuentran los emails {participantes_no_encontrados}.')
                 return {'error': f'Emails de participantes no encontrados: '
                                  f'{", ".join(participantes_no_encontrados)}'}, 404
+
+            if participantes_no_activos:
+                logging.warning(f'No se ha podido enviar la convocatoria, '
+                                f'los emails {participantes_no_activos} están dados de baja en la aplicación.')
+                return {'error': f'Emails de participantes inactivos: '
+                                 f'{", ".join(participantes_no_activos)}'}, 400
 
             nueva_reunion = Reunion(
                 titulo=data['Titulo'],
@@ -2242,7 +2274,7 @@ def revisar_mensajes_no_leidos():
     session = Session()
     try:
         # Obtener solo los usuarios con alertas configuradas como True
-        usuarios = session.query(Usuario).filter(Usuario.alertas == True).all()
+        usuarios = session.query(Usuario).filter(Usuario.check_activo == True, Usuario.alertas == True).all()
 
         # Revisar número de mensajes sin leer recibidos hace más de 24 horas y notificar por correo
         for usuario in usuarios:
