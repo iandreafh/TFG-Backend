@@ -1749,26 +1749,6 @@ class ChatList(Resource):
         finally:
             session.close()
 
-
-# Configuración del directorio para subir archivos
-PROFILE_UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads/profile_uploads')
-if not os.path.exists(PROFILE_UPLOAD_FOLDER):
-    os.makedirs(PROFILE_UPLOAD_FOLDER)
-app.config['PROFILE_UPLOAD_FOLDER'] = PROFILE_UPLOAD_FOLDER
-
-FILES_UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads/files_uploads')
-if not os.path.exists(FILES_UPLOAD_FOLDER):
-    os.makedirs(FILES_UPLOAD_FOLDER)
-app.config['FILES_UPLOAD_FOLDER'] = FILES_UPLOAD_FOLDER
-
-@app.route('/uploads/profile_uploads/<filename>')
-def uploaded_profile_file(filename):
-    return send_from_directory(app.config['PROFILE_UPLOAD_FOLDER'], filename)
-
-@app.route('/uploads/files_uploads/<filename>')
-def uploaded_files_file(filename):
-    return send_from_directory(app.config['FILES_UPLOAD_FOLDER'], filename)
-
 class ChatResource(Resource):
     @jwt_required()
     @ns.doc('get_chat', description='Obtiene el chat con un usuario específico', params={'id_usuario': 'ID del usuario'},
