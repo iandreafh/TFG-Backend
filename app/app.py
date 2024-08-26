@@ -1748,6 +1748,7 @@ class ChatList(Resource):
         finally:
             session.close()
 
+@ns_mensaje.route('/chats/<int:id_usuario>')
 class ChatResource(Resource):
     @jwt_required()
     @ns.doc('get_chat', description='Obtiene el chat con un usuario específico', params={'id_usuario': 'ID del usuario'},
