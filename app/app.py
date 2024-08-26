@@ -167,9 +167,9 @@ def to_dict(obj):
             if isinstance(value, datetime.datetime) or isinstance(value, datetime.date):
                 value = value.isoformat()
             if column.key == 'foto' and value:
-                value = f"{request.url_root}uploads/profile_uploads/{value}"
+                value = f"{request.url_root}api/uploads/profile_uploads/{value}"
             if column.key == 'ruta' and value:
-                value = f"{request.url_root}uploads/files_uploads/{value}"
+                value = f"{request.url_root}api/uploads/files_uploads/{value}"
             obj_dict[column.key.capitalize()] = value
 
     return obj_dict
@@ -838,7 +838,7 @@ class ProyectoList(Resource):
                             'Nombre': usuario.nombre,
                             'Email': usuario.email,
                             'Permisos': miembro.permisos,
-                            'Foto': f"{request.url_root}uploads/profile_uploads/{usuario.foto}",
+                            'Foto': f"{request.url_root}api/uploads/profile_uploads/{usuario.foto}",
                             'Check_activo': usuario.check_activo
                         })
 
@@ -988,7 +988,7 @@ class ProyectoResource(Resource):
                         'Nombre': usuario.nombre,
                         'Email': usuario.email,
                         'Permisos': miembro.permisos,
-                        'Foto': f"{request.url_root}uploads/profile_uploads/{usuario.foto}",
+                        'Foto': f"{request.url_root}api/uploads/profile_uploads/{usuario.foto}",
                         'Check_activo': usuario.check_activo
                     })
 
@@ -1734,7 +1734,7 @@ class ChatList(Resource):
                         'Idusuario': otro_usuario.id,
                         'Email': otro_usuario.email,
                         'Nombre': otro_usuario.nombre,
-                        'Foto': f"{request.url_root}uploads/profile_uploads/{otro_usuario.foto}",
+                        'Foto': f"{request.url_root}api/uploads/profile_uploads/{otro_usuario.foto}",
                         'UltimoMensaje': mensaje.created_at.isoformat(),
                         'LeidoPorMi': leido_por_mi,
                         'LeidoPorOtro': leido_por_otro
@@ -1983,7 +1983,7 @@ class ReunionesList(Resource):
                         'Idusuario': participante.idusuario,
                         'Nombre': usuario.nombre,
                         'Email': usuario.email,
-                        'Foto': f"{request.url_root}uploads/profile_uploads/{usuario.foto}",
+                        'Foto': f"{request.url_root}api/uploads/profile_uploads/{usuario.foto}",
                         'Respuesta': participante.respuesta
                     })
 
