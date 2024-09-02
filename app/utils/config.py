@@ -1,5 +1,8 @@
 import os
 
+# Configuración de entorno a production o development (por defecto)
+ENV = "development"
+
 # Configuraciones de la base de datos
 DB_HOST = "localhost"
 DB_NAME = "PandaPlanningDB"

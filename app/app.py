@@ -60,7 +60,8 @@ http_logger = logging.getLogger('http_logger')
 http_logger.addHandler(http_handler)
 
 app = Flask(__name__)
-CORS(app, origins=["https://pandaplanning.es"])
+CORS(app)
+# CORS(app, origins=["https://pandaplanning.es"])
 @app.before_request
 def log_request_info():
     http_logger.info(f'{request.remote_addr} - - [{datetime.datetime.now().strftime("%d/%b/%Y %H:%M:%S")}] "{request.method} {request.path} {request.scheme}/{request.environ.get("SERVER_PROTOCOL")}"')
@@ -81,6 +82,19 @@ FILES_UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), '
 if not os.path.exists(FILES_UPLOAD_FOLDER):
     os.makedirs(FILES_UPLOAD_FOLDER)
 app.config['FILES_UPLOAD_FOLDER'] = FILES_UPLOAD_FOLDER
+
+# Se asigna la url de la imagen de perfil o archivo adjunto en función del entorno, añadiendo /api o no
+def build_file_url(type, filename):
+    if ENV == 'production':
+        if(type == 'profile'):
+            return f"{request.url_root}api/uploads/profile_uploads/{filename}"
+        else:
+            return f"{request.url_root}api/uploads/files_uploads/{filename}"
+    else:
+        if (type == 'profile'):
+            return f"{request.url_root}uploads/profile_uploads/{filename}"
+        else:
+            return f"{request.url_root}uploads/files_uploads/{filename}"
 
 @app.route('/uploads/profile_uploads/<filename>')
 def uploaded_profile_file(filename):
@@ -167,9 +181,9 @@ def to_dict(obj):
             if isinstance(value, datetime.datetime) or isinstance(value, datetime.date):
                 value = value.isoformat()
             if column.key == 'foto' and value:
-                value = f"{request.url_root}api/uploads/profile_uploads/{value}"
+                value = build_file_url("profile", value)
             if column.key == 'ruta' and value:
-                value = f"{request.url_root}api/uploads/files_uploads/{value}"
+                value = build_file_url("files", value)
             obj_dict[column.key.capitalize()] = value
 
     return obj_dict
@@ -837,7 +851,7 @@ class ProyectoList(Resource):
                             'Nombre': usuario.nombre,
                             'Email': usuario.email,
                             'Permisos': miembro.permisos,
-                            'Foto': f"{request.url_root}api/uploads/profile_uploads/{usuario.foto}",
+                            'Foto': build_file_url("profile", usuario.foto),
                             'Check_activo': usuario.check_activo
                         })
 
@@ -987,7 +1001,7 @@ class ProyectoResource(Resource):
                         'Nombre': usuario.nombre,
                         'Email': usuario.email,
                         'Permisos': miembro.permisos,
-                        'Foto': f"{request.url_root}api/uploads/profile_uploads/{usuario.foto}",
+                        'Foto': build_file_url("profile", usuario.foto),
                         'Check_activo': usuario.check_activo
                     })
 
@@ -1733,7 +1747,7 @@ class ChatList(Resource):
                         'Idusuario': otro_usuario.id,
                         'Email': otro_usuario.email,
                         'Nombre': otro_usuario.nombre,
-                        'Foto': f"{request.url_root}api/uploads/profile_uploads/{otro_usuario.foto}",
+                        'Foto': build_file_url("profile", otro_usuario.foto),
                         'UltimoMensaje': mensaje.created_at.isoformat(),
                         'LeidoPorMi': leido_por_mi,
                         'LeidoPorOtro': leido_por_otro
@@ -1983,7 +1997,7 @@ class ReunionesList(Resource):
                         'Idusuario': participante.idusuario,
                         'Nombre': usuario.nombre,
                         'Email': usuario.email,
-                        'Foto': f"{request.url_root}api/uploads/profile_uploads/{usuario.foto}",
+                        'Foto': build_file_url("profile", usuario.foto),
                         'Respuesta': participante.respuesta
                     })
 
@@ -2038,7 +2052,7 @@ class ReunionesList(Resource):
                 titulo=data['Titulo'],
                 descripcion=data.get('Descripcion', ''),
                 fechahora=data['FechaHora'],
-                duracion=data['Duracion'],
+                duracion=data.get('Duracion', None),
                 modalidad=data['Modalidad'],
                 created_at=datetime.datetime.now(),
                 idcreador=usuario_actual.id
