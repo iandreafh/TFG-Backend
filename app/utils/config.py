@@ -1,7 +1,7 @@
 import os
 
 # Configuración de entorno a production o development (por defecto)
-ENV = "development"
+ENV = "production"
 
 # Configuraciones de la base de datos
 DB_HOST = "localhost"
