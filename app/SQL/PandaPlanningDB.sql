@@ -266,7 +266,7 @@ INSERT INTO Tareas (Titulo, Descripcion, FechaInicio, FechaFin, Prioridad, Estad
 ('Tarea 4 de Delta', 'Descripción de la tarea 4 del Proyecto Delta', '2024-08-15', '2024-08-30', 2, 'Done', '2024-07-29 14:00:00', '2024-07-29 14:00:00', 4, 4),
 ('Tarea 5 de Delta', 'Descripción de la tarea 5 del Proyecto Delta', NULL, '2024-08-05', 3, 'To do', '2024-07-30 16:00:00', '2024-07-30 16:00:00', 5, 4),
 ('Tarea 6 de Delta', 'Descripción de la tarea 6 del Proyecto Delta', '2024-08-25', '2024-08-10', 1, 'In progress', '2024-07-31 12:00:00', '2024-07-31 12:00:00', 7, 4),
-('Tarea 7 de Delta', 'Descripción de la tarea 7 del Proyecto Delta', NULL, NULL, 2, 'Blocked', '2024-08-01 09:00:00', '2024-08-01 09:00:00', 8, 4),
+('Tarea 7 de Delta', 'Descripción de la tarea 7 del Proyecto Delta', NULL, NULL, 2, 'Blocked', '2024-08-01 09:00:00', '2024-08-01 09:00:00', NULL, 4),
 
 -- Proyecto Epsilon (ID 5)
 ('Tarea 1 de Epsilon', 'Descripción de la tarea 1 del Proyecto Epsilon', '2024-08-01', '2024-08-15', 1, 'To do', '2024-08-05 09:00:00', '2024-08-05 09:00:00', 3, 5),  -- User asignado
@@ -275,7 +275,7 @@ INSERT INTO Tareas (Titulo, Descripcion, FechaInicio, FechaFin, Prioridad, Estad
 ('Tarea 4 de Epsilon', 'Descripción de la tarea 4 del Proyecto Epsilon', '2024-08-15', NULL, 2, 'Done', '2024-08-05 12:00:00', '2024-08-05 12:00:00', 5, 5),
 ('Tarea 5 de Epsilon', 'Descripción de la tarea 5 del Proyecto Epsilon', '2024-08-20', NULL, 3, 'To do', '2024-08-05 13:00:00', '2024-08-05 13:00:00', 6, 5),
 ('Tarea 6 de Epsilon', 'Descripción de la tarea 6 del Proyecto Epsilon', NULL, '2024-09-10', 1, 'In progress', '2024-08-05 14:00:00', '2024-08-05 14:00:00', 7, 5),
-('Tarea 7 de Epsilon', 'Descripción de la tarea 7 del Proyecto Epsilon', '2024-08-30', '2024-09-15', 2, 'Blocked', '2024-08-05 15:00:00', '2024-08-05 15:00:00', 8, 5),
+('Tarea 7 de Epsilon', 'Descripción de la tarea 7 del Proyecto Epsilon', '2024-08-30', '2024-09-15', 2, 'Blocked', '2024-08-05 15:00:00', '2024-08-05 15:00:00', NULL, 5),
 
 -- Proyecto Zeta (ID 6) - Todas las tareas deben tener IDUsuario = NULL
 ('Tarea 1 de Zeta', 'Descripción de la tarea 1 del Proyecto Zeta', '2024-09-01', '2024-09-15', 2, 'To do', '2024-08-01 10:00:00', '2024-08-01 10:00:00', NULL, 6),
