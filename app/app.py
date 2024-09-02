@@ -464,7 +464,7 @@ class UsuarioList(Resource):
                 email=data['Email'],
                 password=hash_password(data['Password']),  # Hashear la contraseña para almacenarla
                 nombre=data['Nombre'],
-                foto='profile4.png',  # Avatar por defecto
+                foto='profile4.webp',  # Avatar por defecto
                 alertas=data.get('Alertas', 'false').lower() == 'true',  # Convertir a boolean
                 rol='user',
                 check_activo=True,
