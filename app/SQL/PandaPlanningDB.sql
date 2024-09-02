@@ -120,25 +120,25 @@ CREATE TABLE ParticipantesReunion (
 -- 10. INSERTS
 
 -- Insertar datos en Usuarios
--- Passwords igual al correo
+-- Passwords igual al correo excepto admins, encriptadas con bcrypt
 INSERT INTO Usuarios (Email, Password, Nombre, Foto, Alertas, Rol, Check_Activo, Created_at, Updated_at) VALUES
-('pandaplanningweb@gmail.com', '$2b$12$plzOP.T3EbONdfiPoa3sT.1FU9YEcZXP9sErQ8jLq7BtLUSrlnNy2', 'Panda Planning', 'Panda_grande_azul.png', False, 'admin', TRUE, '2023-10-01 10:00:00', '2023-10-01 10:00:00'),
-('admin@gmail.com', '$2b$12$plzOP.T3EbONdfiPoa3sT.1FU9YEcZXP9sErQ8jLq7BtLUSrlnNy2', 'Administrador', 'profile6.png', False, 'admin', TRUE, '2023-10-01 10:00:00', '2023-10-01 10:00:00'),
-('user@gmail.com', '$2b$12$cOoywC1aqo4AC7le/M7P0ezjjdh.d3rxYareEyEpYO/1u45Xynntu', 'User de prueba', 'profile3.png', False, 'user', TRUE, '2023-11-15 09:30:00', '2024-01-20 14:00:00'),
-('iandreafh@gmail.com', '$2b$12$M6wIiTnMv.hrEWe2OGctkOxDTJkJRus43H6CIJCWHMNxSkDIr01LK', 'Andrea Fernández', 'profile1.png', True, 'user', TRUE, '2024-02-10 08:00:00', '2024-05-05 16:00:00'),
-('pablo@gmail.com', '$2b$12$njrlC7Ck1cBnQdmWTOVhy.utwYKkTRsUEphMyTgbO8FzksUCkojRS', 'Pablo Casas', 'profile4.png', True, 'user', TRUE, '2023-12-20 11:00:00', '2023-12-20 11:00:00'),
-('maria@gmail.com', '$2b$12$HmK3fBzX7rqSpI2ksdG3deZLGp/XsDa9ZkVbHeBxIa.fYVNaBhC3m', 'María Varo', 'profile2.png', False, 'user', TRUE, '2024-01-05 10:00:00', '2024-04-15 12:00:00'),
-('fran@gmail.com', '$2b$12$xxGJYmGhUJCU778pqJa50ubDTbVWDqjWPP/yoq.h3vUXkFDeJddkC', 'Francesc Rodríguez', 'profile7.png', False, 'user', TRUE, '2024-03-01 09:00:00', '2024-03-01 09:00:00'),
-('carlos@gmail.com', '$2b$12$tfx19ip5QPvw20nwBGwrnO78Oap.HiBB9pkp.53G54UAae6RC.CDa', 'Carlos Bedmar', 'profile5.png', False, 'user', TRUE, '2024-04-10 14:00:00', '2024-07-20 18:00:00'),
-('jorge@gmail.com', '$2b$12$plzOP.T3EbONdfiPoa3sT.1FU9YEcZXP9sErQ8jLq7BtLUSrlnNy2', 'Jorge Martínez', 'profile5.png', False, 'user', TRUE, '2024-05-15 13:00:00', '2024-05-15 13:00:00'),
-('laura@gmail.com', '$2b$12$cOoywC1aqo4AC7le/M7P0ezjjdh.d3rxYareEyEpYO/1u45Xynntu', 'Laura López', 'profile3.png', False, 'user', TRUE, '2024-06-20 15:00:00', '2024-08-12 17:00:00'),
-('marta@gmail.com', '$2b$12$M6wIiTnMv.hrEWe2OGctkOxDTJkJRus43H6CIJCWHMNxSkDIr01LK', 'Marta García', 'profile2.png', False, 'user', TRUE, '2024-07-05 16:00:00', '2024-07-05 16:00:00'),
-('ana@gmail.com', '$2b$12$abc123abc123abc123abc123abc123abc123abc123abc123abc123', 'Ana Pérez', 'profile1.png', False, 'user', FALSE, '2023-05-10 10:00:00', '2023-05-10 10:00:00'),
-('luis@gmail.com', '$2b$12$def456def456def456def456def456def456def456def456def456', 'Luis Gómez', 'profile6.png', False, 'user', FALSE, '2023-06-15 11:00:00', '2023-06-15 11:00:00'),
-('sara@gmail.com', '$2b$12$ghi789ghi789ghi789ghi789ghi789ghi789ghi789ghi789ghi789', 'Sara López', 'profile3.png', False, 'user', FALSE, '2023-07-20 12:00:00', '2023-07-20 12:00:00'),
-('david@gmail.com', '$2b$12$jkl012jkl012jkl012jkl012jkl012jkl012jkl012jkl012jkl012', 'David Martín', 'profile5.png', False, 'user', TRUE, '2024-02-25 13:00:00', '2024-05-30 14:00:00'),
-('lucia@gmail.com', '$2b$12$mno345mno345mno345mno345mno345mno345mno345mno345mno345', 'Lucía Fernández', 'profile1.png', False, 'user', TRUE, '2024-03-10 14:00:00', '2024-06-15 15:00:00'),
-('pepe@gmail.com', '$2b$12$pOe/oroeWQzhv8gaUP8T6ObekLmJ6RL8H/.nVfaZkpzTT9XfVt5hy', 'José Francisco Torres', 'profile6.png', TRUE, 'user', TRUE, '2024-03-10 14:00:00', '2024-06-15 15:00:00');
+('pandaplanningweb@gmail.com', '$2b$12$B00gFQn2fGtMT4/ofTdnp.lB.cs2xvwcufGIT72fxKnUD/osFqoGq', 'Panda Planning', 'Panda_grande_azul.webp', False, 'admin', TRUE, '2023-10-01 10:00:00', '2023-10-01 10:00:00'),
+('admin@gmail.com', '$2b$12$SlIArnGwrx27C23SgCY3HuBVn5plPlBZ/wzWKj2WMGp.fjyHXApSS', 'Administrador', 'profile6.webp', False, 'admin', TRUE, '2023-10-01 10:00:00', '2023-10-01 10:00:00'),
+('user@gmail.com', '$2b$12$cOoywC1aqo4AC7le/M7P0ezjjdh.d3rxYareEyEpYO/1u45Xynntu', 'User de prueba', 'profile3.webp', False, 'user', TRUE, '2023-11-15 09:30:00', '2024-01-20 14:00:00'),
+('iandreafh@gmail.com', '$2b$12$M6wIiTnMv.hrEWe2OGctkOxDTJkJRus43H6CIJCWHMNxSkDIr01LK', 'Andrea Fernández', 'profile1.webp', True, 'user', TRUE, '2024-02-10 08:00:00', '2024-05-05 16:00:00'),
+('pablo@gmail.com', '$2b$12$njrlC7Ck1cBnQdmWTOVhy.utwYKkTRsUEphMyTgbO8FzksUCkojRS', 'Pablo Casas', 'profile4.webp', True, 'user', TRUE, '2023-12-20 11:00:00', '2023-12-20 11:00:00'),
+('maria@gmail.com', '$2b$12$HmK3fBzX7rqSpI2ksdG3deZLGp/XsDa9ZkVbHeBxIa.fYVNaBhC3m', 'María Varo', 'profile2.webp', False, 'user', TRUE, '2024-01-05 10:00:00', '2024-04-15 12:00:00'),
+('fran@gmail.com', '$2b$12$xxGJYmGhUJCU778pqJa50ubDTbVWDqjWPP/yoq.h3vUXkFDeJddkC', 'Francesc Rodríguez', 'profile7.webp', False, 'user', TRUE, '2024-03-01 09:00:00', '2024-03-01 09:00:00'),
+('carlos@gmail.com', '$2b$12$tfx19ip5QPvw20nwBGwrnO78Oap.HiBB9pkp.53G54UAae6RC.CDa', 'Carlos Bedmar', 'profile5.webp', False, 'user', TRUE, '2024-04-10 14:00:00', '2024-07-20 18:00:00'),
+('jorge@gmail.com', '$2b$12$plzOP.T3EbONdfiPoa3sT.1FU9YEcZXP9sErQ8jLq7BtLUSrlnNy2', 'Jorge Martínez', 'profile5.webp', False, 'user', TRUE, '2024-05-15 13:00:00', '2024-05-15 13:00:00'),
+('laura@gmail.com', '$2b$12$cOoywC1aqo4AC7le/M7P0ezjjdh.d3rxYareEyEpYO/1u45Xynntu', 'Laura López', 'profile3.webp', False, 'user', TRUE, '2024-06-20 15:00:00', '2024-08-12 17:00:00'),
+('marta@gmail.com', '$2b$12$M6wIiTnMv.hrEWe2OGctkOxDTJkJRus43H6CIJCWHMNxSkDIr01LK', 'Marta García', 'profile2.webp', False, 'user', TRUE, '2024-07-05 16:00:00', '2024-07-05 16:00:00'),
+('ana@gmail.com', '$2b$12$abc123abc123abc123abc123abc123abc123abc123abc123abc123', 'Ana Pérez', 'profile1.webp', False, 'user', FALSE, '2023-05-10 10:00:00', '2023-05-10 10:00:00'),
+('luis@gmail.com', '$2b$12$def456def456def456def456def456def456def456def456def456', 'Luis Gómez', 'profile6.webp', False, 'user', FALSE, '2023-06-15 11:00:00', '2023-06-15 11:00:00'),
+('sara@gmail.com', '$2b$12$ghi789ghi789ghi789ghi789ghi789ghi789ghi789ghi789ghi789', 'Sara López', 'profile3.webp', False, 'user', FALSE, '2023-07-20 12:00:00', '2023-07-20 12:00:00'),
+('david@gmail.com', '$2b$12$jkl012jkl012jkl012jkl012jkl012jkl012jkl012jkl012jkl012', 'David Martín', 'profile5.webp', False, 'user', TRUE, '2024-02-25 13:00:00', '2024-05-30 14:00:00'),
+('lucia@gmail.com', '$2b$12$mno345mno345mno345mno345mno345mno345mno345mno345mno345', 'Lucía Fernández', 'profile1.webp', False, 'user', TRUE, '2024-03-10 14:00:00', '2024-06-15 15:00:00'),
+('pepe@gmail.com', '$2b$12$pOe/oroeWQzhv8gaUP8T6ObekLmJ6RL8H/.nVfaZkpzTT9XfVt5hy', 'José Francisco Torres', 'profile6.webp', TRUE, 'user', TRUE, '2024-03-10 14:00:00', '2024-06-15 15:00:00');
 
 -- Insertar datos en Proyectos
 INSERT INTO Proyectos (Titulo, Descripcion, Check_Activo, Created_at, Updated_at, IDCreador) VALUES
@@ -402,7 +402,7 @@ INSERT INTO Archivos (Nombre, Ruta, IDComentario) VALUES
 ('Imagen de usabilidad', 'usabilidad.png', 19),  -- Proyecto Kappa, asociado al comentario de Francesc
 ('Bloque1.txt', 'Bloque1.txt', (SELECT ID FROM Comentarios WHERE Contenido LIKE '%Subo la última versión del archivo con las respuestas del Bloque 1.%')),
 ('Plan de Proyecto.pdf', 'Plan de Proyecto.pdf', (SELECT ID FROM Comentarios WHERE Contenido LIKE '%Plan del proyecto en PDF.%')),  -- Proyecto "TFG", asociado al comentario de Andrea
-('usabilidad.png', 'usabilidad.png', (SELECT ID FROM Comentarios WHERE Contenido LIKE '%Imágenes que pueden venir bien para la interfaz:%'));  -- Proyecto "TFG", asociado al comentario de Andrea
+('accesibilidad.png', 'accesibilidad.png', (SELECT ID FROM Comentarios WHERE Contenido LIKE '%Imágenes que pueden venir bien para la interfaz:%'));  -- Proyecto "TFG", asociado al comentario de Andrea
 
 
 -- Insertar datos en Mensajes

@@ -1082,11 +1082,11 @@ class ProyectoResource(Resource):
                                 )
                                 session.add(nuevo_miembro)
 
-                        # Eliminar miembros que ya no están en la lista proporcionada
+                        # Eliminar miembros que ya no están en la lista proporcionada o tienen permisos a ninguno
                         for miembro_actual in miembros_actuales:
                             if miembro_actual.idusuario not in [
                                 session.query(Usuario).filter_by(email=miembro['Email']).first().id for miembro in
-                                miembros_nuevos]:
+                                miembros_nuevos] or miembro_actual.permisos == 'ninguno':
                                 # Desasignar las tareas del miembro antes de eliminarlo
                                 tareas_asignadas = session.query(Tarea).filter_by(idproyecto=id,
                                                                                   idusuario=miembro_actual.idusuario).all()
