@@ -425,6 +425,7 @@ INSERT INTO Mensajes (Asunto, Contenido, Check_Leido, Created_at, Updated_at, ID
 ('Re: Avance de Tareas', 'Por supuesto, tómate el tiempo que necesites. Gracias por mantenerme al tanto.', FALSE, '2024-08-07 14:45:00', '2024-08-07 14:45:00', 4, 5),
 -- Chat de Andrea Fernández (IDEmisor: 4) con Jorge Martínez (IDReceptor: 9)
 ('Consulta Rápida', 'Hola Jorge, tengo una duda sobre el último informe que subiste. ¿Podrías echarle un vistazo cuando tengas tiempo?', TRUE, '2024-08-10 14:00:00', '2024-08-10 14:00:00', 4, 9),
+('Revisado', 'Hola Andrea! Ya está revisado, te he respondido en el panel de comentarios. Un saludo.', FALSE, '2024-08-20 16:00:00', '2024-08-20 16:00:00', 9, 4),
 -- Chat de Andrea Fernández (IDEmisor: 4) con Laura López (IDReceptor: 10)
 ('Cambio de Planes', 'Hola Laura, parece que tendremos que ajustar el cronograma del proyecto debido a algunos contratiempos. ¿Podemos hablar sobre esto?', TRUE, '2024-08-09 10:00:00', '2024-08-09 10:00:00', 4, 10),
 -- Chat de Andrea Fernández (IDEmisor: 4) con Marta García (IDReceptor: 11)
