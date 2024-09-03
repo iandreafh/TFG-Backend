@@ -401,7 +401,7 @@ INSERT INTO Archivos (Nombre, Ruta, IDComentario) VALUES
 ('PDF de Proyecto Gamma', 'Proyecto Gamma.pdf', 13),  -- Proyecto Gamma, asociado al comentario de María
 ('Imagen de usabilidad', 'usabilidad.png', 19),  -- Proyecto Kappa, asociado al comentario de Francesc
 ('Bloque1.txt', 'Bloque1.txt', (SELECT ID FROM Comentarios WHERE Contenido LIKE '%Subo la última versión del archivo con las respuestas del Bloque 1.%')),
-('Plan de Proyecto.pdf', 'Plan de Proyecto.pdf', (SELECT ID FROM Comentarios WHERE Contenido LIKE '%Plan del proyecto en PDF.%')),  -- Proyecto "TFG", asociado al comentario de Andrea
+('Plan de Proyecto.pdf', 'Plan de proyecto.pdf', (SELECT ID FROM Comentarios WHERE Contenido LIKE '%Plan del proyecto en PDF.%')),  -- Proyecto "TFG", asociado al comentario de Andrea
 ('accesibilidad.png', 'accesibilidad.png', (SELECT ID FROM Comentarios WHERE Contenido LIKE '%Imágenes que pueden venir bien para la interfaz:%'));  -- Proyecto "TFG", asociado al comentario de Andrea
 
 
